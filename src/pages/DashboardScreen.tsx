@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
-import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
+import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, TrendingUp, Calendar, Sparkles } from "lucide-react";
 
 const weekDays = [
   { short: "M", active: true, done: true },
@@ -23,8 +24,11 @@ const exercises = [
 ];
 
 const DashboardScreen = () => {
+  const { userName } = useUser();
+  const displayName = userName || "there";
+
   return (
-    <MetafiScreen glowPosition="top">
+    <MetafiScreen glowPosition="top" glowIntensity="medium">
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
         {/* Header */}
         <motion.div
@@ -33,122 +37,117 @@ const DashboardScreen = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <div>
-            <p className="text-muted-foreground text-sm">Monday</p>
-            <h1 className="font-display text-2xl font-bold">Today</h1>
+            <p className="text-muted-foreground/50 text-xs tracking-widest uppercase">Monday</p>
+            <h1 className="font-display text-2xl font-bold mt-1">
+              Hi, <span className="text-gradient-mint">{displayName}</span>
+            </h1>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="glass-card rounded-xl px-3 py-1.5 flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
+            <div className="glass-card rounded-xl px-3 py-2 flex items-center gap-1.5">
               <Flame className="w-3.5 h-3.5 text-primary" />
-              <span className="text-xs font-medium">3 day streak</span>
+              <span className="text-xs font-semibold">3</span>
             </div>
           </div>
         </motion.div>
 
         {/* Week bar */}
         <motion.div
-          className="flex gap-2 mt-6"
+          className="flex gap-2 mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.15 }}
+          transition={{ delay: 0.1 }}
         >
           {weekDays.map((d, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
-              <span className="text-[10px] text-muted-foreground">{d.short}</span>
-              <div className={`w-full aspect-square rounded-xl flex items-center justify-center text-xs font-medium transition-all ${
-                d.done ? "bg-primary/20 border border-primary/40 text-primary" :
-                d.active ? "glass-card-strong border border-primary/20" :
+            <div key={i} className="flex-1 flex flex-col items-center gap-2">
+              <span className="text-[9px] text-muted-foreground/40 font-medium">{d.short}</span>
+              <div className={`w-full aspect-square rounded-xl flex items-center justify-center text-xs transition-all ${
+                d.done ? "bg-primary/15 border border-primary/30" :
+                d.active ? "glass-card-strong border border-primary/10" :
                 "glass-card"
               }`}>
-                {d.done && "✓"}
-                {d.active && !d.done && <Dumbbell className="w-3 h-3 text-primary/60" />}
+                {d.done && <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="#95FFC3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                {d.active && !d.done && <Dumbbell className="w-3 h-3 text-primary/40" />}
               </div>
             </div>
           ))}
         </motion.div>
 
-        {/* Progress card */}
+        {/* Stats row */}
         <motion.div
-          className="glass-card-strong rounded-2xl p-5 mt-6"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          className="flex gap-3 mt-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
         >
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs text-muted-foreground">Weekly Progress</span>
-            <span className="text-xs font-medium text-primary">1/4 days</span>
-          </div>
-          <div className="w-full h-2 rounded-full bg-muted/30 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full bg-gradient-accent"
-              initial={{ width: 0 }}
-              animate={{ width: "25%" }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            />
-          </div>
-          <div className="flex items-center gap-4 mt-4">
-            <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-primary" />
-              <span className="text-[10px] text-muted-foreground">3/6 workouts done</span>
+          {[
+            { icon: Calendar, label: "Week", value: "1/4 done" },
+            { icon: TrendingUp, label: "Progress", value: "25%" },
+          ].map((stat, i) => (
+            <div key={i} className="flex-1 glass-card rounded-2xl p-3.5 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-primary/8 flex items-center justify-center">
+                <stat.icon className="w-4 h-4 text-primary/60" />
+              </div>
+              <div>
+                <p className="text-[9px] text-muted-foreground/40 uppercase tracking-wider">{stat.label}</p>
+                <p className="text-sm font-semibold">{stat.value}</p>
+              </div>
             </div>
-          </div>
+          ))}
         </motion.div>
 
-        {/* Today's workout hero card */}
+        {/* Hero workout card */}
         <motion.div
           className="glass-card-strong rounded-3xl p-6 mt-6 relative overflow-hidden"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.25 }}
         >
-          <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary/5 blur-2xl" />
+          <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
 
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 relative z-10">
             <div>
-              <h2 className="font-display text-lg font-bold">Upper Body</h2>
-              <p className="text-xs text-muted-foreground mt-0.5">Push + Pull</p>
+              <h2 className="font-display text-xl font-bold">Upper Body</h2>
+              <p className="text-xs text-muted-foreground/50 mt-0.5">Push + Pull</p>
             </div>
-            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+            <div className="flex items-center gap-3 text-xs text-muted-foreground/50">
               <div className="flex items-center gap-1">
                 <Timer className="w-3.5 h-3.5" />
                 <span>~55 min</span>
               </div>
               <div className="flex items-center gap-1">
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>6 exercises</span>
+                <span>6 ex</span>
               </div>
             </div>
           </div>
 
           {/* Adaptation cue */}
-          <div className="bg-primary/8 rounded-xl px-3 py-2 mb-5 border border-primary/10">
-            <p className="text-[10px] text-primary/80">
-              💡 Adjusted for Saturday's tennis session — reduced shoulder volume today
+          <div className="bg-primary/6 rounded-xl px-3.5 py-2.5 mb-5 border border-primary/8 flex items-center gap-2 relative z-10">
+            <Sparkles className="w-3.5 h-3.5 text-primary/60 flex-shrink-0" />
+            <p className="text-[10px] text-primary/70 leading-relaxed">
+              Adjusted for Saturday's tennis — reduced shoulder volume today
             </p>
           </div>
 
           {/* Exercises */}
-          <div className="space-y-2.5">
+          <div className="space-y-2 relative z-10">
             {exercises.map((ex, i) => (
               <motion.div
                 key={ex.name}
-                className="flex items-center justify-between py-3 px-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors"
+                className="flex items-center justify-between py-3 px-4 rounded-xl bg-muted/8 hover:bg-muted/12 transition-colors"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 + i * 0.05 }}
+                transition={{ delay: 0.35 + i * 0.04 }}
               >
                 <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">{ex.name}</span>
-                  </div>
+                  <span className="text-sm font-medium">{ex.name}</span>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] text-muted-foreground">{ex.sets} Sets</span>
-                    <span className="text-muted-foreground/30">·</span>
-                    <span className="text-[10px] text-muted-foreground">{ex.reps} Reps</span>
-                    <span className="text-muted-foreground/30">·</span>
-                    <span className="text-[10px] text-muted-foreground">{ex.rest} Rest</span>
+                    <span className="text-[10px] text-muted-foreground/40">{ex.sets}×{ex.reps}</span>
+                    <span className="text-muted-foreground/15">·</span>
+                    <span className="text-[10px] text-muted-foreground/40">{ex.rest} rest</span>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground/30" />
+                <ChevronRight className="w-4 h-4 text-muted-foreground/20" />
               </motion.div>
             ))}
           </div>
@@ -159,7 +158,7 @@ const DashboardScreen = () => {
           className="mt-6"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.5 }}
         >
           <MetafiButton>Start Workout</MetafiButton>
         </motion.div>
@@ -173,8 +172,8 @@ const DashboardScreen = () => {
               { icon: User, label: "Profile", active: false },
             ].map((item) => (
               <button key={item.label} className="flex flex-col items-center gap-1">
-                <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground"}`} />
-                <span className={`text-[10px] ${item.active ? "text-primary" : "text-muted-foreground"}`}>{item.label}</span>
+                <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/30"}`} />
+                <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/30"}`}>{item.label}</span>
               </button>
             ))}
           </div>

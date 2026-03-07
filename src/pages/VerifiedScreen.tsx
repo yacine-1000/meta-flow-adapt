@@ -2,28 +2,36 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
+import { useUser } from "@/contexts/UserContext";
 import { CheckCircle } from "lucide-react";
 
 const VerifiedScreen = () => {
   const navigate = useNavigate();
+  const { userName } = useUser();
 
   return (
-    <MetafiScreen glowPosition="center">
-      <div className="flex-1 flex flex-col items-center justify-center px-6 pb-8">
+    <MetafiScreen glowPosition="center" glowIntensity="strong">
+      <div className="flex-1 flex flex-col items-center justify-center px-8 pb-8">
+        {/* Success halo */}
         <motion.div
-          className="relative"
+          className="relative flex items-center justify-center"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          transition={{ type: "spring", stiffness: 150, damping: 12 }}
         >
-          <div className="absolute inset-0 w-32 h-32 rounded-full -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 animate-pulse-glow"
-            style={{ background: "radial-gradient(circle, rgba(149,255,195,0.25) 0%, transparent 70%)" }}
+          <motion.div
+            className="absolute w-40 h-40 rounded-full"
+            style={{ background: "radial-gradient(circle, rgba(149,255,195,0.2) 0%, transparent 70%)" }}
+            animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 3, repeat: Infinity }}
           />
-          <CheckCircle className="w-20 h-20 text-primary relative z-10" strokeWidth={1.5} />
+          <div className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center relative z-10">
+            <CheckCircle className="w-10 h-10 text-primary" strokeWidth={1.5} />
+          </div>
         </motion.div>
 
         <motion.h1
-          className="font-display text-2xl font-bold mt-8"
+          className="font-display text-3xl font-bold mt-10 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -32,16 +40,17 @@ const VerifiedScreen = () => {
         </motion.h1>
 
         <motion.p
-          className="text-muted-foreground text-center mt-3 text-sm"
+          className="text-muted-foreground text-center mt-4 text-sm leading-relaxed max-w-[260px]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          Welcome to Metafi. Let's build your first plan.
+          {userName ? `Welcome, ${userName}. ` : "Welcome to Metafi. "}
+          Let's build your personalized training plan.
         </motion.p>
 
         <motion.div
-          className="w-full mt-12"
+          className="w-full mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
