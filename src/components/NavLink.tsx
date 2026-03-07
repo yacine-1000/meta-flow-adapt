@@ -1,28 +1,18 @@
-import { NavLink as RouterNavLink, NavLinkProps } from "react-router-dom";
-import { forwardRef } from "react";
-import { cn } from "@/lib/utils";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-interface NavLinkCompatProps extends Omit<NavLinkProps, "className"> {
-  className?: string;
-  activeClassName?: string;
-  pendingClassName?: string;
+interface BackButtonProps {
+  to?: string | number;
 }
 
-const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
-  ({ className, activeClassName, pendingClassName, to, ...props }, ref) => {
-    return (
-      <RouterNavLink
-        ref={ref}
-        to={to}
-        className={({ isActive, isPending }) =>
-          cn(className, isActive && activeClassName, isPending && pendingClassName)
-        }
-        {...props}
-      />
-    );
-  },
-);
-
-NavLink.displayName = "NavLink";
-
-export { NavLink };
+export const BackButton = ({ to }: BackButtonProps) => {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => (typeof to === "number" ? navigate(to as any) : navigate(to || "/"))}
+      className="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+    >
+      <ArrowLeft className="w-4 h-4" />
+    </button>
+  );
+};
