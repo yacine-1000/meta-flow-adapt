@@ -27,7 +27,7 @@ const OTPScreen = () => {
           <BackButton to="/phone" />
         </div>
 
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="mt-8">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
@@ -76,6 +76,8 @@ const OTPScreen = () => {
             Didn't receive a code? Resend
           </motion.button>
         </div>
+
+        <div className="flex-1" />
 
         <MetafiButton onClick={() => navigate("/verified")} disabled={otp.some((d) => !d)}>
           Verify
