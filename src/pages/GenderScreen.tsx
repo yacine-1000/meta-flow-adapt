@@ -21,13 +21,12 @@ const GenderScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <ProgressBar step={1} total={6} />
 
-        <div className="mt-6">
+        <div className="mt-4">
           <BackButton to="/" />
         </div>
 
-        <div className="flex-1 flex flex-col justify-center">
-          <motion.div
-            className="mb-12"
+        <motion.div
+          className="mt-8 mb-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
