@@ -36,8 +36,7 @@ const SplashScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="text-gradient-mint">Meta</span>
-          <span className="text-foreground">fi</span>
+          <span className="text-gradient-mint">Metafi</span>
         </motion.h1>
 
         <motion.p
