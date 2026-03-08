@@ -27,7 +27,7 @@ const OTPScreen = () => {
           <BackButton to="/phone" />
         </div>
 
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="mt-8">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
