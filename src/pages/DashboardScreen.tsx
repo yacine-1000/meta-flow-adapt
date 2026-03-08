@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles } from "lucide-react";
+import metafiIcon from "@/assets/metafi-icon.png";
 
 const weekDays = [
   { short: "M", active: true, done: true },
@@ -37,10 +38,11 @@ const DashboardScreen = () => {
             <h1 className="font-display text-2xl font-bold">Today</h1>
           </div>
           <div className="flex items-center gap-3">
-            <div className="glass-card rounded-xl px-3 py-1.5 flex items-center gap-1.5">
+            <div className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1">
               <Flame className="w-3.5 h-3.5 text-primary" />
-              <span className="text-xs font-medium">3 day streak</span>
+              <span className="text-xs font-bold">3</span>
             </div>
+            <img src={metafiIcon} alt="Metafi" className="w-8 h-8" />
           </div>
         </motion.div>
 

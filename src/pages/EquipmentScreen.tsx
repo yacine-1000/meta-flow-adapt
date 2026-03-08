@@ -4,7 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
-import { Check, Layers } from "lucide-react";
+import { Check, Layers, Armchair, Dumbbell, Weight, CircleDot, Cable, ArrowDownUp, Footprints, Box } from "lucide-react";
+
+const equipmentIcons: Record<string, React.ElementType> = {
+  "Flat bench press": Armchair,
+  "Incline bench press": Armchair,
+  "Shoulder press machine": ArrowDownUp,
+  "Dumbbells": Dumbbell,
+  "Barbell + plates": Weight,
+  "Kettlebells": CircleDot,
+  "Cable machine": Cable,
+  "Lat pulldown / row machine": ArrowDownUp,
+  "Leg press": Footprints,
+  "Smith machine": Box,
+};
 
 const categories = [
   {
@@ -63,6 +76,7 @@ const EquipmentScreen = () => {
               <div className="space-y-2">
                 {cat.items.map((item) => {
                   const isSelected = selected.includes(item);
+                  const IconComponent = equipmentIcons[item] || Dumbbell;
                   return (
                     <button
                       key={item}
@@ -71,7 +85,12 @@ const EquipmentScreen = () => {
                         isSelected ? "chip-selected" : "glass-card hover:border-primary/10"
                       }`}
                     >
-                      <span className="text-sm font-medium">{item}</span>
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected ? "bg-primary/15" : "bg-muted/20"}`}>
+                          <IconComponent className={`w-4 h-4 ${isSelected ? "text-primary" : "text-muted-foreground/60"}`} />
+                        </div>
+                        <span className="text-sm font-medium">{item}</span>
+                      </div>
                       {isSelected && (
                         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center">
                           <Check className="w-3.5 h-3.5 text-primary" />
