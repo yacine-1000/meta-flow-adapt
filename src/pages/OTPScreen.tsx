@@ -77,6 +77,8 @@ const OTPScreen = () => {
           </motion.button>
         </div>
 
+        <div className="flex-1" />
+
         <MetafiButton onClick={() => navigate("/verified")} disabled={otp.some((d) => !d)}>
           Verify
         </MetafiButton>
