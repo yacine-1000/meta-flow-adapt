@@ -21,74 +21,69 @@ const GenderScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <ProgressBar step={1} total={6} />
 
-        <div className="mt-6">
+        <div className="mt-4">
           <BackButton to="/" />
         </div>
 
-        <div className="flex-1 flex flex-col justify-center">
-          <motion.div
-            className="mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">Step 1 of 6</p>
-            <h1 className="font-display text-3xl font-bold leading-tight">
-              What's your<br />gender?
-            </h1>
-          </motion.div>
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">Step 1 of 6</p>
+          <h1 className="font-display text-3xl font-bold leading-tight">
+            What's your<br />gender?
+          </h1>
+        </motion.div>
 
-          <div className="space-y-4">
-            {options.map((opt, i) => (
-              <motion.button
-                key={opt.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
-                onClick={() => setSelected(opt.id)}
-                className={`relative w-full rounded-2xl text-left transition-all duration-300 overflow-hidden ${
-                  selected === opt.id
-                    ? "chip-selected shadow-glow-sm"
-                    : "glass-card hover:border-primary/10"
-                }`}
-              >
-                <div className="flex items-center justify-between p-6">
-                  <div className="flex items-center gap-5">
-                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
-                      selected === opt.id
-                        ? "bg-primary/20"
-                        : "bg-muted/20"
-                    }`}>
-                      {/* Custom gender icon */}
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={selected === opt.id ? "text-primary" : "text-muted-foreground"}>
-                        {opt.id === "male" ? (
-                          <>
-                            <circle cx="10" cy="14" r="6" stroke="currentColor" strokeWidth="1.5" />
-                            <path d="M14.5 9.5L20 4M20 4H15.5M20 4V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </>
-                        ) : (
-                          <>
-                            <circle cx="12" cy="10" r="6" stroke="currentColor" strokeWidth="1.5" />
-                            <path d="M12 16V22M9 19H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                          </>
-                        )}
-                      </svg>
-                    </div>
-                    <span className="text-lg font-semibold">{opt.label}</span>
+        <div className="flex-1 mt-10 space-y-4">
+          {options.map((opt, i) => (
+            <motion.button
+              key={opt.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+              onClick={() => setSelected(opt.id)}
+              className={`relative w-full rounded-2xl text-left transition-all duration-300 overflow-hidden ${
+                selected === opt.id
+                  ? "chip-selected shadow-glow-sm"
+                  : "glass-card hover:border-primary/10"
+              }`}
+            >
+              <div className="flex items-center justify-between p-6">
+                <div className="flex items-center gap-5">
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
+                    selected === opt.id ? "bg-primary/20" : "bg-muted/20"
+                  }`}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={selected === opt.id ? "text-primary" : "text-muted-foreground"}>
+                      {opt.id === "male" ? (
+                        <>
+                          <circle cx="10" cy="14" r="6" stroke="currentColor" strokeWidth="1.5" />
+                          <path d="M14.5 9.5L20 4M20 4H15.5M20 4V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </>
+                      ) : (
+                        <>
+                          <circle cx="12" cy="10" r="6" stroke="currentColor" strokeWidth="1.5" />
+                          <path d="M12 16V22M9 19H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        </>
+                      )}
+                    </svg>
                   </div>
-                  {selected === opt.id && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="w-8 h-8 rounded-full bg-gradient-accent flex items-center justify-center"
-                    >
-                      <Check className="w-4 h-4 text-primary-foreground" />
-                    </motion.div>
-                  )}
+                  <span className="text-lg font-semibold">{opt.label}</span>
                 </div>
-              </motion.button>
-            ))}
-          </div>
+                {selected === opt.id && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="w-8 h-8 rounded-full bg-gradient-accent flex items-center justify-center"
+                  >
+                    <Check className="w-4 h-4 text-primary-foreground" />
+                  </motion.div>
+                )}
+              </div>
+            </motion.button>
+          ))}
         </div>
 
         <MetafiButton onClick={() => navigate("/height")} disabled={!selected}>
