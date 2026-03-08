@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
@@ -7,35 +7,9 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
 import { Ruler } from "lucide-react";
 
-const ITEM_HEIGHT = 48;
-const VISIBLE_ITEMS = 5;
-const MIN_HEIGHT = 140;
-const MAX_HEIGHT = 200;
-
 const HeightScreen = () => {
   const navigate = useNavigate();
   const [height, setHeight] = useState(175);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const heights = Array.from({ length: MAX_HEIGHT - MIN_HEIGHT + 1 }, (_, i) => MIN_HEIGHT + i);
-
-  const scrollToHeight = useCallback((h: number, smooth = true) => {
-    if (!scrollRef.current) return;
-    const index = h - MIN_HEIGHT;
-    const offset = index * ITEM_HEIGHT;
-    scrollRef.current.scrollTo({ top: offset, behavior: smooth ? "smooth" : "auto" });
-  }, []);
-
-  useEffect(() => {
-    scrollToHeight(height, false);
-  }, []);
-
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const scrollTop = scrollRef.current.scrollTop;
-    const index = Math.round(scrollTop / ITEM_HEIGHT);
-    const newHeight = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, MIN_HEIGHT + index));
-    if (newHeight !== height) setHeight(newHeight);
-  };
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -57,7 +31,7 @@ const HeightScreen = () => {
 
         {/* Hero value */}
         <motion.div
-          className="flex items-baseline justify-center gap-3 mt-10 mb-6"
+          className="flex items-baseline justify-center gap-3 mt-10 mb-12"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -69,50 +43,34 @@ const HeightScreen = () => {
           <span className="text-muted-foreground text-lg font-medium">cm</span>
         </motion.div>
 
-        {/* Scroll wheel picker */}
+        {/* Premium slider */}
         <motion.div
-          className="relative w-full overflow-hidden rounded-3xl glass-card-strong flex-1"
-          style={{ height: VISIBLE_ITEMS * ITEM_HEIGHT }}
+          className="glass-card-strong rounded-2xl p-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          {/* Fade gradients */}
-          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-background/95 to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/95 to-transparent z-10 pointer-events-none" />
-          {/* Selection highlight */}
-          <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 rounded-xl border border-primary/15 bg-primary/5 z-10 pointer-events-none" />
-
-          <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="h-full overflow-y-scroll scrollbar-hide snap-y snap-mandatory"
-            style={{ paddingTop: ITEM_HEIGHT * 2, paddingBottom: ITEM_HEIGHT * 2 }}
-          >
-            {heights.map((h) => (
-              <div
-                key={h}
-                className={`h-12 flex items-center justify-center snap-center transition-all duration-150 cursor-pointer ${
-                  h === height
-                    ? "text-primary text-xl font-bold"
-                    : Math.abs(h - height) === 1
-                    ? "text-foreground/50 text-base"
-                    : "text-muted-foreground/20 text-sm"
-                }`}
-                onClick={() => {
-                  setHeight(h);
-                  scrollToHeight(h);
-                }}
-              >
-                {h}
-              </div>
-            ))}
+          <input
+            type="range"
+            min={140}
+            max={200}
+            value={height}
+            onChange={(e) => setHeight(Number(e.target.value))}
+            className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
+            style={{
+              background: `linear-gradient(to right, #95FFC3 0%, #6DEBFF ${((height - 140) / 60) * 100}%, rgba(255,255,255,0.06) ${((height - 140) / 60) * 100}%, rgba(255,255,255,0.06) 100%)`,
+            }}
+          />
+          <div className="flex justify-between mt-4 text-[10px] text-muted-foreground/60">
+            <span>140 cm</span>
+            <span>170 cm</span>
+            <span>200 cm</span>
           </div>
         </motion.div>
 
-        <div className="mt-6">
-          <MetafiButton onClick={() => navigate("/weight")}>Continue</MetafiButton>
-        </div>
+        <div className="flex-1" />
+
+        <MetafiButton onClick={() => navigate("/weight")}>Continue</MetafiButton>
       </div>
     </MetafiScreen>
   );

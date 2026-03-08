@@ -21,8 +21,8 @@ const HomeScreen = () => {
         >
           <div>
             <p className="text-muted-foreground/60 text-xs tracking-widest uppercase">Welcome back</p>
-            <h1 className="font-display text-2xl font-bold mt-1">
-              Hi, <span className="text-gradient-mint">{displayName}</span>
+            <h1 className="font-display text-2xl font-bold mt-1 text-gradient-mint">
+              Hi, {displayName}
             </h1>
           </div>
           <div className="w-11 h-11 rounded-2xl glass-card-strong flex items-center justify-center">

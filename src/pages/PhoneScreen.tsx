@@ -60,7 +60,7 @@ const PhoneScreen = () => {
           />
         </motion.div>
 
-        <div className="flex-1" />
+        <div className="flex-1 min-h-[60px]" />
 
         <MetafiButton onClick={() => navigate("/otp")} disabled={phone.length < 6}>
           Send Code
