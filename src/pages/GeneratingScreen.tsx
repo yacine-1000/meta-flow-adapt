@@ -86,8 +86,8 @@ const GeneratingScreen = () => {
               src={metafiIcon}
               alt="Metafi"
               className="w-12 h-12 mb-3"
-              animate={{ opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             />
             <span className="font-display text-3xl font-bold text-gradient-mint">{roundedProgress}%</span>
           </div>
