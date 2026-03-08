@@ -30,7 +30,7 @@ const PhoneScreen = () => {
         </motion.div>
 
         <motion.div
-          className="flex items-center gap-3 mt-8 mb-8 justify-center"
+          className="flex items-center gap-3 mt-6 mb-6 justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.15 }}
