@@ -37,12 +37,12 @@ const DashboardScreen = () => {
             <p className="text-muted-foreground text-sm">Monday</p>
             <h1 className="font-display text-2xl font-bold">Today</h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center gap-1.5">
+            <img src={metafiIcon} alt="Metafi" className="w-10 h-10" />
             <div className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1">
               <Flame className="w-3.5 h-3.5 text-primary" />
               <span className="text-xs font-bold">3</span>
             </div>
-            <img src={metafiIcon} alt="Metafi" className="w-8 h-8" />
           </div>
         </motion.div>
 
