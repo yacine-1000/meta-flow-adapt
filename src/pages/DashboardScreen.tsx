@@ -1,20 +1,21 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
-import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X } from "lucide-react";
+import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X, Check } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { useUser } from "@/contexts/UserContext";
 
-const weekDays = [
-  { short: "M", active: true, done: true },
-  { short: "T", active: false, done: false },
-  { short: "W", active: true, done: false },
-  { short: "T", active: false, done: false },
-  { short: "F", active: true, done: false },
-  { short: "S", active: false, done: false },
-  { short: "S", active: false, done: false },
+const weekDaysBase = [
+  { short: "M", active: true },
+  { short: "T", active: false },
+  { short: "W", active: true },
+  { short: "T", active: false },
+  { short: "F", active: true },
+  { short: "S", active: false },
+  { short: "S", active: false },
 ];
 
 interface Exercise {
@@ -59,9 +60,19 @@ const exerciseDatabase: Record<string, Exercise[]> = {
 };
 
 const DashboardScreen = () => {
+  const { completedExercises, workoutDone, streak, completedDays, todayDayIndex } = useUser();
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
+
+  const weekDays = weekDaysBase.map((d, i) => ({
+    ...d,
+    done: completedDays.includes(i),
+    isToday: i === todayDayIndex,
+  }));
+
+  const completedDaysCount = completedDays.length;
+  const activeDaysCount = weekDaysBase.filter((d) => d.active).length;
 
   const replaceCategory = replaceIndex !== null ? exercises[replaceIndex].category : null;
   const alternatives = replaceCategory
@@ -96,7 +107,7 @@ const DashboardScreen = () => {
         >
           <div className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1 h-10">
             <Flame className="w-3.5 h-3.5 text-primary" />
-            <span className="text-xs font-bold">3</span>
+            <span className="text-xs font-bold">{streak}</span>
           </div>
           <img src={metafiIcon} alt="Metafi" className="w-10 h-10 object-contain" />
         </motion.div>
@@ -142,20 +153,20 @@ const DashboardScreen = () => {
         >
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs text-muted-foreground">Weekly Progress</span>
-            <span className="text-xs font-medium text-primary">1/4 days</span>
+            <span className="text-xs font-medium text-primary">{completedDaysCount}/{activeDaysCount} days</span>
           </div>
           <div className="w-full h-2 rounded-full bg-muted/30 overflow-hidden">
             <motion.div
               className="h-full rounded-full bg-gradient-accent"
               initial={{ width: 0 }}
-              animate={{ width: "25%" }}
+              animate={{ width: `${(completedDaysCount / activeDaysCount) * 100}%` }}
               transition={{ delay: 0.4, duration: 0.8 }}
             />
           </div>
           <div className="flex items-center gap-4 mt-4">
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full bg-primary" />
-              <span className="text-[10px] text-muted-foreground">3/6 workouts done</span>
+              <span className="text-[10px] text-muted-foreground">{completedExercises.size}/{exercises.length} exercises done</span>
             </div>
           </div>
         </motion.div>
@@ -199,53 +210,64 @@ const DashboardScreen = () => {
             <AnimatePresence>
               {exercises.map((ex, i) => {
                 const isSkipped = skipped.has(i);
+                const isDone = completedExercises.has(i);
                 return (
                   <motion.div
                     key={`${ex.name}-${i}`}
                     className={`flex items-center justify-between py-3 px-4 rounded-xl transition-colors ${
+                      isDone ? "bg-primary/[0.06] border border-primary/10 opacity-60" :
                       isSkipped ? "bg-muted/5 opacity-50" : "bg-muted/10 hover:bg-muted/20"
                     }`}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 + i * 0.05 }}
                   >
-                    <div className="flex-1 min-w-0">
-                      <span className={`text-sm font-medium ${isSkipped ? "line-through text-muted-foreground" : ""}`}>
-                        {ex.name}
-                      </span>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-[10px] text-muted-foreground">{ex.sets} Sets</span>
-                        <span className="text-muted-foreground/30">·</span>
-                        <span className="text-[10px] text-muted-foreground">{ex.reps} Reps</span>
-                        <span className="text-muted-foreground/30">·</span>
-                        <span className="text-[10px] text-muted-foreground">{ex.rest} Rest</span>
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      {isDone && (
+                        <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-3 h-3 text-primary" />
+                        </div>
+                      )}
+                      <div>
+                        <span className={`text-sm font-medium ${isDone ? "text-muted-foreground" : isSkipped ? "line-through text-muted-foreground" : ""}`}>
+                          {ex.name}
+                        </span>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-[10px] text-muted-foreground">{ex.sets} Sets</span>
+                          <span className="text-muted-foreground/30">·</span>
+                          <span className="text-[10px] text-muted-foreground">{ex.reps} Reps</span>
+                          <span className="text-muted-foreground/30">·</span>
+                          <span className="text-[10px] text-muted-foreground">{ex.rest} Rest</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 ml-2 flex-shrink-0">
-                      <button
-                        onClick={() => setReplaceIndex(i)}
-                        className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
-                        title="Replace exercise"
-                      >
-                        <ArrowLeftRight className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => handleSkip(i)}
-                        className={`p-2 rounded-lg hover:bg-muted/20 transition-colors ${
-                          isSkipped ? "text-destructive" : "text-muted-foreground hover:text-destructive"
-                        }`}
-                        title={isSkipped ? "Unskip exercise" : "Skip exercise"}
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => !isSkipped && navigate(`/exercise/${i}`)}
-                        className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
-                        title="Exercise details"
-                      >
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
+                    {!isDone && (
+                      <div className="flex items-center gap-1 ml-2 flex-shrink-0">
+                        <button
+                          onClick={() => setReplaceIndex(i)}
+                          className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
+                          title="Replace exercise"
+                        >
+                          <ArrowLeftRight className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => handleSkip(i)}
+                          className={`p-2 rounded-lg hover:bg-muted/20 transition-colors ${
+                            isSkipped ? "text-destructive" : "text-muted-foreground hover:text-destructive"
+                          }`}
+                          title={isSkipped ? "Unskip exercise" : "Skip exercise"}
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => !isSkipped && navigate(`/exercise/${i}`)}
+                          className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
+                          title="Exercise details"
+                        >
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    )}
                   </motion.div>
                 );
               })}
@@ -260,7 +282,9 @@ const DashboardScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <MetafiButton>Start Workout</MetafiButton>
+          <MetafiButton disabled={workoutDone}>
+            {workoutDone ? "Workout Complete ✓" : "Start Workout"}
+          </MetafiButton>
         </motion.div>
 
         {/* Bottom nav */}
