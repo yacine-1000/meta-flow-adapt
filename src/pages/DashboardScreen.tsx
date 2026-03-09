@@ -282,7 +282,9 @@ const DashboardScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <MetafiButton>Start Workout</MetafiButton>
+          <MetafiButton disabled={workoutDone}>
+            {workoutDone ? "Workout Complete ✓" : "Start Workout"}
+          </MetafiButton>
         </motion.div>
 
         {/* Bottom nav */}
