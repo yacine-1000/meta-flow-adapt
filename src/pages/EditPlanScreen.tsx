@@ -192,6 +192,45 @@ const EditPlanScreen = () => {
             </div>
           </Section>
 
+          {/* Focus */}
+          <Section
+            title="Focus"
+            icon={Crosshair}
+            open={openSection === "focus"}
+            onToggle={() => toggleSection("focus")}
+          >
+            <div className="space-y-4">
+              {[
+                { id: "lifting", label: "Weight Lifting", icon: Dumbbell },
+                ...selectedSports.map((s) => ({ id: s, label: s, icon: Activity })),
+              ].map((area) => (
+                <div key={area.id}>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2.5">
+                      <area.icon className="w-3.5 h-3.5 text-primary/60" />
+                      <span className="text-xs font-medium">{area.label}</span>
+                    </div>
+                    <div className="flex items-baseline gap-0.5">
+                      <span className="text-primary font-display font-bold text-sm">{focusValues[area.id] ?? 5}</span>
+                      <span className="text-muted-foreground/40 text-[10px]">/10</span>
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    min={0}
+                    max={10}
+                    value={focusValues[area.id] ?? 5}
+                    onChange={(e) => setFocusValues((v) => ({ ...v, [area.id]: Number(e.target.value) }))}
+                    className="w-full h-[5px] rounded-full appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) 100%)`,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </Section>
+
           {/* Injuries */}
           <Section
             title={`Injuries${selectedInjuries.length > 0 ? ` (${selectedInjuries.length})` : ""}`}
@@ -253,45 +292,6 @@ const EditPlanScreen = () => {
                   </button>
                 );
               })}
-            </div>
-          </Section>
-
-          {/* Focus */}
-          <Section
-            title="Focus"
-            icon={Crosshair}
-            open={openSection === "focus"}
-            onToggle={() => toggleSection("focus")}
-          >
-            <div className="space-y-4">
-              {[
-                { id: "lifting", label: "Weight Lifting", icon: Dumbbell },
-                ...selectedSports.map((s) => ({ id: s, label: s, icon: Activity })),
-              ].map((area) => (
-                <div key={area.id}>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2.5">
-                      <area.icon className="w-3.5 h-3.5 text-primary/60" />
-                      <span className="text-xs font-medium">{area.label}</span>
-                    </div>
-                    <div className="flex items-baseline gap-0.5">
-                      <span className="text-primary font-display font-bold text-sm">{focusValues[area.id] ?? 5}</span>
-                      <span className="text-muted-foreground/40 text-[10px]">/10</span>
-                    </div>
-                  </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={10}
-                    value={focusValues[area.id] ?? 5}
-                    onChange={(e) => setFocusValues((v) => ({ ...v, [area.id]: Number(e.target.value) }))}
-                    className="w-full h-[5px] rounded-full appearance-none cursor-pointer"
-                    style={{
-                      background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) 100%)`,
-                    }}
-                  />
-                </div>
-              ))}
             </div>
           </Section>
 
