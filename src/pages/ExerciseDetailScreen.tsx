@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Play, Check, Timer, ChevronDown, ChevronUp } from "lucide-react";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
+import { useUser } from "@/contexts/UserContext";
 import chestPressImg from "@/assets/chest_press.jpg";
 
 interface SetLog {
