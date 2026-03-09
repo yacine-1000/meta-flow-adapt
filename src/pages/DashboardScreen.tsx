@@ -60,9 +60,19 @@ const exerciseDatabase: Record<string, Exercise[]> = {
 };
 
 const DashboardScreen = () => {
+  const { completedExercises, workoutDone, streak, completedDays, todayDayIndex } = useUser();
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
+
+  const weekDays = weekDaysBase.map((d, i) => ({
+    ...d,
+    done: completedDays.includes(i),
+    isToday: i === todayDayIndex,
+  }));
+
+  const completedDaysCount = completedDays.length;
+  const activeDaysCount = weekDaysBase.filter((d) => d.active).length;
 
   const replaceCategory = replaceIndex !== null ? exercises[replaceIndex].category : null;
   const alternatives = replaceCategory
