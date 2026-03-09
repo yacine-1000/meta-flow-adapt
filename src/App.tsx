@@ -61,6 +61,7 @@ const App = () => (
               <Route path="/lifting-days" element={<LiftingDaysScreen />} />
               <Route path="/generating" element={<GeneratingScreen />} />
               <Route path="/dashboard" element={<DashboardScreen />} />
+              <Route path="/plan" element={<PlanScreen />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
