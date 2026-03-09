@@ -241,7 +241,15 @@ const DashboardScreen = () => {
                         </div>
                       </div>
                     </div>
-                    {!isDone && (
+                    {isDone ? (
+                      <button
+                        onClick={() => navigate(`/exercise/${i}`)}
+                        className="ml-2 flex-shrink-0 p-2 rounded-lg hover:bg-muted/20 transition-colors text-primary/60 hover:text-primary"
+                        title="View logged data"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    ) : (
                       <div className="flex items-center gap-1 ml-2 flex-shrink-0">
                         <button
                           onClick={() => setReplaceIndex(i)}
