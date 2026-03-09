@@ -272,7 +272,7 @@ const DashboardScreen = () => {
                           className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
                           title="Exercise details"
                         >
-                          <ChevronRight className="w-3.5 h-3.5" />
+                          <ChevronRight className="w-3.5 h-3.5 text-primary" />
                         </button>
                       </div>
                     )}
