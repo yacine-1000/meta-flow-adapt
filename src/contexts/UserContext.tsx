@@ -34,7 +34,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [workoutDone, setWorkoutDone] = useState(false);
   const [streak, setStreak] = useState(3);
   const [completedDays, setCompletedDays] = useState<number[]>([0]);
+  const [justCompleted, setJustCompleted] = useState(false);
   const todayDayIndex = 2;
+
+  const clearJustCompleted = () => setJustCompleted(false);
 
   const markExerciseDone = (index: number) => {
     setCompletedExercises((prev) => {
@@ -42,6 +45,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const next = [...prev, index];
       return next;
     });
+    setJustCompleted(true);
     // Check completion after update using functional access
     setCompletedExercises((current) => {
       if (current.length >= TOTAL_EXERCISES && !workoutDone) {
@@ -64,6 +68,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         streak,
         completedDays,
         todayDayIndex,
+        justCompleted,
+        clearJustCompleted,
       }}
     >
       {children}

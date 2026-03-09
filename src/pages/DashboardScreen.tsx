@@ -60,7 +60,7 @@ const exerciseDatabase: Record<string, Exercise[]> = {
 };
 
 const DashboardScreen = () => {
-  const { completedExercises, workoutDone, streak, completedDays, todayDayIndex } = useUser();
+  const { completedExercises, workoutDone, streak, completedDays, todayDayIndex, justCompleted, clearJustCompleted } = useUser();
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
