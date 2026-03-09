@@ -107,7 +107,7 @@ const DashboardScreen = () => {
         >
           <div className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1 h-10">
             <Flame className="w-3.5 h-3.5 text-primary" />
-            <span className="text-xs font-bold">3</span>
+            <span className="text-xs font-bold">{streak}</span>
           </div>
           <img src={metafiIcon} alt="Metafi" className="w-10 h-10 object-contain" />
         </motion.div>
