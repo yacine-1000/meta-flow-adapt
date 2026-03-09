@@ -210,53 +210,64 @@ const DashboardScreen = () => {
             <AnimatePresence>
               {exercises.map((ex, i) => {
                 const isSkipped = skipped.has(i);
+                const isDone = completedExercises.has(i);
                 return (
                   <motion.div
                     key={`${ex.name}-${i}`}
                     className={`flex items-center justify-between py-3 px-4 rounded-xl transition-colors ${
+                      isDone ? "bg-primary/[0.06] border border-primary/10 opacity-60" :
                       isSkipped ? "bg-muted/5 opacity-50" : "bg-muted/10 hover:bg-muted/20"
                     }`}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 + i * 0.05 }}
                   >
-                    <div className="flex-1 min-w-0">
-                      <span className={`text-sm font-medium ${isSkipped ? "line-through text-muted-foreground" : ""}`}>
-                        {ex.name}
-                      </span>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-[10px] text-muted-foreground">{ex.sets} Sets</span>
-                        <span className="text-muted-foreground/30">·</span>
-                        <span className="text-[10px] text-muted-foreground">{ex.reps} Reps</span>
-                        <span className="text-muted-foreground/30">·</span>
-                        <span className="text-[10px] text-muted-foreground">{ex.rest} Rest</span>
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      {isDone && (
+                        <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-3 h-3 text-primary" />
+                        </div>
+                      )}
+                      <div>
+                        <span className={`text-sm font-medium ${isDone ? "text-muted-foreground" : isSkipped ? "line-through text-muted-foreground" : ""}`}>
+                          {ex.name}
+                        </span>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-[10px] text-muted-foreground">{ex.sets} Sets</span>
+                          <span className="text-muted-foreground/30">·</span>
+                          <span className="text-[10px] text-muted-foreground">{ex.reps} Reps</span>
+                          <span className="text-muted-foreground/30">·</span>
+                          <span className="text-[10px] text-muted-foreground">{ex.rest} Rest</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 ml-2 flex-shrink-0">
-                      <button
-                        onClick={() => setReplaceIndex(i)}
-                        className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
-                        title="Replace exercise"
-                      >
-                        <ArrowLeftRight className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => handleSkip(i)}
-                        className={`p-2 rounded-lg hover:bg-muted/20 transition-colors ${
-                          isSkipped ? "text-destructive" : "text-muted-foreground hover:text-destructive"
-                        }`}
-                        title={isSkipped ? "Unskip exercise" : "Skip exercise"}
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => !isSkipped && navigate(`/exercise/${i}`)}
-                        className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
-                        title="Exercise details"
-                      >
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
+                    {!isDone && (
+                      <div className="flex items-center gap-1 ml-2 flex-shrink-0">
+                        <button
+                          onClick={() => setReplaceIndex(i)}
+                          className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
+                          title="Replace exercise"
+                        >
+                          <ArrowLeftRight className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => handleSkip(i)}
+                          className={`p-2 rounded-lg hover:bg-muted/20 transition-colors ${
+                            isSkipped ? "text-destructive" : "text-muted-foreground hover:text-destructive"
+                          }`}
+                          title={isSkipped ? "Unskip exercise" : "Skip exercise"}
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => !isSkipped && navigate(`/exercise/${i}`)}
+                          className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
+                          title="Exercise details"
+                        >
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    )}
                   </motion.div>
                 );
               })}
