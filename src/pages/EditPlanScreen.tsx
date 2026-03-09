@@ -88,6 +88,21 @@ const EditPlanScreen = () => {
   const [selectedSports, setSelectedSports] = useState<string[]>(["Tennis"]);
   const [selectedInjuries, setSelectedInjuries] = useState<string[]>(["Shoulder"]);
   const [selectedDays, setSelectedDays] = useState<string[]>(["mon", "wed", "fri"]);
+  const [focusValues, setFocusValues] = useState<Record<string, number>>({
+    lifting: 8, Tennis: 5,
+  });
+  const [activities, setActivities] = useState<Record<string, DayActivity[]>>({
+    Saturday: [
+      { sport: "Tennis", intensity: "Moderate", duration: "60 min" },
+    ],
+  });
+
+  const removeActivity = (day: string, idx: number) => {
+    setActivities((a) => ({
+      ...a,
+      [day]: a[day]?.filter((_, i) => i !== idx) || [],
+    }));
+  };
 
   const toggleSection = (id: string) =>
     setOpenSection((prev) => (prev === id ? null : id));
