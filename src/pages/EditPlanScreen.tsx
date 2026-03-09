@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
-import { ChevronDown, ChevronUp, Check, Dumbbell, Target, Gem, Zap, AlertTriangle, Calendar } from "lucide-react";
+import { ChevronDown, ChevronUp, Check, Dumbbell, Target, Gem, Zap, AlertTriangle, Calendar, Crosshair, Plus, X, Activity } from "lucide-react";
 
 // --- Data ---
 const goalOptions = [
