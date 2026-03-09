@@ -306,7 +306,7 @@ const ExerciseDetailScreen = () => {
           <MetafiButton
             onClick={() => {
               markExerciseDone(exerciseIndex);
-              navigate(-1);
+              setTimeout(() => navigate(-1), 50);
             }}
             disabled={!allDone}
             variant="primary"
