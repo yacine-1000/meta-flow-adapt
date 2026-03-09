@@ -32,6 +32,14 @@ const dayOptions = [
   { id: "sun", label: "Sun" },
 ];
 
+const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+interface DayActivity {
+  sport: string;
+  intensity: string;
+  duration: string;
+}
+
 // --- Section Component ---
 const Section = ({
   title,
