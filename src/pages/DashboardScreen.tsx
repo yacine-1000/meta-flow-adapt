@@ -159,7 +159,7 @@ const DashboardScreen = () => {
             <motion.div
               className="h-full rounded-full bg-gradient-accent"
               initial={{ width: 0 }}
-              animate={{ width: "25%" }}
+              animate={{ width: `${(completedDaysCount / activeDaysCount) * 100}%` }}
               transition={{ delay: 0.4, duration: 0.8 }}
             />
           </div>
