@@ -9,6 +9,8 @@ interface UserContextType {
   streak: number;
   completedDays: number[];
   todayDayIndex: number;
+  justCompleted: boolean;
+  clearJustCompleted: () => void;
 }
 
 const UserContext = createContext<UserContextType>({
@@ -20,6 +22,8 @@ const UserContext = createContext<UserContextType>({
   streak: 3,
   completedDays: [0],
   todayDayIndex: 0,
+  justCompleted: false,
+  clearJustCompleted: () => {},
 });
 
 const TOTAL_EXERCISES = 6;
