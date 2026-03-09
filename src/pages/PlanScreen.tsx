@@ -145,7 +145,7 @@ const PlanScreen = () => {
           )}
         </motion.div>
 
-        <div className="h-4" />
+        <div className="h-8" />
 
         {/* Weekly mini bar */}
         <motion.div
