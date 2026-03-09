@@ -166,7 +166,7 @@ const DashboardScreen = () => {
           <div className="flex items-center gap-4 mt-4">
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full bg-primary" />
-              <span className="text-[10px] text-muted-foreground">3/6 workouts done</span>
+              <span className="text-[10px] text-muted-foreground">{completedExercises.size}/{exercises.length} exercises done</span>
             </div>
           </div>
         </motion.div>
