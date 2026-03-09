@@ -13,9 +13,9 @@ interface MetafiScreenProps {
 const generateShimmer = (count: number) =>
   Array.from({ length: count }, (_, i) => ({
     id: i,
-    x: 8 + Math.random() * 84,         // spread across 8-92% width
-    delay: 0.2 + Math.random() * 0.8,
-    duration: 1.8 + Math.random() * 1.2,
+    x: 8 + Math.random() * 84,
+    delay: 0.02 + Math.random() * 0.15,
+    duration: 0.6 + Math.random() * 0.4,
     size: 1.5 + Math.random() * 2.5,
     drift: -20 + Math.random() * 40,
     glow: Math.random() > 0.5,
@@ -40,11 +40,10 @@ export const MetafiScreen = ({
   useEffect(() => {
     if (celebrate) {
       setShowBurst(true);
-      // Micro screen-shake for physicality
       containerControls.start({
         x: [0, -2, 3, -1, 2, 0],
         y: [0, 1, -1, 1, -1, 0],
-        transition: { duration: 0.4, ease: "easeOut", delay: 0.05 },
+        transition: { duration: 0.25, ease: "easeOut", delay: 0.02 },
       });
     }
   }, [celebrate, containerControls]);
@@ -59,7 +58,6 @@ export const MetafiScreen = ({
 
       {showGlow && (
         <>
-          {/* Main glow orb */}
           <motion.div
             className={`metafi-glow-orb ${sizes[glowIntensity]} left-1/2`}
             style={{ top: glowY, x: "-50%" }}
@@ -70,12 +68,10 @@ export const MetafiScreen = ({
             }
             transition={
               celebrate
-                ? { duration: 2.8, ease: [0.16, 1, 0.3, 1], times: [0, 0.2, 1] }
+                ? { duration: 1.2, ease: [0.16, 1, 0.3, 1], times: [0, 0.2, 1] }
                 : { duration: 0.6 }
             }
           />
-
-          {/* Secondary ambient orb */}
           <motion.div
             className="metafi-glow-orb w-[200px] h-[200px]"
             style={{
@@ -88,7 +84,7 @@ export const MetafiScreen = ({
                 ? { opacity: [0.06, 0.2, 0.08], scale: [1, 1.5, 1.1] }
                 : { opacity: 0.06, scale: 1 }
             }
-            transition={celebrate ? { duration: 2, ease: "easeOut" } : { duration: 0.4 }}
+            transition={celebrate ? { duration: 0.8, ease: "easeOut" } : { duration: 0.4 }}
           />
         </>
       )}
@@ -97,7 +93,7 @@ export const MetafiScreen = ({
       <AnimatePresence>
         {showBurst && (
           <>
-            {/* PHASE 1: The snap — a sharp bright flash that says "YES" */}
+            {/* Flash */}
             <motion.div
               className="absolute inset-0 pointer-events-none z-30"
               style={{
@@ -105,10 +101,10 @@ export const MetafiScreen = ({
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], times: [0, 0.08, 1] }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], times: [0, 0.1, 1] }}
             />
 
-            {/* White core flash — the "hit" */}
+            {/* White core hit */}
             <motion.div
               className="absolute pointer-events-none z-30"
               style={{
@@ -122,10 +118,10 @@ export const MetafiScreen = ({
               }}
               initial={{ opacity: 0, scale: 0.3 }}
               animate={{ opacity: [0, 1, 0], scale: [0.3, 1.8, 2.5] }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], times: [0, 0.1, 1] }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], times: [0, 0.1, 1] }}
             />
 
-            {/* PHASE 2: Bloom — expanding mint glow that fills the top half */}
+            {/* Bloom */}
             <motion.div
               className="absolute pointer-events-none z-20"
               style={{
@@ -139,10 +135,10 @@ export const MetafiScreen = ({
               }}
               initial={{ opacity: 0, scale: 0.2 }}
               animate={{ opacity: [0, 0.9, 0.4, 0], scale: [0.2, 1, 1.1, 1.2] }}
-              transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], times: [0, 0.15, 0.6, 1] }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], times: [0, 0.15, 0.5, 1] }}
             />
 
-            {/* PHASE 2b: Side glows — atmosphere breathes outward */}
+            {/* Side glows */}
             {[-1, 1].map((dir) => (
               <motion.div
                 key={`side-${dir}`}
@@ -158,11 +154,11 @@ export const MetafiScreen = ({
                 }}
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: [0, 0.7, 0], scale: [0.5, 1.2, 1.4] }}
-                transition={{ duration: 2, delay: 0.1, ease: "easeOut" }}
+                transition={{ duration: 0.8, delay: 0.03, ease: "easeOut" }}
               />
             ))}
 
-            {/* PHASE 3: Single expanding ring — clean, satisfying */}
+            {/* Ring */}
             <motion.div
               className="absolute pointer-events-none z-20"
               style={{
@@ -177,10 +173,10 @@ export const MetafiScreen = ({
               }}
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: [0, 4, 5.5], opacity: [0, 0.6, 0] }}
-              transition={{ duration: 1.6, delay: 0.05, ease: [0.16, 1, 0.3, 1], times: [0, 0.4, 1] }}
+              transition={{ duration: 0.7, delay: 0.02, ease: [0.16, 1, 0.3, 1], times: [0, 0.4, 1] }}
             />
 
-            {/* PHASE 4: Shimmer particles — floating down like achievement dust */}
+            {/* Shimmer particles */}
             {shimmerParticles.map((p) => (
               <motion.div
                 key={`shimmer-${p.id}`}
@@ -190,9 +186,7 @@ export const MetafiScreen = ({
                   top: "5%",
                   width: p.size,
                   height: p.size,
-                  background: p.glow
-                    ? "rgba(149, 255, 195, 0.9)"
-                    : "rgba(255, 255, 255, 0.8)",
+                  background: p.glow ? "rgba(149, 255, 195, 0.9)" : "rgba(255, 255, 255, 0.8)",
                   boxShadow: p.glow
                     ? `0 0 ${p.size * 4}px rgba(149, 255, 195, 0.5)`
                     : `0 0 ${p.size * 3}px rgba(255, 255, 255, 0.3)`,
@@ -200,7 +194,7 @@ export const MetafiScreen = ({
                 initial={{ opacity: 0, y: 0, x: 0 }}
                 animate={{
                   opacity: [0, 1, 1, 0],
-                  y: [0, 80 + Math.random() * 200, 200 + Math.random() * 300],
+                  y: [0, 60 + Math.random() * 120, 150 + Math.random() * 180],
                   x: [0, p.drift * 0.5, p.drift],
                 }}
                 transition={{
@@ -212,7 +206,7 @@ export const MetafiScreen = ({
               />
             ))}
 
-            {/* PHASE 5: Afterglow — warm tint that lingers, the "satisfaction" */}
+            {/* Afterglow */}
             <motion.div
               className="absolute inset-0 pointer-events-none z-10"
               style={{
@@ -221,9 +215,9 @@ export const MetafiScreen = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 0, 1, 0] }}
               transition={{
-                duration: 3.5,
+                duration: 1.5,
                 ease: "easeOut",
-                times: [0, 0.15, 0.3, 1],
+                times: [0, 0.1, 0.25, 1],
               }}
               onAnimationComplete={() => setShowBurst(false)}
             />
@@ -231,7 +225,6 @@ export const MetafiScreen = ({
         )}
       </AnimatePresence>
 
-      {/* Content with micro-shake */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
