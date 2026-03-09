@@ -83,6 +83,8 @@ const DashboardScreen = () => {
     });
   };
 
+  const navigate = useNavigate();
+
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
