@@ -168,7 +168,7 @@ const ExerciseDetailScreen = () => {
           {/* Rest timer */}
           <AnimatePresence>
             {restActive && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden my-4">
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden mt-4 mb-8">
                 <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-primary/[0.06] border border-primary/10">
                   <div className="flex items-center gap-3">
                     <Timer className="w-4 h-4 text-primary/60" />
