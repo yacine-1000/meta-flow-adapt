@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useUser } from "@/contexts/UserContext";
 
-const weekDays = [
-  { short: "M", active: true, done: true },
-  { short: "T", active: false, done: false },
-  { short: "W", active: true, done: false },
-  { short: "T", active: false, done: false },
-  { short: "F", active: true, done: false },
-  { short: "S", active: false, done: false },
-  { short: "S", active: false, done: false },
+const weekDaysBase = [
+  { short: "M", active: true },
+  { short: "T", active: false },
+  { short: "W", active: true },
+  { short: "T", active: false },
+  { short: "F", active: true },
+  { short: "S", active: false },
+  { short: "S", active: false },
 ];
 
 interface Exercise {
