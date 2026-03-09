@@ -153,7 +153,7 @@ const DashboardScreen = () => {
         >
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs text-muted-foreground">Weekly Progress</span>
-            <span className="text-xs font-medium text-primary">1/4 days</span>
+            <span className="text-xs font-medium text-primary">{completedDaysCount}/{activeDaysCount} days</span>
           </div>
           <div className="w-full h-2 rounded-full bg-muted/30 overflow-hidden">
             <motion.div
