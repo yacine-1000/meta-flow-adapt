@@ -12,7 +12,7 @@ interface SetLog {
   completed: boolean;
 }
 
-const REST_DURATION = 90; // seconds
+const REST_DURATION = 90;
 
 const ExerciseDetailScreen = () => {
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ const ExerciseDetailScreen = () => {
   const [restSeconds, setRestSeconds] = useState(REST_DURATION);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
-  // Rest timer countdown
   useEffect(() => {
     if (!restActive || restSeconds <= 0) {
       if (restSeconds <= 0) setRestActive(false);
@@ -36,21 +35,14 @@ const ExerciseDetailScreen = () => {
     return () => clearInterval(t);
   }, [restActive, restSeconds]);
 
-  const completeSet = useCallback(
-    (idx: number) => {
-      setSets((prev) =>
-        prev.map((s, i) => (i === idx ? { ...s, completed: true } : s))
-      );
-      setRestSeconds(REST_DURATION);
-      setRestActive(true);
-    },
-    []
-  );
+  const completeSet = useCallback((idx: number) => {
+    setSets((prev) => prev.map((s, i) => (i === idx ? { ...s, completed: true } : s)));
+    setRestSeconds(REST_DURATION);
+    setRestActive(true);
+  }, []);
 
   const updateSet = (idx: number, field: "weight" | "reps", value: string) => {
-    setSets((prev) =>
-      prev.map((s, i) => (i === idx ? { ...s, [field]: value } : s))
-    );
+    setSets((prev) => prev.map((s, i) => (i === idx ? { ...s, [field]: value } : s)));
   };
 
   const skipRest = () => {
@@ -68,7 +60,7 @@ const ExerciseDetailScreen = () => {
     <MetafiScreen glowPosition="top" glowIntensity="subtle">
       <div className="flex flex-col min-h-screen">
         {/* Top bar */}
-        <div className="flex items-center px-5 pt-14 pb-3 relative z-20">
+        <div className="flex items-center px-6 pt-14 pb-2 relative z-20">
           <button
             onClick={() => navigate(-1)}
             className="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
@@ -84,76 +76,87 @@ const ExerciseDetailScreen = () => {
         </div>
 
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-32">
-          {/* Demo area */}
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-6 pb-32">
+          {/* Demo area — cinematic overlay */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="relative rounded-2xl overflow-hidden mt-3 shadow-card"
+            className="relative rounded-2xl overflow-hidden mt-4"
           >
             <img
               src={chestPressImg}
               alt="Cable Chest Press demonstration"
-              className="w-full h-52 object-cover"
+              className="w-full h-48 object-cover"
             />
-            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-              <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center shadow-glow">
-                <Play className="w-6 h-6 text-primary-foreground ml-0.5" />
+            {/* Gradient overlay */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(7,17,26,0.3) 0%, rgba(7,17,26,0.6) 60%, rgba(7,17,26,0.85) 100%)",
+              }}
+            />
+            {/* Soft play button */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-foreground/10 backdrop-blur-md border border-foreground/10 flex items-center justify-center">
+                <Play className="w-5 h-5 text-foreground/80 ml-0.5" />
               </div>
+            </div>
+            {/* Bottom label */}
+            <div className="absolute bottom-3 left-4">
+              <p className="text-foreground/60 text-[10px] uppercase tracking-widest">Watch Demo</p>
             </div>
           </motion.div>
 
-          {/* Summary stats */}
+          {/* Inline stats row — minimal, no boxes */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.15 }}
-            className="grid grid-cols-3 gap-3 mt-4"
+            className="flex items-center justify-around mt-5 py-3"
           >
             {[
               { label: "Reps", value: "10–12" },
               { label: "Sets", value: "4" },
               { label: "Rest", value: "90s" },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="glass-card rounded-xl py-3 text-center"
-              >
-                <p className="text-foreground font-display font-bold text-lg">
-                  {stat.value}
-                </p>
-                <p className="text-muted-foreground text-[11px] uppercase tracking-wider mt-0.5">
-                  {stat.label}
-                </p>
+            ].map((stat, i) => (
+              <div key={stat.label} className="flex items-center gap-3">
+                {i > 0 && <div className="w-px h-6 bg-border/40" />}
+                <div className={`text-center ${i > 0 ? "pl-3" : ""}`}>
+                  <p className="text-foreground font-display font-bold text-base">
+                    {stat.value}
+                  </p>
+                  <p className="text-muted-foreground text-[10px] uppercase tracking-wider">
+                    {stat.label}
+                  </p>
+                </div>
               </div>
             ))}
           </motion.div>
 
-          {/* Rest timer overlay */}
+          {/* Rest timer — ambient, event-driven */}
           <AnimatePresence>
             {restActive && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-4 overflow-hidden"
+                className="overflow-hidden mb-1"
               >
-                <div className="glass-card-strong rounded-2xl p-4 flex items-center justify-between border border-primary/20">
+                <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-primary/[0.06] border border-primary/10">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center">
-                      <Timer className="w-5 h-5 text-primary" />
-                    </div>
+                    <Timer className="w-4 h-4 text-primary/60" />
                     <div>
-                      <p className="text-muted-foreground text-xs">Rest Timer</p>
-                      <p className="text-foreground font-display font-bold text-2xl tabular-nums">
+                      <p className="text-muted-foreground text-[10px] uppercase tracking-wider">Rest</p>
+                      <p className="text-foreground font-display font-bold text-xl tabular-nums">
                         {formatTime(restSeconds)}
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={skipRest}
-                    className="text-primary text-sm font-semibold px-4 py-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                    className="text-primary/80 text-xs font-medium px-3 py-1.5 rounded-full bg-primary/[0.08] hover:bg-primary/15 transition-colors"
                   >
                     Skip
                   </button>
@@ -162,42 +165,40 @@ const ExerciseDetailScreen = () => {
             )}
           </AnimatePresence>
 
-          {/* Set logging */}
+          {/* Set log */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-5"
+            className="mt-3"
           >
             <div className="flex items-center justify-between mb-3">
-              <p className="text-foreground font-display font-semibold text-sm">
-                Set Log
-              </p>
-              <p className="text-muted-foreground text-xs">
-                {completedCount}/{sets.length} completed
+              <p className="text-foreground font-display font-semibold text-sm">Set Log</p>
+              <p className="text-muted-foreground text-[10px]">
+                {completedCount}/{sets.length}
               </p>
             </div>
 
-            {/* Header row */}
-            <div className="grid grid-cols-[40px_1fr_1fr_48px] gap-2 mb-2 px-1">
-              <p className="text-muted-foreground text-[10px] uppercase tracking-wider">Set</p>
-              <p className="text-muted-foreground text-[10px] uppercase tracking-wider">kg</p>
-              <p className="text-muted-foreground text-[10px] uppercase tracking-wider">Reps</p>
-              <p className="text-muted-foreground text-[10px] uppercase tracking-wider text-center">Done</p>
+            {/* Header */}
+            <div className="grid grid-cols-[36px_1fr_1fr_44px] gap-2 mb-2 px-1">
+              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider">#</p>
+              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider">kg</p>
+              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider">Reps</p>
+              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider text-center">✓</p>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {sets.map((set, idx) => (
                 <motion.div
                   key={idx}
                   layout
-                  className={`grid grid-cols-[40px_1fr_1fr_48px] gap-2 items-center rounded-xl px-3 py-3 transition-all duration-300 ${
+                  className={`grid grid-cols-[36px_1fr_1fr_44px] gap-2 items-center rounded-xl px-3 py-2.5 transition-all duration-300 ${
                     set.completed
-                      ? "glass-card border border-primary/20 opacity-60"
-                      : "glass-card"
+                      ? "bg-primary/[0.04] border border-primary/10 opacity-50"
+                      : "bg-muted/10 hover:bg-muted/15"
                   }`}
                 >
-                  <span className="text-foreground font-display font-bold text-sm text-center">
+                  <span className="text-muted-foreground font-display font-medium text-xs text-center">
                     {idx + 1}
                   </span>
                   <input
@@ -206,7 +207,7 @@ const ExerciseDetailScreen = () => {
                     value={set.weight}
                     onChange={(e) => updateSet(idx, "weight", e.target.value)}
                     disabled={set.completed}
-                    className="w-full bg-secondary/60 rounded-lg px-3 py-2 text-foreground text-sm text-center font-medium outline-none focus:ring-1 focus:ring-primary/40 disabled:opacity-40 transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-full bg-muted/20 rounded-lg px-2.5 py-2 text-foreground text-sm text-center font-medium outline-none focus:ring-1 focus:ring-primary/30 disabled:opacity-30 transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <input
                     type="number"
@@ -214,19 +215,19 @@ const ExerciseDetailScreen = () => {
                     value={set.reps}
                     onChange={(e) => updateSet(idx, "reps", e.target.value)}
                     disabled={set.completed}
-                    className="w-full bg-secondary/60 rounded-lg px-3 py-2 text-foreground text-sm text-center font-medium outline-none focus:ring-1 focus:ring-primary/40 disabled:opacity-40 transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-full bg-muted/20 rounded-lg px-2.5 py-2 text-foreground text-sm text-center font-medium outline-none focus:ring-1 focus:ring-primary/30 disabled:opacity-30 transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <div className="flex justify-center">
                     <button
                       onClick={() => !set.completed && completeSet(idx)}
                       disabled={set.completed}
-                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                         set.completed
-                          ? "bg-primary text-primary-foreground shadow-glow-sm"
-                          : "bg-secondary/60 text-muted-foreground hover:bg-primary/20 hover:text-primary"
+                          ? "bg-primary/20 text-primary"
+                          : "bg-muted/20 text-muted-foreground/40 hover:bg-primary/10 hover:text-primary/60"
                       }`}
                     >
-                      <Check className="w-4 h-4" />
+                      <Check className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </motion.div>
@@ -236,22 +237,22 @@ const ExerciseDetailScreen = () => {
 
           {/* Instructions */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.25 }}
             className="mt-5"
           >
             <button
               onClick={() => setInstructionsOpen(!instructionsOpen)}
-              className="w-full flex items-center justify-between glass-card rounded-xl px-4 py-3"
+              className="w-full flex items-center justify-between rounded-xl px-4 py-3 bg-muted/10 hover:bg-muted/15 transition-colors"
             >
               <span className="text-foreground font-display font-semibold text-sm">
                 Instructions
               </span>
               {instructionsOpen ? (
-                <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                <ChevronUp className="w-4 h-4 text-muted-foreground/40" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                <ChevronDown className="w-4 h-4 text-muted-foreground/40" />
               )}
             </button>
             <AnimatePresence>
@@ -262,18 +263,18 @@ const ExerciseDetailScreen = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="glass-card rounded-b-xl px-4 py-4 -mt-1 space-y-3 text-muted-foreground text-sm leading-relaxed">
+                  <div className="px-4 py-4 space-y-3 text-muted-foreground text-sm leading-relaxed">
                     <p>
-                      <span className="text-foreground font-medium">1.</span> Set the cables at chest height with handles attached. Stand in the center with one foot slightly forward for stability.
+                      <span className="text-foreground/70 font-medium">1.</span> Set the cables at chest height with handles attached. Stand in the center with one foot slightly forward for stability.
                     </p>
                     <p>
-                      <span className="text-foreground font-medium">2.</span> Grab both handles and bring them together in front of your chest. Keep a slight bend in your elbows throughout the movement.
+                      <span className="text-foreground/70 font-medium">2.</span> Grab both handles and bring them together in front of your chest. Keep a slight bend in your elbows.
                     </p>
                     <p>
-                      <span className="text-foreground font-medium">3.</span> Press the handles forward and inward, squeezing your chest at the peak contraction. Hold for one second.
+                      <span className="text-foreground/70 font-medium">3.</span> Press the handles forward and inward, squeezing your chest at the peak contraction. Hold for one second.
                     </p>
                     <p>
-                      <span className="text-foreground font-medium">4.</span> Slowly return to the starting position with control. Avoid letting the weight stack slam. Maintain constant tension on the chest.
+                      <span className="text-foreground/70 font-medium">4.</span> Slowly return to the starting position with control. Maintain constant tension on the chest.
                     </p>
                   </div>
                 </motion.div>
@@ -283,14 +284,11 @@ const ExerciseDetailScreen = () => {
         </div>
 
         {/* Finish CTA */}
-        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-5 pb-8 pt-4 z-30"
+        <div
+          className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-8 pt-6 z-30"
           style={{ background: "linear-gradient(to top, hsl(var(--background)) 60%, transparent)" }}
         >
-          <MetafiButton
-            onClick={() => navigate(-1)}
-            disabled={!allDone}
-            variant="primary"
-          >
+          <MetafiButton onClick={() => navigate(-1)} disabled={!allDone} variant="primary">
             {allDone ? "Finish Exercise" : `${completedCount}/${sets.length} Sets Completed`}
           </MetafiButton>
         </div>
