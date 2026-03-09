@@ -28,6 +28,7 @@ import GeneratingScreen from "./pages/GeneratingScreen";
 import DashboardScreen from "./pages/DashboardScreen";
 import PlanScreen from "./pages/PlanScreen";
 import EditPlanScreen from "./pages/EditPlanScreen";
+import ExerciseDetailScreen from "./pages/ExerciseDetailScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
