@@ -210,7 +210,7 @@ const DashboardScreen = () => {
             <AnimatePresence>
               {exercises.map((ex, i) => {
                 const isSkipped = skipped.has(i);
-                const isDone = completedExercises.has(i);
+                const isDone = completedExercises.includes(i);
                 return (
                   <motion.div
                     key={`${ex.name}-${i}`}
