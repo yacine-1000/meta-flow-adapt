@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface UserContextType {
   userName: string;
@@ -30,20 +30,24 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [workoutDone, setWorkoutDone] = useState(false);
   const [streak, setStreak] = useState(3);
   const [completedDays, setCompletedDays] = useState<number[]>([0]);
-  const todayDayIndex = 2; // Wednesday
+  const todayDayIndex = 2;
 
-  const markExerciseDone = useCallback((index: number) => {
+  const markExerciseDone = (index: number) => {
     setCompletedExercises((prev) => {
       if (prev.includes(index)) return prev;
       const next = [...prev, index];
-      if (next.length >= TOTAL_EXERCISES && !workoutDone) {
+      return next;
+    });
+    // Check completion after update using functional access
+    setCompletedExercises((current) => {
+      if (current.length >= TOTAL_EXERCISES && !workoutDone) {
         setWorkoutDone(true);
         setStreak((s) => s + 1);
         setCompletedDays((d) => (d.includes(todayDayIndex) ? d : [...d, todayDayIndex]));
       }
-      return next;
+      return current;
     });
-  }, [workoutDone, todayDayIndex]);
+  };
 
   return (
     <UserContext.Provider
