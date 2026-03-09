@@ -26,7 +26,7 @@ const exerciseList = [
 
 const ExerciseDetailScreen = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { markExerciseDone } = useUser();
   const exerciseIndex = parseInt(id || "0", 10);
   const exercise = exerciseList[exerciseIndex] || exerciseList[0];
 
