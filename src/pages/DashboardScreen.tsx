@@ -94,6 +94,14 @@ const DashboardScreen = () => {
     });
   };
 
+  // Auto-clear celebration glow after 4 seconds
+  useEffect(() => {
+    if (justCompleted) {
+      const timer = setTimeout(() => clearJustCompleted(), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [justCompleted, clearJustCompleted]);
+
   const navigate = useNavigate();
 
   return (
