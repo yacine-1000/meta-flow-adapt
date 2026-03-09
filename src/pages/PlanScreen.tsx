@@ -145,6 +145,8 @@ const PlanScreen = () => {
           )}
         </motion.div>
 
+        <div className="h-4" />
+
         {/* Weekly mini bar */}
         <motion.div
           className="flex gap-2 mt-6 mb-2"
