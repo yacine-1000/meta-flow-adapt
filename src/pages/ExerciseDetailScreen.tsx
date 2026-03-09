@@ -34,15 +34,16 @@ type FeedbackStep = "rpe" | "pain" | "pain-detail" | null;
 const ExerciseDetailScreen = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { markExerciseDone } = useUser();
+  const { markExerciseDone, completedExercises } = useUser();
   const exerciseIndex = parseInt(id || "0", 10);
   const exercise = exerciseList[exerciseIndex] || exerciseList[0];
+  const isAlreadyDone = completedExercises.includes(exerciseIndex);
 
   const [sets, setSets] = useState<SetLog[]>(
     Array.from({ length: exercise.sets }, () => ({
       weight: "30",
       reps: exercise.reps.split("-")[0],
-      completed: false,
+      completed: isAlreadyDone,
     }))
   );
   const [restActive, setRestActive] = useState(false);
