@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
-import { ChevronDown, ChevronUp, Check, Dumbbell, Target, Gem, Zap, AlertTriangle, Calendar } from "lucide-react";
+import { ChevronDown, ChevronUp, Check, Dumbbell, Target, Gem, Zap, AlertTriangle, Calendar, Crosshair, Plus, X, Activity } from "lucide-react";
 
 // --- Data ---
 const goalOptions = [
@@ -31,6 +31,14 @@ const dayOptions = [
   { id: "sat", label: "Sat" },
   { id: "sun", label: "Sun" },
 ];
+
+const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+interface DayActivity {
+  sport: string;
+  intensity: string;
+  duration: string;
+}
 
 // --- Section Component ---
 const Section = ({
@@ -80,6 +88,21 @@ const EditPlanScreen = () => {
   const [selectedSports, setSelectedSports] = useState<string[]>(["Tennis"]);
   const [selectedInjuries, setSelectedInjuries] = useState<string[]>(["Shoulder"]);
   const [selectedDays, setSelectedDays] = useState<string[]>(["mon", "wed", "fri"]);
+  const [focusValues, setFocusValues] = useState<Record<string, number>>({
+    lifting: 8, Tennis: 5,
+  });
+  const [activities, setActivities] = useState<Record<string, DayActivity[]>>({
+    Saturday: [
+      { sport: "Tennis", intensity: "Moderate", duration: "60 min" },
+    ],
+  });
+
+  const removeActivity = (day: string, idx: number) => {
+    setActivities((a) => ({
+      ...a,
+      [day]: a[day]?.filter((_, i) => i !== idx) || [],
+    }));
+  };
 
   const toggleSection = (id: string) =>
     setOpenSection((prev) => (prev === id ? null : id));
@@ -228,6 +251,86 @@ const EditPlanScreen = () => {
                   >
                     {d.label}
                   </button>
+                );
+              })}
+            </div>
+          </Section>
+
+          {/* Focus */}
+          <Section
+            title="Focus"
+            icon={Crosshair}
+            open={openSection === "focus"}
+            onToggle={() => toggleSection("focus")}
+          >
+            <div className="space-y-4">
+              {[
+                { id: "lifting", label: "Weight Lifting", icon: Dumbbell },
+                ...selectedSports.map((s) => ({ id: s, label: s, icon: Activity })),
+              ].map((area) => (
+                <div key={area.id}>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2.5">
+                      <area.icon className="w-3.5 h-3.5 text-primary/60" />
+                      <span className="text-xs font-medium">{area.label}</span>
+                    </div>
+                    <div className="flex items-baseline gap-0.5">
+                      <span className="text-primary font-display font-bold text-sm">{focusValues[area.id] ?? 5}</span>
+                      <span className="text-muted-foreground/40 text-[10px]">/10</span>
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    min={0}
+                    max={10}
+                    value={focusValues[area.id] ?? 5}
+                    onChange={(e) => setFocusValues((v) => ({ ...v, [area.id]: Number(e.target.value) }))}
+                    className="w-full h-[5px] rounded-full appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) 100%)`,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          {/* Activities */}
+          <Section
+            title="Weekly Activities"
+            icon={Calendar}
+            open={openSection === "activities"}
+            onToggle={() => toggleSection("activities")}
+          >
+            <div className="space-y-2">
+              {weekDays.map((day) => {
+                const dayActs = activities[day] || [];
+                return (
+                  <div key={day} className="rounded-xl p-3 bg-muted/5 border border-border/20">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium">{day}</span>
+                      <button className="w-6 h-6 rounded-lg bg-primary/10 flex items-center justify-center text-primary/60 hover:bg-primary/15 transition-colors">
+                        <Plus className="w-3 h-3" />
+                      </button>
+                    </div>
+                    {dayActs.length > 0 && (
+                      <div className="mt-2 space-y-1.5">
+                        {dayActs.map((act, idx) => (
+                          <div key={idx} className="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-muted/10">
+                            <div className="flex items-center gap-2">
+                              <div className="w-1 h-1 rounded-full bg-primary/50" />
+                              <span className="text-[11px] font-medium text-primary/90">{act.sport}</span>
+                              <span className="text-[10px] text-muted-foreground/50">{act.intensity}</span>
+                              <span className="text-[10px] text-muted-foreground/50">{act.duration}</span>
+                            </div>
+                            <button onClick={() => removeActivity(day, idx)} className="text-muted-foreground/30 hover:text-muted-foreground transition-colors">
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>
