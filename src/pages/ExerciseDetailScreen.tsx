@@ -302,7 +302,14 @@ const ExerciseDetailScreen = () => {
           className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-8 pt-6 z-30"
           style={{ background: "linear-gradient(to top, hsl(var(--background)) 60%, transparent)" }}
         >
-          <MetafiButton onClick={() => navigate(-1)} disabled={!allDone} variant="primary">
+          <MetafiButton
+            onClick={() => {
+              markExerciseDone(exerciseIndex);
+              navigate(-1);
+            }}
+            disabled={!allDone}
+            variant="primary"
+          >
             {allDone ? "Finish Exercise" : `${completedCount}/${sets.length} Sets Completed`}
           </MetafiButton>
         </div>
