@@ -4,6 +4,7 @@ import { MetafiButton } from "@/components/MetafiButton";
 import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const weekDays = [
@@ -81,6 +82,8 @@ const DashboardScreen = () => {
       return n;
     });
   };
+
+  const navigate = useNavigate();
 
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
@@ -257,11 +260,11 @@ const DashboardScreen = () => {
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
           <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
             {[
-              { icon: Home, label: "Home", active: true },
-              { icon: Dumbbell, label: "Plan", active: false },
-              { icon: User, label: "Profile", active: false },
+              { icon: Home, label: "Home", active: true, path: "/dashboard" },
+              { icon: Dumbbell, label: "Plan", active: false, path: "/plan" },
+              { icon: User, label: "Profile", active: false, path: "/dashboard" },
             ].map((item) => (
-              <button key={item.label} className="flex flex-col items-center gap-1">
+              <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/30"}`} />
                 <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/30"}`}>{item.label}</span>
               </button>

@@ -26,6 +26,7 @@ import GoalScreen from "./pages/GoalScreen";
 import LiftingDaysScreen from "./pages/LiftingDaysScreen";
 import GeneratingScreen from "./pages/GeneratingScreen";
 import DashboardScreen from "./pages/DashboardScreen";
+import PlanScreen from "./pages/PlanScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -60,6 +61,7 @@ const App = () => (
               <Route path="/lifting-days" element={<LiftingDaysScreen />} />
               <Route path="/generating" element={<GeneratingScreen />} />
               <Route path="/dashboard" element={<DashboardScreen />} />
+              <Route path="/plan" element={<PlanScreen />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
