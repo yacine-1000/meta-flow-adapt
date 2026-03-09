@@ -26,6 +26,7 @@ import GoalScreen from "./pages/GoalScreen";
 import LiftingDaysScreen from "./pages/LiftingDaysScreen";
 import GeneratingScreen from "./pages/GeneratingScreen";
 import DashboardScreen from "./pages/DashboardScreen";
+import PlanScreen from "./pages/PlanScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
