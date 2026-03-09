@@ -3,7 +3,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X, Check } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useUser } from "@/contexts/UserContext";
@@ -60,7 +60,7 @@ const exerciseDatabase: Record<string, Exercise[]> = {
 };
 
 const DashboardScreen = () => {
-  const { completedExercises, workoutDone, streak, completedDays, todayDayIndex } = useUser();
+  const { completedExercises, workoutDone, streak, completedDays, todayDayIndex, justCompleted, clearJustCompleted } = useUser();
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
@@ -94,10 +94,18 @@ const DashboardScreen = () => {
     });
   };
 
+  // Auto-clear celebration glow after 4 seconds
+  useEffect(() => {
+    if (justCompleted) {
+      const timer = setTimeout(() => clearJustCompleted(), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [justCompleted, clearJustCompleted]);
+
   const navigate = useNavigate();
 
   return (
-    <MetafiScreen glowPosition="top" glowIntensity="medium" celebrate={workoutDone}>
+    <MetafiScreen glowPosition="top" glowIntensity="medium" celebrate={justCompleted}>
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
         {/* Header */}
         <motion.div
