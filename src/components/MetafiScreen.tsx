@@ -7,6 +7,7 @@ interface MetafiScreenProps {
   showGlow?: boolean;
   glowPosition?: "top" | "center" | "bottom";
   glowIntensity?: "subtle" | "medium" | "strong";
+  celebrate?: boolean;
 }
 
 export const MetafiScreen = ({
@@ -15,6 +16,7 @@ export const MetafiScreen = ({
   showGlow = true,
   glowPosition = "top",
   glowIntensity = "medium",
+  celebrate = false,
 }: MetafiScreenProps) => {
   const glowY = glowPosition === "top" ? "-15%" : glowPosition === "center" ? "35%" : "75%";
   const sizes = { subtle: "w-[250px] h-[250px]", medium: "w-[350px] h-[350px]", strong: "w-[450px] h-[450px]" };
@@ -29,19 +31,42 @@ export const MetafiScreen = ({
       />
       {showGlow && (
         <>
-          <div
-            className={`metafi-glow-orb ${sizes[glowIntensity]} left-1/2 -translate-x-1/2 animate-pulse-glow`}
-            style={{ top: glowY, opacity: opacities[glowIntensity] }}
+          <motion.div
+            className={`metafi-glow-orb ${celebrate ? "w-[500px] h-[500px]" : sizes[glowIntensity]} left-1/2 -translate-x-1/2`}
+            style={{ top: glowY }}
+            animate={
+              celebrate
+                ? {
+                    opacity: [0.15, 0.35, 0.15, 0.4, 0.2, 0.35, 0.15],
+                    scale: [1, 1.15, 0.95, 1.2, 1, 1.1, 1],
+                    x: ["-50%", "-48%", "-52%", "-49%", "-51%", "-50%", "-50%"],
+                  }
+                : { opacity: opacities[glowIntensity], scale: 1, x: "-50%" }
+            }
+            transition={
+              celebrate
+                ? { duration: 2.5, ease: "easeInOut", repeat: Infinity, repeatType: "loop" }
+                : { duration: 0.4 }
+            }
           />
           {/* Secondary ambient orb */}
-          <div
-            className="metafi-glow-orb w-[200px] h-[200px] animate-pulse-glow"
+          <motion.div
+            className="metafi-glow-orb w-[200px] h-[200px]"
             style={{
               top: "60%",
               left: "20%",
-              opacity: 0.06,
               background: "radial-gradient(circle, rgba(109, 235, 255, 0.15) 0%, rgba(109, 235, 255, 0) 70%)",
             }}
+            animate={
+              celebrate
+                ? { opacity: [0.06, 0.15, 0.06], scale: [1, 1.2, 1] }
+                : { opacity: 0.06, scale: 1 }
+            }
+            transition={
+              celebrate
+                ? { duration: 2, ease: "easeInOut", repeat: Infinity, repeatType: "loop", delay: 0.3 }
+                : { duration: 0.4 }
+            }
           />
         </>
       )}
