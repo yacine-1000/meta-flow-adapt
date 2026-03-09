@@ -1,8 +1,10 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
-import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles } from "lucide-react";
+import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
+import { useState } from "react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const weekDays = [
   { short: "M", active: true, done: true },
@@ -14,16 +16,72 @@ const weekDays = [
   { short: "S", active: false, done: false },
 ];
 
-const exercises = [
-  { name: "Dumbbell Bench Press", sets: 3, reps: "8-10", rest: "90s" },
-  { name: "Incline DB Fly", sets: 3, reps: "10-12", rest: "60s" },
-  { name: "Barbell Row", sets: 3, reps: "8-10", rest: "90s" },
-  { name: "Lat Pulldown", sets: 3, reps: "10-12", rest: "60s" },
-  { name: "Lateral Raises", sets: 3, reps: "12-15", rest: "45s" },
-  { name: "Face Pulls", sets: 3, reps: "15-20", rest: "45s" },
+interface Exercise {
+  name: string;
+  sets: number;
+  reps: string;
+  rest: string;
+  category: string;
+}
+
+const initialExercises: Exercise[] = [
+  { name: "Dumbbell Bench Press", sets: 3, reps: "8-10", rest: "90s", category: "chest" },
+  { name: "Incline DB Fly", sets: 3, reps: "10-12", rest: "60s", category: "chest" },
+  { name: "Barbell Row", sets: 3, reps: "8-10", rest: "90s", category: "back" },
+  { name: "Lat Pulldown", sets: 3, reps: "10-12", rest: "60s", category: "back" },
+  { name: "Lateral Raises", sets: 3, reps: "12-15", rest: "45s", category: "shoulders" },
+  { name: "Face Pulls", sets: 3, reps: "15-20", rest: "45s", category: "shoulders" },
 ];
 
+const exerciseDatabase: Record<string, Exercise[]> = {
+  chest: [
+    { name: "Flat Barbell Bench Press", sets: 3, reps: "8-10", rest: "90s", category: "chest" },
+    { name: "Cable Crossover", sets: 3, reps: "12-15", rest: "60s", category: "chest" },
+    { name: "Push-Ups", sets: 3, reps: "15-20", rest: "45s", category: "chest" },
+    { name: "Machine Chest Press", sets: 3, reps: "10-12", rest: "60s", category: "chest" },
+    { name: "Pec Deck Fly", sets: 3, reps: "12-15", rest: "60s", category: "chest" },
+  ],
+  back: [
+    { name: "Seated Cable Row", sets: 3, reps: "10-12", rest: "60s", category: "back" },
+    { name: "T-Bar Row", sets: 3, reps: "8-10", rest: "90s", category: "back" },
+    { name: "Pull-Ups", sets: 3, reps: "6-10", rest: "90s", category: "back" },
+    { name: "Dumbbell Row", sets: 3, reps: "10-12", rest: "60s", category: "back" },
+    { name: "Straight-Arm Pulldown", sets: 3, reps: "12-15", rest: "45s", category: "back" },
+  ],
+  shoulders: [
+    { name: "Overhead Press", sets: 3, reps: "8-10", rest: "90s", category: "shoulders" },
+    { name: "Cable Lateral Raise", sets: 3, reps: "12-15", rest: "45s", category: "shoulders" },
+    { name: "Rear Delt Fly", sets: 3, reps: "15-20", rest: "45s", category: "shoulders" },
+    { name: "Arnold Press", sets: 3, reps: "10-12", rest: "60s", category: "shoulders" },
+    { name: "Upright Row", sets: 3, reps: "10-12", rest: "60s", category: "shoulders" },
+  ],
+};
+
 const DashboardScreen = () => {
+  const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
+  const [skipped, setSkipped] = useState<Set<number>>(new Set());
+  const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
+
+  const replaceCategory = replaceIndex !== null ? exercises[replaceIndex].category : null;
+  const alternatives = replaceCategory
+    ? exerciseDatabase[replaceCategory]?.filter((alt) => alt.name !== exercises[replaceIndex!]?.name) ?? []
+    : [];
+
+  const handleReplace = (alt: Exercise) => {
+    if (replaceIndex === null) return;
+    setExercises((prev) => prev.map((ex, i) => (i === replaceIndex ? alt : ex)));
+    setSkipped((prev) => { const n = new Set(prev); n.delete(replaceIndex); return n; });
+    setReplaceIndex(null);
+  };
+
+  const handleSkip = (index: number) => {
+    setSkipped((prev) => {
+      const n = new Set(prev);
+      if (n.has(index)) n.delete(index); else n.add(index);
+      return n;
+    });
+  };
+
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
@@ -120,13 +178,13 @@ const DashboardScreen = () => {
               </div>
               <div className="flex items-center gap-1">
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>6 exercises</span>
+                <span>{exercises.length - skipped.size} exercises</span>
               </div>
             </div>
           </div>
 
           {/* Adaptation cue */}
-          <div className="bg-primary/8 rounded-xl px-3 py-2 mb-5 border border-primary/10 flex items-center gap-2">
+          <div className="bg-primary/[0.08] rounded-xl px-3 py-2 mb-5 border border-primary/10 flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-primary/60 flex-shrink-0" />
             <p className="text-[10px] text-primary/80">
               Adjusted for Saturday's tennis session — reduced shoulder volume today
@@ -135,27 +193,53 @@ const DashboardScreen = () => {
 
           {/* Exercises */}
           <div className="space-y-2.5">
-            {exercises.map((ex, i) => (
-              <motion.div
-                key={ex.name}
-                className="flex items-center justify-between py-3 px-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 + i * 0.05 }}
-              >
-                <div className="flex-1">
-                  <span className="text-sm font-medium">{ex.name}</span>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] text-muted-foreground">{ex.sets} Sets</span>
-                    <span className="text-muted-foreground/30">·</span>
-                    <span className="text-[10px] text-muted-foreground">{ex.reps} Reps</span>
-                    <span className="text-muted-foreground/30">·</span>
-                    <span className="text-[10px] text-muted-foreground">{ex.rest} Rest</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground/30" />
-              </motion.div>
-            ))}
+            <AnimatePresence>
+              {exercises.map((ex, i) => {
+                const isSkipped = skipped.has(i);
+                return (
+                  <motion.div
+                    key={`${ex.name}-${i}`}
+                    className={`flex items-center justify-between py-3 px-4 rounded-xl transition-colors ${
+                      isSkipped ? "bg-muted/5 opacity-50" : "bg-muted/10 hover:bg-muted/20"
+                    }`}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + i * 0.05 }}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <span className={`text-sm font-medium ${isSkipped ? "line-through text-muted-foreground" : ""}`}>
+                        {ex.name}
+                      </span>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[10px] text-muted-foreground">{ex.sets} Sets</span>
+                        <span className="text-muted-foreground/30">·</span>
+                        <span className="text-[10px] text-muted-foreground">{ex.reps} Reps</span>
+                        <span className="text-muted-foreground/30">·</span>
+                        <span className="text-[10px] text-muted-foreground">{ex.rest} Rest</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 ml-2 flex-shrink-0">
+                      <button
+                        onClick={() => setReplaceIndex(i)}
+                        className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
+                        title="Replace exercise"
+                      >
+                        <ArrowLeftRight className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleSkip(i)}
+                        className={`p-2 rounded-lg hover:bg-muted/20 transition-colors ${
+                          isSkipped ? "text-destructive" : "text-muted-foreground hover:text-destructive"
+                        }`}
+                        title={isSkipped ? "Unskip exercise" : "Skip exercise"}
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
           </div>
         </motion.div>
 
@@ -185,6 +269,41 @@ const DashboardScreen = () => {
           </div>
         </div>
       </div>
+
+      {/* Replace Exercise Sheet */}
+      <Sheet open={replaceIndex !== null} onOpenChange={(open) => !open && setReplaceIndex(null)}>
+        <SheetContent side="bottom" className="bg-background border-border rounded-t-3xl max-h-[70vh]">
+          <SheetHeader className="pb-4">
+            <SheetTitle className="text-foreground font-display">
+              Replace {replaceIndex !== null ? exercises[replaceIndex].name : ""}
+            </SheetTitle>
+            <p className="text-xs text-muted-foreground capitalize">
+              Same movement — {replaceCategory}
+            </p>
+          </SheetHeader>
+          <div className="space-y-2 overflow-y-auto max-h-[50vh] pr-1">
+            {alternatives.map((alt) => (
+              <button
+                key={alt.name}
+                onClick={() => handleReplace(alt)}
+                className="w-full flex items-center justify-between py-3 px-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors text-left"
+              >
+                <div>
+                  <span className="text-sm font-medium text-foreground">{alt.name}</span>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-[10px] text-muted-foreground">{alt.sets} Sets</span>
+                    <span className="text-muted-foreground/30">·</span>
+                    <span className="text-[10px] text-muted-foreground">{alt.reps} Reps</span>
+                    <span className="text-muted-foreground/30">·</span>
+                    <span className="text-[10px] text-muted-foreground">{alt.rest} Rest</span>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground/30" />
+              </button>
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
     </MetafiScreen>
   );
 };
