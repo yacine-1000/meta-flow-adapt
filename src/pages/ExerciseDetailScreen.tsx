@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Play, Check, Timer, ChevronDown, ChevronUp } from "lucide-react";
 import { MetafiScreen } from "@/components/MetafiScreen";
@@ -14,14 +14,28 @@ interface SetLog {
 
 const REST_DURATION = 90;
 
+const exerciseList = [
+  { name: "Dumbbell Bench Press", category: "Chest", sets: 3, reps: "8-10", rest: "90s" },
+  { name: "Incline DB Fly", category: "Chest", sets: 3, reps: "10-12", rest: "60s" },
+  { name: "Barbell Row", category: "Back", sets: 3, reps: "8-10", rest: "90s" },
+  { name: "Lat Pulldown", category: "Back", sets: 3, reps: "10-12", rest: "60s" },
+  { name: "Lateral Raises", category: "Shoulders", sets: 3, reps: "12-15", rest: "45s" },
+  { name: "Face Pulls", category: "Shoulders", sets: 3, reps: "15-20", rest: "45s" },
+];
+
 const ExerciseDetailScreen = () => {
   const navigate = useNavigate();
-  const [sets, setSets] = useState<SetLog[]>([
-    { weight: "30", reps: "12", completed: false },
-    { weight: "30", reps: "12", completed: false },
-    { weight: "30", reps: "10", completed: false },
-    { weight: "30", reps: "10", completed: false },
-  ]);
+  const { id } = useParams();
+  const exerciseIndex = parseInt(id || "0", 10);
+  const exercise = exerciseList[exerciseIndex] || exerciseList[0];
+
+  const [sets, setSets] = useState<SetLog[]>(
+    Array.from({ length: exercise.sets }, () => ({
+      weight: "30",
+      reps: exercise.reps.split("-")[0],
+      completed: false,
+    }))
+  );
   const [restActive, setRestActive] = useState(false);
   const [restSeconds, setRestSeconds] = useState(REST_DURATION);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
@@ -69,15 +83,15 @@ const ExerciseDetailScreen = () => {
           </button>
           <div className="flex-1 text-center pr-10">
             <h1 className="text-foreground font-display font-bold text-lg leading-tight">
-              Cable Chest Press
+              {exercise.name}
             </h1>
-            <p className="text-muted-foreground text-xs mt-0.5">Chest · Cables</p>
+            <p className="text-muted-foreground text-xs mt-0.5">{exercise.category}</p>
           </div>
         </div>
 
         {/* Scrollable content */}
         <div className="flex-1 overflow-y-auto scrollbar-hide px-6 pb-32">
-          {/* Demo area — cinematic overlay */}
+          {/* Demo area */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -86,10 +100,9 @@ const ExerciseDetailScreen = () => {
           >
             <img
               src={chestPressImg}
-              alt="Cable Chest Press demonstration"
+              alt={`${exercise.name} demonstration`}
               className="w-full h-48 object-cover"
             />
-            {/* Gradient overlay */}
             <div
               className="absolute inset-0"
               style={{
@@ -97,19 +110,17 @@ const ExerciseDetailScreen = () => {
                   "linear-gradient(180deg, rgba(7,17,26,0.3) 0%, rgba(7,17,26,0.6) 60%, rgba(7,17,26,0.85) 100%)",
               }}
             />
-            {/* Soft play button */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-12 h-12 rounded-full bg-foreground/10 backdrop-blur-md border border-foreground/10 flex items-center justify-center">
                 <Play className="w-5 h-5 text-foreground/80 ml-0.5" />
               </div>
             </div>
-            {/* Bottom label */}
             <div className="absolute bottom-3 left-4">
               <p className="text-foreground/60 text-[10px] uppercase tracking-widest">Watch Demo</p>
             </div>
           </motion.div>
 
-          {/* Inline stats row — minimal, no boxes */}
+          {/* Inline stats row */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -117,9 +128,9 @@ const ExerciseDetailScreen = () => {
             className="flex items-center justify-around mt-5 py-3"
           >
             {[
-              { label: "Reps", value: "10–12" },
-              { label: "Sets", value: "4" },
-              { label: "Rest", value: "90s" },
+              { label: "Reps", value: exercise.reps },
+              { label: "Sets", value: String(exercise.sets) },
+              { label: "Rest", value: exercise.rest },
             ].map((stat, i) => (
               <div key={stat.label} className="flex items-center gap-3">
                 {i > 0 && <div className="w-px h-6 bg-border/40" />}
@@ -135,7 +146,7 @@ const ExerciseDetailScreen = () => {
             ))}
           </motion.div>
 
-          {/* Rest timer — ambient, event-driven */}
+          {/* Rest timer */}
           <AnimatePresence>
             {restActive && (
               <motion.div
@@ -181,10 +192,10 @@ const ExerciseDetailScreen = () => {
 
             {/* Header */}
             <div className="grid grid-cols-[36px_1fr_1fr_44px] gap-2 mb-2 px-1">
-              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider">#</p>
-              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider">kg</p>
-              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider">Reps</p>
-              <p className="text-muted-foreground/50 text-[9px] uppercase tracking-wider text-center">✓</p>
+              <p className="text-muted-foreground text-[9px] uppercase tracking-wider">#</p>
+              <p className="text-muted-foreground text-[9px] uppercase tracking-wider">Weight (kg)</p>
+              <p className="text-muted-foreground text-[9px] uppercase tracking-wider">Reps</p>
+              <p className="text-muted-foreground text-[9px] uppercase tracking-wider text-center">Done</p>
             </div>
 
             <div className="space-y-1.5">
@@ -195,7 +206,7 @@ const ExerciseDetailScreen = () => {
                   className={`grid grid-cols-[36px_1fr_1fr_44px] gap-2 items-center rounded-xl px-3 py-2.5 transition-all duration-300 ${
                     set.completed
                       ? "bg-primary/[0.04] border border-primary/10 opacity-50"
-                      : "bg-muted/10 hover:bg-muted/15"
+                      : "bg-muted/10"
                   }`}
                 >
                   <span className="text-muted-foreground font-display font-medium text-xs text-center">
@@ -204,18 +215,20 @@ const ExerciseDetailScreen = () => {
                   <input
                     type="number"
                     inputMode="decimal"
+                    placeholder="kg"
                     value={set.weight}
                     onChange={(e) => updateSet(idx, "weight", e.target.value)}
                     disabled={set.completed}
-                    className="w-full bg-muted/20 rounded-lg px-2.5 py-2 text-foreground text-sm text-center font-medium outline-none focus:ring-1 focus:ring-primary/30 disabled:opacity-30 transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-full bg-secondary rounded-lg px-2.5 py-2 text-foreground text-sm text-center font-semibold outline-none border border-border/50 focus:border-primary/40 focus:ring-1 focus:ring-primary/20 disabled:opacity-30 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <input
                     type="number"
                     inputMode="numeric"
+                    placeholder="reps"
                     value={set.reps}
                     onChange={(e) => updateSet(idx, "reps", e.target.value)}
                     disabled={set.completed}
-                    className="w-full bg-muted/20 rounded-lg px-2.5 py-2 text-foreground text-sm text-center font-medium outline-none focus:ring-1 focus:ring-primary/30 disabled:opacity-30 transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-full bg-secondary rounded-lg px-2.5 py-2 text-foreground text-sm text-center font-semibold outline-none border border-border/50 focus:border-primary/40 focus:ring-1 focus:ring-primary/20 disabled:opacity-30 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <div className="flex justify-center">
                     <button
@@ -224,7 +237,7 @@ const ExerciseDetailScreen = () => {
                       className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                         set.completed
                           ? "bg-primary/20 text-primary"
-                          : "bg-muted/20 text-muted-foreground/40 hover:bg-primary/10 hover:text-primary/60"
+                          : "bg-secondary border border-border/50 text-muted-foreground hover:border-primary/30 hover:text-primary/60"
                       }`}
                     >
                       <Check className="w-3.5 h-3.5" />
