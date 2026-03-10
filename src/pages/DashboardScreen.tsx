@@ -252,7 +252,7 @@ const DashboardScreen = () => {
                     {isDone ? (
                       <button
                         onClick={() => navigate(`/exercise/${i}`)}
-                        className="ml-2 flex-shrink-0 p-2 rounded-lg hover:bg-muted/20 transition-colors text-primary/60 hover:text-primary"
+                        className="ml-2 flex-shrink-0 p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-muted-foreground"
                         title="View logged data"
                       >
                         <ChevronRight className="w-4 h-4" />
@@ -280,7 +280,7 @@ const DashboardScreen = () => {
                           className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-primary"
                           title="Exercise details"
                         >
-                          <ChevronRight className="w-3.5 h-3.5 text-primary" />
+                          <ChevronRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     )}
