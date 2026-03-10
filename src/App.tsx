@@ -29,6 +29,7 @@ import DashboardScreen from "./pages/DashboardScreen";
 import PlanScreen from "./pages/PlanScreen";
 import EditPlanScreen from "./pages/EditPlanScreen";
 import ExerciseDetailScreen from "./pages/ExerciseDetailScreen";
+import ActiveWorkoutScreen from "./pages/ActiveWorkoutScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -63,6 +64,7 @@ const App = () => (
               <Route path="/lifting-days" element={<LiftingDaysScreen />} />
               <Route path="/generating" element={<GeneratingScreen />} />
               <Route path="/dashboard" element={<DashboardScreen />} />
+              <Route path="/active-workout" element={<ActiveWorkoutScreen />} />
               <Route path="/plan" element={<PlanScreen />} />
               <Route path="/edit-plan" element={<EditPlanScreen />} />
               <Route path="/exercise/:id" element={<ExerciseDetailScreen />} />
