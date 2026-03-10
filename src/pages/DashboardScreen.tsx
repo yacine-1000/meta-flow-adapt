@@ -154,7 +154,13 @@ const DashboardScreen = () => {
 
         {/* Progress card */}
         <motion.div
-          className="glass-card-strong rounded-2xl p-5 mt-6"
+          className="rounded-2xl p-5 mt-6 border border-white/[0.08]"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
+            backdropFilter: "blur(40px)",
+            WebkitBackdropFilter: "blur(40px)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.06)",
+          }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -181,7 +187,13 @@ const DashboardScreen = () => {
 
         {/* Today's workout hero card */}
         <motion.div
-          className="glass-card-strong rounded-3xl p-6 mt-6 relative overflow-hidden"
+          className="rounded-3xl p-6 mt-6 relative overflow-hidden border border-white/[0.08]"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
+            backdropFilter: "blur(40px)",
+            WebkitBackdropFilter: "blur(40px)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.06)",
+          }}
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
