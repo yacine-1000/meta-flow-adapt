@@ -298,7 +298,12 @@ const DashboardScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <MetafiButton disabled={workoutDone}>
+          <MetafiButton disabled={workoutDone} onClick={() => {
+            if (!workoutDone) {
+              const firstIncomplete = exercises.findIndex((_, i) => !completedExercises.includes(i) && !skipped.has(i));
+              navigate(`/exercise/${firstIncomplete >= 0 ? firstIncomplete : 0}`);
+            }
+          }}>
             {workoutDone ? "Workout Complete ✓" : "Start Workout"}
           </MetafiButton>
         </motion.div>
