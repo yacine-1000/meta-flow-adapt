@@ -310,6 +310,7 @@ const DashboardScreen = () => {
             </AnimatePresence>
           </div>
         </motion.div>
+        </div>
 
         {/* Start CTA */}
         <motion.div
