@@ -193,9 +193,9 @@ const DashboardScreen = () => {
 
         {/* Today's workout hero card */}
         <div className="relative mt-6">
-          <div className="absolute -top-10 -right-8 w-44 h-44 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.10) 0%, transparent 70%)" }} />
-          <div className="absolute top-1/2 -left-10 w-32 h-32 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(109,235,255,0.07) 0%, transparent 70%)" }} />
-          <div className="absolute -bottom-8 right-1/4 w-36 h-36 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.08) 0%, transparent 70%)" }} />
+          <div className="absolute -z-10 -top-10 -right-8 w-44 h-44 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.10) 0%, transparent 70%)" }} />
+          <div className="absolute -z-10 top-1/2 -left-10 w-32 h-32 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(109,235,255,0.07) 0%, transparent 70%)" }} />
+          <div className="absolute -z-10 -bottom-8 right-1/4 w-36 h-36 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.08) 0%, transparent 70%)" }} />
         <motion.div
           className="relative rounded-3xl p-6 overflow-hidden border border-white/[0.08]"
           style={{
