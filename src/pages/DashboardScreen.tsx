@@ -187,10 +187,15 @@ const DashboardScreen = () => {
             </div>
           </div>
         </motion.div>
+        </div>
 
         {/* Today's workout hero card */}
+        <div className="relative mt-6">
+          <div className="absolute -top-10 -right-8 w-44 h-44 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.10) 0%, transparent 70%)" }} />
+          <div className="absolute top-1/2 -left-10 w-32 h-32 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(109,235,255,0.07) 0%, transparent 70%)" }} />
+          <div className="absolute -bottom-8 right-1/4 w-36 h-36 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.08) 0%, transparent 70%)" }} />
         <motion.div
-          className="rounded-3xl p-6 mt-6 relative overflow-hidden border border-white/[0.08]"
+          className="relative rounded-3xl p-6 overflow-hidden border border-white/[0.08]"
           style={{
             background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
             backdropFilter: "blur(40px)",
