@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
-import { ReactNode, useEffect, useState, useMemo } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 interface MetafiScreenProps {
   children: ReactNode;
@@ -9,17 +9,6 @@ interface MetafiScreenProps {
   glowIntensity?: "subtle" | "medium" | "strong";
   celebrate?: boolean;
 }
-
-const generateShimmer = (count: number) =>
-  Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: 8 + Math.random() * 84,
-    delay: 0.02 + Math.random() * 0.15,
-    duration: 0.6 + Math.random() * 0.4,
-    size: 1.5 + Math.random() * 2.5,
-    drift: -20 + Math.random() * 40,
-    glow: Math.random() > 0.5,
-  }));
 
 export const MetafiScreen = ({
   children,
@@ -35,15 +24,14 @@ export const MetafiScreen = ({
 
   const [showBurst, setShowBurst] = useState(false);
   const containerControls = useAnimation();
-  const shimmerParticles = useMemo(() => generateShimmer(16), []);
 
   useEffect(() => {
     if (celebrate) {
       setShowBurst(true);
       containerControls.start({
-        x: [0, -2, 3, -1, 2, 0],
-        y: [0, 1, -1, 1, -1, 0],
-        transition: { duration: 0.25, ease: "easeOut", delay: 0.02 },
+        x: [0, -3, 4, -2, 3, -1, 0],
+        y: [0, 2, -2, 1, -1, 1, 0],
+        transition: { duration: 0.4, ease: "easeOut", delay: 0.05 },
       });
     }
   }, [celebrate, containerControls]);
@@ -62,12 +50,12 @@ export const MetafiScreen = ({
             style={{ top: glowY, x: "-50%" }}
             animate={
               celebrate
-                ? { opacity: [opacities[glowIntensity], 0.7, 0.35], scale: [1, 2.8, 1.6] }
+                ? { opacity: [opacities[glowIntensity], 0.8, 0.4], scale: [1, 3, 1.8] }
                 : { opacity: opacities[glowIntensity], scale: 1 }
             }
             transition={
               celebrate
-                ? { duration: 1.2, ease: [0.16, 1, 0.3, 1], times: [0, 0.2, 1] }
+                ? { duration: 2, ease: [0.16, 1, 0.3, 1], times: [0, 0.2, 1] }
                 : { duration: 0.6 }
             }
           />
@@ -80,10 +68,10 @@ export const MetafiScreen = ({
             }}
             animate={
               celebrate
-                ? { opacity: [0.06, 0.2, 0.08], scale: [1, 1.5, 1.1] }
+                ? { opacity: [0.06, 0.25, 0.1], scale: [1, 1.8, 1.2] }
                 : { opacity: 0.06, scale: 1 }
             }
-            transition={celebrate ? { duration: 0.8, ease: "easeOut" } : { duration: 0.4 }}
+            transition={celebrate ? { duration: 1.5, ease: "easeOut" } : { duration: 0.4 }}
           />
         </>
       )}
@@ -95,11 +83,11 @@ export const MetafiScreen = ({
             <motion.div
               className="absolute inset-0 pointer-events-none z-30"
               style={{
-                background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(149, 255, 195, 0.6) 0%, rgba(149, 255, 195, 0.15) 40%, transparent 70%)",
+                background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(149, 255, 195, 0.7) 0%, rgba(149, 255, 195, 0.2) 40%, transparent 70%)",
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], times: [0, 0.1, 1] }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], times: [0, 0.08, 1] }}
             />
 
             {/* White core hit */}
@@ -108,11 +96,11 @@ export const MetafiScreen = ({
               style={{
                 top: "-5%", left: "50%", width: 200, height: 200, marginLeft: -100,
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(149, 255, 195, 0.4) 30%, transparent 60%)",
+                background: "radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(149, 255, 195, 0.5) 30%, transparent 60%)",
               }}
               initial={{ opacity: 0, scale: 0.3 }}
-              animate={{ opacity: [0, 1, 0], scale: [0.3, 1.8, 2.5] }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], times: [0, 0.1, 1] }}
+              animate={{ opacity: [0, 1, 0], scale: [0.3, 2, 3] }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], times: [0, 0.1, 1] }}
             />
 
             {/* Bloom */}
@@ -121,11 +109,11 @@ export const MetafiScreen = ({
               style={{
                 top: "-30%", left: "50%", width: 600, height: 600, marginLeft: -300,
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(149, 255, 195, 0.25) 0%, rgba(149, 255, 195, 0.08) 40%, transparent 65%)",
+                background: "radial-gradient(circle, rgba(149, 255, 195, 0.3) 0%, rgba(149, 255, 195, 0.1) 40%, transparent 65%)",
               }}
               initial={{ opacity: 0, scale: 0.2 }}
-              animate={{ opacity: [0, 0.9, 0.4, 0], scale: [0.2, 1, 1.1, 1.2] }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], times: [0, 0.15, 0.5, 1] }}
+              animate={{ opacity: [0, 1, 0.5, 0], scale: [0.2, 1, 1.15, 1.3] }}
+              transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], times: [0, 0.12, 0.5, 1] }}
             />
 
             {/* Side glows */}
@@ -138,67 +126,37 @@ export const MetafiScreen = ({
                   left: dir === -1 ? "-10%" : undefined,
                   right: dir === 1 ? "-10%" : undefined,
                   width: 200, height: 300, borderRadius: "50%",
-                  background: "radial-gradient(circle, rgba(109, 235, 255, 0.12) 0%, transparent 70%)",
+                  background: "radial-gradient(circle, rgba(109, 235, 255, 0.15) 0%, transparent 70%)",
                 }}
                 initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: [0, 0.7, 0], scale: [0.5, 1.2, 1.4] }}
-                transition={{ duration: 0.8, delay: 0.03, ease: "easeOut" }}
+                animate={{ opacity: [0, 0.8, 0], scale: [0.5, 1.3, 1.5] }}
+                transition={{ duration: 1.2, delay: 0.05, ease: "easeOut" }}
               />
             ))}
 
-            {/* Ring */}
+            {/* Expanding ring */}
             <motion.div
               className="absolute pointer-events-none z-20"
               style={{
                 top: "3%", left: "50%", width: 80, height: 80, marginLeft: -40,
                 borderRadius: "50%",
-                border: "1px solid rgba(149, 255, 195, 0.6)",
-                boxShadow: "0 0 20px rgba(149, 255, 195, 0.15)",
+                border: "1.5px solid rgba(149, 255, 195, 0.7)",
+                boxShadow: "0 0 30px rgba(149, 255, 195, 0.2)",
               }}
               initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: [0, 4, 5.5], opacity: [0, 0.6, 0] }}
-              transition={{ duration: 0.7, delay: 0.02, ease: [0.16, 1, 0.3, 1], times: [0, 0.4, 1] }}
+              animate={{ scale: [0, 5, 7], opacity: [0, 0.7, 0] }}
+              transition={{ duration: 1.6, delay: 0.05, ease: [0.16, 1, 0.3, 1], times: [0, 0.4, 1] }}
             />
-
-            {/* Shimmer particles */}
-            {shimmerParticles.map((p) => (
-              <motion.div
-                key={`shimmer-${p.id}`}
-                className="absolute pointer-events-none z-30 rounded-full"
-                style={{
-                  left: `${p.x}%`,
-                  top: "5%",
-                  width: p.size,
-                  height: p.size,
-                  background: p.glow ? "rgba(149, 255, 195, 0.9)" : "rgba(255, 255, 255, 0.8)",
-                  boxShadow: p.glow
-                    ? `0 0 ${p.size * 4}px rgba(149, 255, 195, 0.5)`
-                    : `0 0 ${p.size * 3}px rgba(255, 255, 255, 0.3)`,
-                }}
-                initial={{ opacity: 0, y: 0, x: 0 }}
-                animate={{
-                  opacity: [0, 1, 1, 0],
-                  y: [0, 60 + Math.random() * 120, 150 + Math.random() * 180],
-                  x: [0, p.drift * 0.5, p.drift],
-                }}
-                transition={{
-                  duration: p.duration,
-                  delay: p.delay,
-                  ease: [0.2, 0, 0.2, 1],
-                  times: [0, 0.3, 0.7, 1],
-                }}
-              />
-            ))}
 
             {/* Afterglow */}
             <motion.div
               className="absolute inset-0 pointer-events-none z-10"
               style={{
-                background: "linear-gradient(180deg, rgba(149, 255, 195, 0.06) 0%, transparent 50%)",
+                background: "linear-gradient(180deg, rgba(149, 255, 195, 0.08) 0%, transparent 50%)",
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 0, 1, 0] }}
-              transition={{ duration: 1.5, ease: "easeOut", times: [0, 0.1, 0.25, 1] }}
+              transition={{ duration: 3.5, ease: "easeOut", times: [0, 0.05, 0.2, 1] }}
               onAnimationComplete={() => setShowBurst(false)}
             />
           </>
