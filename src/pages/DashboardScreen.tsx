@@ -107,6 +107,8 @@ const DashboardScreen = () => {
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium" celebrate={justCompleted}>
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
+        {/* Top center mint glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.15) 0%, rgba(149,255,195,0.04) 40%, transparent 70%)" }} />
         {/* Header */}
         <motion.div
           className="flex items-center justify-between"
