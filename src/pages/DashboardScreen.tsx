@@ -153,8 +153,11 @@ const DashboardScreen = () => {
         </motion.div>
 
         {/* Progress card */}
+        <div className="relative mt-6">
+          <div className="absolute -top-8 -left-6 w-36 h-36 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.12) 0%, transparent 70%)" }} />
+          <div className="absolute -bottom-6 -right-4 w-28 h-28 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(109,235,255,0.08) 0%, transparent 70%)" }} />
         <motion.div
-          className="rounded-2xl p-5 mt-6 border border-white/[0.08]"
+          className="relative rounded-2xl p-5 border border-white/[0.08]"
           style={{
             background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
             backdropFilter: "blur(40px)",
