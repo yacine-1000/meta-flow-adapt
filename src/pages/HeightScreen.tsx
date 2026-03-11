@@ -5,11 +5,13 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Ruler } from "lucide-react";
 
 const HeightScreen = () => {
   const navigate = useNavigate();
   const [height, setHeight] = useState(175);
+  const { t } = useLanguage();
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -25,11 +27,10 @@ const HeightScreen = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">Step 2 of 6</p>
-          <h1 className="font-display text-3xl font-bold leading-tight">How tall<br />are you?</h1>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "2", y: "6" })}</p>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("height.title1")}<br />{t("height.title2")}</h1>
         </motion.div>
 
-        {/* Hero value */}
         <motion.div
           className="flex items-baseline justify-center gap-3 mt-10 mb-12"
           initial={{ scale: 0.8, opacity: 0 }}
@@ -40,10 +41,9 @@ const HeightScreen = () => {
             <Ruler className="w-5 h-5 text-primary" />
           </div>
           <span className="font-display text-7xl font-bold text-gradient-mint tracking-tight">{height}</span>
-          <span className="text-muted-foreground text-lg font-medium">cm</span>
+          <span className="text-muted-foreground text-lg font-medium">{t("height.cm")}</span>
         </motion.div>
 
-        {/* Premium slider */}
         <motion.div
           className="glass-card-strong rounded-2xl p-6"
           initial={{ opacity: 0, y: 20 }}
@@ -62,15 +62,15 @@ const HeightScreen = () => {
             }}
           />
           <div className="flex justify-between mt-4 text-[10px] text-muted-foreground/60">
-            <span>140 cm</span>
-            <span>170 cm</span>
-            <span>200 cm</span>
+            <span>140 {t("height.cm")}</span>
+            <span>170 {t("height.cm")}</span>
+            <span>200 {t("height.cm")}</span>
           </div>
         </motion.div>
 
         <div className="flex-1" />
 
-        <MetafiButton onClick={() => navigate("/weight")}>Continue</MetafiButton>
+        <MetafiButton onClick={() => navigate("/weight")}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );

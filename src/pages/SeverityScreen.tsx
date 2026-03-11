@@ -4,18 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Gauge } from "lucide-react";
 
 const injuries = [
-  { id: "hip", label: "Hip" },
-  { id: "quad", label: "Quad" },
-  { id: "upper-back", label: "Upper Back" },
+  { id: "hip", labelKey: "injury.hip" },
+  { id: "quad", labelKey: "injury.quad" },
+  { id: "upper_back", labelKey: "injury.upper_back" },
 ];
 
 const SeverityScreen = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [values, setValues] = useState<Record<string, number>>({
-    hip: 3, quad: 2, "upper-back": 4,
+    hip: 3, quad: 2, upper_back: 4,
   });
 
   const update = (id: string, val: number) => setValues((v) => ({ ...v, [id]: val }));
@@ -28,10 +30,10 @@ const SeverityScreen = () => {
   };
 
   const getSeverityLabel = (val: number) => {
-    if (val <= 2) return "Mild";
-    if (val <= 5) return "Moderate";
-    if (val <= 7) return "Noticeable";
-    return "Severe";
+    if (val <= 2) return t("severity.mild");
+    if (val <= 5) return t("severity.moderate");
+    if (val <= 7) return t("severity.noticeable");
+    return t("severity.severe");
   };
 
   return (
@@ -44,9 +46,9 @@ const SeverityScreen = () => {
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <Gauge className="w-5 h-5 text-primary" />
             </div>
-            <h1 className="font-display text-2xl font-bold">How severe?</h1>
+            <h1 className="font-display text-2xl font-bold">{t("severity.title")}</h1>
           </div>
-          <p className="text-muted-foreground text-sm mt-2 ml-[52px]">This helps us adjust exercise selection</p>
+          <p className="text-muted-foreground text-sm mt-2 ms-[52px]">{t("severity.hint")}</p>
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-5">
@@ -59,7 +61,7 @@ const SeverityScreen = () => {
               transition={{ delay: i * 0.1 }}
             >
               <div className="flex items-center justify-between mb-5">
-                <span className="font-semibold">{injury.label}</span>
+                <span className="font-semibold">{t(injury.labelKey)}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground/50">{getSeverityLabel(values[injury.id])}</span>
                   <span className="font-display font-bold text-lg" style={{ color: getSeverityColor(values[injury.id]) }}>
@@ -80,14 +82,14 @@ const SeverityScreen = () => {
                 }}
               />
               <div className="flex justify-between mt-3 text-[10px] text-muted-foreground/30">
-                <span>No pain</span>
-                <span>Severe</span>
+                <span>{t("severity.no_pain")}</span>
+                <span>{t("severity.severe")}</span>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <MetafiButton onClick={() => navigate("/training-level")}>Continue</MetafiButton>
+        <MetafiButton onClick={() => navigate("/training-level")}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );

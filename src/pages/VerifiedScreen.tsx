@@ -3,16 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { useUser } from "@/contexts/UserContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { CheckCircle } from "lucide-react";
 
 const VerifiedScreen = () => {
   const navigate = useNavigate();
   const { userName } = useUser();
+  const { t } = useLanguage();
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="strong">
       <div className="flex-1 flex flex-col items-center justify-center px-8 pb-8">
-        {/* Success halo */}
         <motion.div
           className="relative flex items-center justify-center"
           initial={{ scale: 0 }}
@@ -36,7 +37,7 @@ const VerifiedScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          You're verified
+          {t("verified.title")}
         </motion.h1>
 
         <motion.p
@@ -45,8 +46,8 @@ const VerifiedScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          {userName ? `Welcome, ${userName}. ` : "Welcome to Metafi. "}
-          Let's build your personalized training plan.
+          {userName ? t("verified.welcome_user", { name: userName }) : t("verified.welcome")}
+          {t("verified.desc")}
         </motion.p>
 
         <motion.div
@@ -56,7 +57,7 @@ const VerifiedScreen = () => {
           transition={{ delay: 0.7 }}
         >
           <MetafiButton onClick={() => navigate("/home")}>
-            Get Started
+            {t("verified.start")}
           </MetafiButton>
         </motion.div>
       </div>

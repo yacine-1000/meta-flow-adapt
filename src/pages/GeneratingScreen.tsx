@@ -2,20 +2,22 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
+import { useLanguage } from "@/contexts/LanguageContext";
 import metafiIcon from "@/assets/metafi-icon.png";
-
-const steps = [
-  "Analyzing your schedule",
-  "Balancing sport load",
-  "Selecting exercises",
-  "Optimizing recovery windows",
-  "Building your plan",
-];
 
 const GeneratingScreen = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
+
+  const steps = [
+    t("gen.step1"),
+    t("gen.step2"),
+    t("gen.step3"),
+    t("gen.step4"),
+    t("gen.step5"),
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,32 +36,26 @@ const GeneratingScreen = () => {
   useEffect(() => {
     const idx = Math.min(Math.floor(progress / 20), steps.length - 1);
     setCurrentStep(idx);
-  }, [progress]);
+  }, [progress, steps.length]);
 
   const roundedProgress = Math.round(progress);
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="strong">
       <div className="flex-1 flex flex-col items-center justify-center px-8">
-        {/* Central orb with progress ring */}
         <div className="relative w-56 h-56 flex items-center justify-center">
-          {/* Outer atmospheric glow */}
           <motion.div
             className="absolute w-80 h-80 rounded-full"
             style={{ background: "radial-gradient(circle, rgba(149,255,195,0.08) 0%, transparent 60%)" }}
             animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 4, repeat: Infinity }}
           />
-
-          {/* Mid glow */}
           <motion.div
             className="absolute w-64 h-64 rounded-full"
             style={{ background: "radial-gradient(circle, rgba(149,255,195,0.05) 0%, transparent 70%)" }}
             animate={{ scale: [1.1, 1.3, 1.1] }}
             transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
           />
-
-          {/* Progress arc */}
           <svg className="w-full h-full -rotate-90 absolute" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1.5" />
             <motion.circle
@@ -79,8 +75,6 @@ const GeneratingScreen = () => {
               </linearGradient>
             </defs>
           </svg>
-
-          {/* Inner content */}
           <div className="flex flex-col items-center justify-center z-10">
             <motion.img
               src={metafiIcon}
@@ -93,12 +87,10 @@ const GeneratingScreen = () => {
           </div>
         </div>
 
-        {/* Step text */}
         <motion.div className="mt-12 text-center" key={currentStep} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-foreground font-medium text-sm">{steps[currentStep]}</p>
         </motion.div>
 
-        {/* Step indicators */}
         <div className="flex gap-2 mt-6">
           {steps.map((_, i) => (
             <div
@@ -115,7 +107,7 @@ const GeneratingScreen = () => {
           animate={{ opacity: [0.2, 0.5, 0.2] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          Personalizing your experience
+          {t("gen.personalizing")}
         </motion.p>
       </div>
     </MetafiScreen>
