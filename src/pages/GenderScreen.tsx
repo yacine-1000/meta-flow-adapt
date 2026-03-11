@@ -5,20 +5,24 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Check } from "lucide-react";
 
 const GenderScreen = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<string | null>(null);
+  const { t, isRTL } = useLanguage();
 
   const options = [
-    { id: "male", label: "Male" },
-    { id: "female", label: "Female" },
+    { id: "male", label: t("male") },
+    { id: "female", label: t("female") },
   ];
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
-      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
+      <div className={`flex flex-col min-h-screen px-6 pt-14 pb-8 ${isRTL ? "text-right" : ""}`} dir={isRTL ? "rtl" : "ltr"}>
+        <LanguageSwitch />
         <ProgressBar step={1} total={6} />
 
         <div className="mt-4">
@@ -31,9 +35,11 @@ const GenderScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">Step 1 of 6</p>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">
+            {t("step_x_of_y").replace("{x}", "1").replace("{y}", "6")}
+          </p>
           <h1 className="font-display text-3xl font-bold leading-tight">
-            What's your<br />gender?
+            {t("whats_your_gender")}<br />{t("gender")}
           </h1>
         </motion.div>
 
@@ -51,8 +57,8 @@ const GenderScreen = () => {
                   : "glass-card hover:border-primary/10"
               }`}
             >
-              <div className="flex items-center justify-between p-6">
-                <div className="flex items-center gap-5">
+              <div className={`flex items-center justify-between p-6 ${isRTL ? "flex-row-reverse" : ""}`}>
+                <div className={`flex items-center gap-5 ${isRTL ? "flex-row-reverse" : ""}`}>
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
                     selected === opt.id ? "bg-primary/20" : "bg-muted/20"
                   }`}>
@@ -87,7 +93,7 @@ const GenderScreen = () => {
         </div>
 
         <MetafiButton onClick={() => navigate("/height")} disabled={!selected}>
-          Continue
+          {t("continue")}
         </MetafiButton>
       </div>
     </MetafiScreen>
