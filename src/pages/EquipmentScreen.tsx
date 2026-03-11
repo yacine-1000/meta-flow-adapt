@@ -4,39 +4,33 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Check, Layers, Armchair, Dumbbell, Weight, CircleDot, Cable, ArrowDownUp, Footprints, Box } from "lucide-react";
 
 const equipmentIcons: Record<string, React.ElementType> = {
-  "Flat bench press": Armchair,
-  "Incline bench press": Armchair,
-  "Shoulder press machine": ArrowDownUp,
-  "Dumbbells": Dumbbell,
-  "Barbell + plates": Weight,
-  "Kettlebells": CircleDot,
-  "Cable machine": Cable,
-  "Lat pulldown / row machine": ArrowDownUp,
-  "Leg press": Footprints,
-  "Smith machine": Box,
+  "flat_bench": Armchair,
+  "incline_bench": Armchair,
+  "shoulder_press": ArrowDownUp,
+  "dumbbells": Dumbbell,
+  "barbell": Weight,
+  "kettlebells": CircleDot,
+  "cable": Cable,
+  "lat_pulldown": ArrowDownUp,
+  "leg_press": Footprints,
+  "smith": Box,
 };
-
-const categories = [
-  {
-    name: "Benches",
-    items: ["Flat bench press", "Incline bench press", "Shoulder press machine"],
-  },
-  {
-    name: "Free Weights",
-    items: ["Dumbbells", "Barbell + plates", "Kettlebells"],
-  },
-  {
-    name: "Cables & Machines",
-    items: ["Cable machine", "Lat pulldown / row machine", "Leg press", "Smith machine"],
-  },
-];
 
 const EquipmentScreen = () => {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState<string[]>(["Dumbbells", "Barbell + plates", "Cable machine"]);
+  const { t } = useLanguage();
+
+  const categories = [
+    { nameKey: "equipment.benches", items: ["flat_bench", "incline_bench", "shoulder_press"] },
+    { nameKey: "equipment.free_weights", items: ["dumbbells", "barbell", "kettlebells"] },
+    { nameKey: "equipment.cables_machines", items: ["cable", "lat_pulldown", "leg_press", "smith"] },
+  ];
+
+  const [selected, setSelected] = useState<string[]>(["dumbbells", "barbell", "cable"]);
 
   const toggle = (item: string) =>
     setSelected((s) => (s.includes(item) ? s.filter((x) => x !== item) : [...s, item]));
@@ -51,7 +45,7 @@ const EquipmentScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <div className="flex items-center justify-between">
           <BackButton to="/activities" />
-          <button onClick={selectAll} className="text-primary text-xs font-medium tracking-wide">Select All</button>
+          <button onClick={selectAll} className="text-primary text-xs font-medium tracking-wide">{t("equipment.select_all")}</button>
         </div>
 
         <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -59,20 +53,20 @@ const EquipmentScreen = () => {
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <Layers className="w-5 h-5 text-primary" />
             </div>
-            <h1 className="font-display text-2xl font-bold">Equipment</h1>
+            <h1 className="font-display text-2xl font-bold">{t("equipment.title")}</h1>
           </div>
-          <p className="text-muted-foreground text-sm mt-2 ml-[52px]">What do you have access to?</p>
+          <p className="text-muted-foreground text-sm mt-2 ms-[52px]">{t("equipment.hint")}</p>
         </motion.div>
 
         <div className="flex-1 mt-8 space-y-8 overflow-y-auto scrollbar-hide pb-4">
           {categories.map((cat, ci) => (
             <motion.div
-              key={cat.name}
+              key={cat.nameKey}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: ci * 0.1 }}
             >
-              <h3 className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50 mb-3 font-medium">{cat.name}</h3>
+              <h3 className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50 mb-3 font-medium">{t(cat.nameKey)}</h3>
               <div className="space-y-2">
                 {cat.items.map((item) => {
                   const isSelected = selected.includes(item);
@@ -89,7 +83,7 @@ const EquipmentScreen = () => {
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected ? "bg-primary/15" : "bg-muted/20"}`}>
                           <IconComponent className={`w-4 h-4 ${isSelected ? "text-primary" : "text-muted-foreground/60"}`} />
                         </div>
-                        <span className="text-sm font-medium">{item}</span>
+                        <span className="text-sm font-medium">{t(`equip.${item}`)}</span>
                       </div>
                       {isSelected && (
                         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -104,7 +98,7 @@ const EquipmentScreen = () => {
           ))}
         </div>
 
-        <MetafiButton onClick={() => navigate("/injuries")}>Continue</MetafiButton>
+        <MetafiButton onClick={() => navigate("/injuries")}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );

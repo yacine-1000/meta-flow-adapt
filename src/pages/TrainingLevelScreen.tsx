@@ -4,17 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Check, Sprout, TrendingUp, Zap } from "lucide-react";
-
-const levels = [
-  { id: "beginner", label: "Beginner", desc: "New to lifting or less than 6 months", icon: Sprout },
-  { id: "intermediate", label: "Intermediate", desc: "1–3 years of consistent training", icon: TrendingUp },
-  { id: "advanced", label: "Advanced", desc: "3+ years, strong foundation", icon: Zap },
-];
 
 const TrainingLevelScreen = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<string | null>(null);
+  const { t } = useLanguage();
+
+  const levels = [
+    { id: "beginner", label: t("level.beginner"), desc: t("level.beginner_desc"), icon: Sprout },
+    { id: "intermediate", label: t("level.intermediate"), desc: t("level.intermediate_desc"), icon: TrendingUp },
+    { id: "advanced", label: t("level.advanced"), desc: t("level.advanced_desc"), icon: Zap },
+  ];
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -22,8 +24,8 @@ const TrainingLevelScreen = () => {
         <BackButton to={-1} />
 
         <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-3xl font-bold leading-tight">Training<br />level</h1>
-          <p className="text-muted-foreground text-sm mt-3">How experienced are you with weight training?</p>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("level.title1")}<br />{t("level.title2")}</h1>
+          <p className="text-muted-foreground text-sm mt-3">{t("level.hint")}</p>
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-4">
@@ -37,7 +39,7 @@ const TrainingLevelScreen = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 onClick={() => setSelected(level.id)}
-                className={`w-full p-5 rounded-2xl text-left transition-all duration-300 ${
+                className={`w-full p-5 rounded-2xl text-start transition-all duration-300 ${
                   isSelected ? "chip-selected shadow-glow-sm" : "glass-card hover:border-primary/10"
                 }`}
               >
@@ -63,7 +65,7 @@ const TrainingLevelScreen = () => {
         </div>
 
         <MetafiButton onClick={() => navigate("/goal")} disabled={!selected}>
-          Continue
+          {t("continue")}
         </MetafiButton>
       </div>
     </MetafiScreen>

@@ -4,19 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Dumbbell, Activity, Footprints } from "lucide-react";
-
-const focusAreas = [
-  { id: "lifting", label: "Weight Lifting", icon: Dumbbell },
-  { id: "tennis", label: "Tennis", icon: Activity },
-  { id: "running", label: "Running", icon: Footprints },
-];
 
 const FocusScreen = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [values, setValues] = useState<Record<string, number>>({
     lifting: 8, tennis: 5, running: 3,
   });
+
+  const focusAreas = [
+    { id: "lifting", label: t("focus.weight_lifting"), icon: Dumbbell },
+    { id: "tennis", label: t("sport.tennis"), icon: Activity },
+    { id: "running", label: t("sport.running"), icon: Footprints },
+  ];
 
   const update = (id: string, val: number) => setValues((v) => ({ ...v, [id]: val }));
 
@@ -26,8 +28,8 @@ const FocusScreen = () => {
         <BackButton to="/sports" />
 
         <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-3xl font-bold leading-tight">Set your<br />focus</h1>
-          <p className="text-muted-foreground text-sm mt-3">How important is each activity to you?</p>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("focus.title1")}<br />{t("focus.title2")}</h1>
+          <p className="text-muted-foreground text-sm mt-3">{t("focus.hint")}</p>
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-5">
@@ -65,15 +67,15 @@ const FocusScreen = () => {
                   }}
                 />
                 <div className="flex justify-between mt-3 text-[10px] text-muted-foreground/40">
-                  <span>Not a priority</span>
-                  <span>Top priority</span>
+                  <span>{t("focus.not_priority")}</span>
+                  <span>{t("focus.top_priority")}</span>
                 </div>
               </motion.div>
             );
           })}
         </div>
 
-        <MetafiButton onClick={() => navigate("/activities")}>Continue</MetafiButton>
+        <MetafiButton onClick={() => navigate("/activities")}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );

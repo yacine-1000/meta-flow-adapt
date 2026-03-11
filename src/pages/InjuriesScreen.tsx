@@ -4,25 +4,28 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Check, ShieldCheck, AlertTriangle } from "lucide-react";
-
-const categories = [
-  {
-    name: "Lower Body",
-    items: ["Knee", "Ankle / ankle sprain", "Foot", "Heel", "Hip", "Groin", "Hamstring", "Quad", "Calf", "Achilles"],
-  },
-  {
-    name: "Back & Neck",
-    items: ["Lower back", "Upper back", "Neck"],
-  },
-  {
-    name: "Upper Body",
-    items: ["Shoulder", "Elbow", "Wrist"],
-  },
-];
 
 const InjuriesScreen = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
+
+  const categories = [
+    {
+      nameKey: "injuries.lower_body",
+      items: ["knee", "ankle", "foot", "heel", "hip", "groin", "hamstring", "quad", "calf", "achilles"],
+    },
+    {
+      nameKey: "injuries.back_neck",
+      items: ["lower_back", "upper_back", "neck"],
+    },
+    {
+      nameKey: "injuries.upper_body",
+      items: ["shoulder", "elbow", "wrist"],
+    },
+  ];
+
   const [selected, setSelected] = useState<string[]>([]);
   const [noneSelected, setNoneSelected] = useState(false);
 
@@ -46,9 +49,9 @@ const InjuriesScreen = () => {
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <AlertTriangle className="w-5 h-5 text-primary" />
             </div>
-            <h1 className="font-display text-2xl font-bold">Pain & Injuries</h1>
+            <h1 className="font-display text-2xl font-bold">{t("injuries.title")}</h1>
           </div>
-          <p className="text-muted-foreground text-sm mt-2 ml-[52px]">We'll adapt your plan accordingly</p>
+          <p className="text-muted-foreground text-sm mt-2 ms-[52px]">{t("injuries.hint")}</p>
         </motion.div>
 
         <div className="flex-1 mt-8 overflow-y-auto scrollbar-hide pb-4">
@@ -59,18 +62,18 @@ const InjuriesScreen = () => {
             }`}
           >
             <ShieldCheck className={`w-4 h-4 ${noneSelected ? "text-primary" : "text-muted-foreground/40"}`} />
-            No injuries or pain
+            {t("injuries.none")}
           </button>
 
           <div className="space-y-8">
             {categories.map((cat, ci) => (
               <motion.div
-                key={cat.name}
+                key={cat.nameKey}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: ci * 0.1 }}
               >
-                <h3 className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50 mb-3 font-medium">{cat.name}</h3>
+                <h3 className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50 mb-3 font-medium">{t(cat.nameKey)}</h3>
                 <div className="flex flex-wrap gap-2">
                   {cat.items.map((item) => {
                     const isSelected = selected.includes(item);
@@ -82,7 +85,7 @@ const InjuriesScreen = () => {
                           isSelected ? "chip-selected" : "chip-unselected hover:border-primary/15"
                         }`}
                       >
-                        {item}
+                        {t(`injury.${item}`)}
                         {isSelected && <Check className="w-3 h-3" />}
                       </button>
                     );
@@ -94,7 +97,7 @@ const InjuriesScreen = () => {
         </div>
 
         <MetafiButton onClick={() => navigate(selected.length > 0 ? "/severity" : "/training-level")}>
-          Continue
+          {t("continue")}
         </MetafiButton>
       </div>
     </MetafiScreen>

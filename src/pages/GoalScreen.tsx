@@ -4,18 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Check, Dumbbell, Gem, Zap, Target } from "lucide-react";
-
-const goals = [
-  { id: "strength", label: "Build Strength", desc: "Get stronger with progressive overload", icon: Dumbbell },
-  { id: "muscle", label: "Build Muscle", desc: "Hypertrophy-focused training", icon: Gem },
-  { id: "performance", label: "Athletic Performance", desc: "Improve sport-specific power", icon: Zap },
-  { id: "general", label: "General Fitness", desc: "Stay fit and balanced", icon: Target },
-];
 
 const GoalScreen = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<string | null>(null);
+  const { t } = useLanguage();
+
+  const goals = [
+    { id: "strength", label: t("goal.strength"), desc: t("goal.strength_desc"), icon: Dumbbell },
+    { id: "muscle", label: t("goal.muscle"), desc: t("goal.muscle_desc"), icon: Gem },
+    { id: "performance", label: t("goal.performance"), desc: t("goal.performance_desc"), icon: Zap },
+    { id: "general", label: t("goal.general"), desc: t("goal.general_desc"), icon: Target },
+  ];
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -23,7 +25,7 @@ const GoalScreen = () => {
         <BackButton to="/training-level" />
 
         <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-3xl font-bold leading-tight">What's your<br />main goal?</h1>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("goal.title1")}<br />{t("goal.title2")}</h1>
         </motion.div>
 
         <div className="flex-1 mt-10 grid grid-cols-2 gap-3">
@@ -52,7 +54,7 @@ const GoalScreen = () => {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute top-3 right-3 w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center"
+                    className="absolute top-3 end-3 w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center"
                   >
                     <Check className="w-3 h-3 text-primary" />
                   </motion.div>
@@ -63,7 +65,7 @@ const GoalScreen = () => {
         </div>
 
         <MetafiButton onClick={() => navigate("/lifting-days")} disabled={!selected} className="mt-6">
-          Continue
+          {t("continue")}
         </MetafiButton>
       </div>
     </MetafiScreen>
