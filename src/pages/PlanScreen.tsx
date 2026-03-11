@@ -1,101 +1,41 @@
 import { motion } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
-import { Home, Dumbbell, User, ChevronRight, Activity, Coffee, Target, Flame, TrendingUp, Calendar, Clock } from "lucide-react";
+import { Home, Dumbbell, User, Target, TrendingUp, Calendar, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import metafiIcon from "@/assets/metafi-icon.png";
-
-interface WorkoutDay {
-  id: string;
-  label: string;
-  short: string;
-  type: "lifting" | "sport" | "rest";
-  title: string;
-  subtitle: string;
-  duration?: string;
-  exercises?: number;
-  intensity?: string;
-  completed?: boolean;
-  isToday?: boolean;
-}
-
-const weekPlan: WorkoutDay[] = [
-  {
-    id: "mon", label: "Monday", short: "M", type: "lifting",
-    title: "Upper Body", subtitle: "Push + Pull",
-    duration: "55 min", exercises: 6, completed: true, isToday: true,
-  },
-  {
-    id: "tue", label: "Tuesday", short: "T", type: "rest",
-    title: "Recovery", subtitle: "Active rest day",
-  },
-  {
-    id: "wed", label: "Wednesday", short: "W", type: "lifting",
-    title: "Lower Body", subtitle: "Squat + Hinge",
-    duration: "50 min", exercises: 5,
-  },
-  {
-    id: "thu", label: "Thursday", short: "T", type: "rest",
-    title: "Recovery", subtitle: "Active rest day",
-  },
-  {
-    id: "fri", label: "Friday", short: "F", type: "lifting",
-    title: "Full Body", subtitle: "Compound focus",
-    duration: "45 min", exercises: 5,
-  },
-  {
-    id: "sat", label: "Saturday", short: "S", type: "sport",
-    title: "Tennis", subtitle: "Moderate intensity",
-    duration: "60 min", intensity: "Moderate",
-  },
-  {
-    id: "sun", label: "Sunday", short: "S", type: "rest",
-    title: "Full Rest", subtitle: "Recovery & mobility",
-  },
-];
-
-const weekStats = {
-  liftingSessions: 3,
-  sportSessions: 1,
-  totalVolume: "~12,400 lbs",
-  avgDuration: "50 min",
-  goal: "Build Muscle",
-  level: "Intermediate",
-  injuries: ["Shoulder"],
-  equipment: ["Dumbbells", "Barbell + plates", "Cable machine"],
-};
-
-const typeConfig = {
-  lifting: { icon: Dumbbell, color: "text-primary", bg: "bg-primary/15", border: "border-primary/20" },
-  sport: { icon: Activity, color: "text-accent-foreground", bg: "bg-accent/30", border: "border-accent/20" },
-  rest: { icon: Coffee, color: "text-muted-foreground", bg: "bg-muted/15", border: "border-muted/10" },
-};
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PlanScreen = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
+
+  const weekStats = {
+    liftingSessions: 3,
+    sportSessions: 1,
+    totalVolume: "~12,400 lbs",
+    avgDuration: "50 min",
+  };
 
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
-        {/* Header */}
         <motion.div
           className="flex items-center justify-between"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
           <div>
-            <p className="text-muted-foreground text-sm">Week 1 of 12</p>
-            <h1 className="font-display text-2xl font-bold">Your Plan</h1>
+            <p className="text-muted-foreground text-sm">{t("plan.week", { x: "1", y: "12" })}</p>
+            <h1 className="font-display text-2xl font-bold">{t("plan.your_plan")}</h1>
           </div>
           <button
             onClick={() => navigate("/edit-plan")}
             className="glass-card rounded-xl px-3.5 py-2 flex items-center gap-1.5 hover:bg-muted/20 transition-colors"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            <span className="text-xs font-medium text-primary">Edit Plan</span>
+            <span className="text-xs font-medium text-primary">{t("plan.edit")}</span>
           </button>
         </motion.div>
 
-        {/* Stats row */}
         <motion.div
           className="grid grid-cols-3 gap-2.5 mt-6"
           initial={{ opacity: 0 }}
@@ -103,9 +43,9 @@ const PlanScreen = () => {
           transition={{ delay: 0.1 }}
         >
           {[
-            { icon: Target, label: weekStats.goal, sub: "Goal" },
-            { icon: TrendingUp, label: weekStats.level, sub: "Level" },
-            { icon: Calendar, label: `${weekStats.liftingSessions + weekStats.sportSessions} days`, sub: "Active" },
+            { icon: Target, label: t("goal.muscle"), sub: t("plan.goal") },
+            { icon: TrendingUp, label: t("level.intermediate"), sub: t("plan.level") },
+            { icon: Calendar, label: `${weekStats.liftingSessions + weekStats.sportSessions} ${t("home.days", { n: "" }).trim()}`, sub: t("plan.active") },
           ].map((stat, i) => (
             <div key={i} className="glass-card rounded-xl p-3 flex flex-col items-center text-center gap-1.5">
               <stat.icon className="w-3.5 h-3.5 text-primary/60" />
@@ -115,7 +55,6 @@ const PlanScreen = () => {
           ))}
         </motion.div>
 
-        {/* Volume + adaptation card */}
         <motion.div
           className="glass-card-strong rounded-2xl p-4 mt-4"
           initial={{ opacity: 0, y: 10 }}
@@ -124,43 +63,32 @@ const PlanScreen = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Est. Weekly Volume</span>
+              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{t("plan.est_volume")}</span>
               <p className="text-lg font-display font-bold mt-0.5">{weekStats.totalVolume}</p>
             </div>
-            <div className="text-right">
-              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Avg Session</span>
+            <div className="text-end">
+              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{t("plan.avg_session")}</span>
               <p className="text-lg font-display font-bold mt-0.5 flex items-center gap-1 justify-end">
                 <Clock className="w-3.5 h-3.5 text-primary/50" />
                 {weekStats.avgDuration}
               </p>
             </div>
           </div>
-          {weekStats.injuries.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-border/30 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-destructive/60" />
-              <span className="text-[10px] text-muted-foreground">
-                Shoulder-adapted — reduced overhead pressing volume
-              </span>
-            </div>
-          )}
+          <div className="mt-3 pt-3 border-t border-border/30 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-destructive/60" />
+            <span className="text-[10px] text-muted-foreground">{t("plan.shoulder_adapted")}</span>
+          </div>
         </motion.div>
-
-
-
 
         {/* Bottom nav */}
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
           <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
             {[
-              { icon: Home, label: "Home", active: false, path: "/dashboard" },
-              { icon: Dumbbell, label: "Plan", active: true, path: "/plan" },
-              { icon: User, label: "Profile", active: false, path: "/plan" },
+              { icon: Home, label: t("nav.home"), active: false, path: "/dashboard" },
+              { icon: Dumbbell, label: t("nav.plan"), active: true, path: "/plan" },
+              { icon: User, label: t("nav.profile"), active: false, path: "/plan" },
             ].map((item) => (
-              <button
-                key={item.label}
-                onClick={() => navigate(item.path)}
-                className="flex flex-col items-center gap-1"
-              >
+              <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/30"}`} />
                 <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/30"}`}>{item.label}</span>
               </button>

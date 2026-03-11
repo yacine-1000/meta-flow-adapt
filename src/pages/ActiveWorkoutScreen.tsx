@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
-import { ArrowLeft, ChevronRight, Check, Clock, Repeat, ArrowLeftRight, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronRight, Check, Clock, Repeat, ArrowLeftRight, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/contexts/UserContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import chestPressImg from "@/assets/chest_press.jpg";
 
@@ -49,9 +50,12 @@ const exerciseDatabase: Record<string, Exercise[]> = {
 const ActiveWorkoutScreen = () => {
   const navigate = useNavigate();
   const { completedExercises } = useUser();
+  const { t, isRTL } = useLanguage();
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
+
+  const BackIcon = isRTL ? ArrowRight : ArrowLeft;
 
   const totalExercises = exercises.length;
   const completedCount = completedExercises.length;
@@ -80,22 +84,20 @@ const ActiveWorkoutScreen = () => {
   return (
     <MetafiScreen glowPosition="top" glowIntensity="subtle">
       <div className="flex flex-col min-h-screen">
-        {/* Header */}
         <div className="px-6 pt-14 pb-4 relative z-20">
           <div className="flex items-center gap-3 mb-4">
             <button
               onClick={() => navigate("/dashboard")}
               className="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <BackIcon className="w-4 h-4" />
             </button>
             <div className="flex-1">
-              <h1 className="text-foreground font-display font-bold text-lg">Today's Workout</h1>
-              <p className="text-muted-foreground text-xs">Upper Body • {totalExercises - skipped.size} exercises</p>
+              <h1 className="text-foreground font-display font-bold text-lg">{t("workout.title")}</h1>
+              <p className="text-muted-foreground text-xs">{t("workout.upper_body")} • {totalExercises - skipped.size} {t("dash.exercises", { n: "" }).trim()}</p>
             </div>
           </div>
 
-          {/* Progress bar with percentage */}
           <div className="flex items-center gap-3">
             <div className="flex-1 h-2 rounded-full bg-muted/20 overflow-hidden">
               <motion.div
@@ -105,11 +107,10 @@ const ActiveWorkoutScreen = () => {
                 transition={{ duration: 0.5, ease: "easeOut" }}
               />
             </div>
-            <span className="text-foreground font-display font-bold text-sm tabular-nums w-10 text-right">{progress}%</span>
+            <span className="text-foreground font-display font-bold text-sm tabular-nums w-10 text-end">{progress}%</span>
           </div>
         </div>
 
-        {/* Exercise cards */}
         <div className="flex-1 overflow-y-auto scrollbar-hide px-6 pb-10 space-y-3">
           {exercises.map((exercise, idx) => {
             const isDone = completedExercises.includes(idx);
@@ -124,17 +125,12 @@ const ActiveWorkoutScreen = () => {
                 className={`transition-all duration-300 ${isSkipped ? "opacity-50" : isDone ? "opacity-60" : ""}`}
               >
                 <div className="relative glass-card border border-border/30 rounded-2xl overflow-hidden">
-                  {/* Completion indicator strip */}
-                  <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl transition-colors duration-300 ${
+                  <div className={`absolute ${isRTL ? "right-0" : "left-0"} top-0 bottom-0 w-1 ${isRTL ? "rounded-r-2xl" : "rounded-l-2xl"} transition-colors duration-300 ${
                     isDone ? "bg-primary" : isSkipped ? "bg-destructive/40" : "bg-border/20"
                   }`} />
 
                   <div className="flex items-stretch">
-                    {/* Thumbnail */}
-                    <button
-                      onClick={() => !isSkipped && navigate(`/exercise/${idx}`)}
-                      className="relative w-20 h-auto flex-shrink-0"
-                    >
+                    <button onClick={() => !isSkipped && navigate(`/exercise/${idx}`)} className="relative w-20 h-auto flex-shrink-0">
                       <img src={chestPressImg} alt={exercise.name} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-background/40" />
                       {isDone && (
@@ -144,16 +140,11 @@ const ActiveWorkoutScreen = () => {
                       )}
                     </button>
 
-                    {/* Content */}
-                    <button
-                      onClick={() => !isSkipped && navigate(`/exercise/${idx}`)}
-                      className="flex-1 px-4 py-3 flex flex-col justify-center min-w-0 text-left"
-                    >
+                    <button onClick={() => !isSkipped && navigate(`/exercise/${idx}`)} className="flex-1 px-4 py-3 flex flex-col justify-center min-w-0 text-start">
                       <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium mb-0.5">{exercise.category}</span>
                       <h3 className={`font-display font-bold text-sm text-foreground leading-tight ${isSkipped ? "line-through text-muted-foreground" : isDone ? "line-through decoration-primary/40" : ""}`}>
                         {exercise.name}
                       </h3>
-
                       <div className="flex items-center gap-3 mt-2">
                         <div className="flex items-center gap-1">
                           <Repeat className="w-3 h-3 text-muted-foreground/60" />
@@ -161,44 +152,27 @@ const ActiveWorkoutScreen = () => {
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="w-3 h-3 text-muted-foreground/60" />
-                          <span className="text-[11px] text-muted-foreground">{exercise.rest} rest</span>
+                          <span className="text-[11px] text-muted-foreground">{exercise.rest} {t("workout.rest_label")}</span>
                         </div>
                       </div>
-
                       <div className="flex flex-wrap gap-1 mt-1.5">
                         {exercise.muscles.slice(0, 3).map((m) => (
-                          <span key={m} className="text-[9px] px-1.5 py-0.5 rounded-full bg-muted/15 text-muted-foreground/70 border border-border/20">
-                            {m}
-                          </span>
+                          <span key={m} className="text-[9px] px-1.5 py-0.5 rounded-full bg-muted/15 text-muted-foreground/70 border border-border/20">{m}</span>
                         ))}
                       </div>
                     </button>
 
-                    {/* Action buttons */}
-                    <div className="flex flex-col items-center justify-center gap-1 pr-2">
+                    <div className="flex flex-col items-center justify-center gap-1 pe-2">
                       {isDone ? (
-                        <button
-                          onClick={() => navigate(`/exercise/${idx}`)}
-                          className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground"
-                        >
+                        <button onClick={() => navigate(`/exercise/${idx}`)} className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground">
                           <ChevronRight className="w-4 h-4" />
                         </button>
                       ) : (
                         <>
-                          <button
-                            onClick={() => setReplaceIndex(idx)}
-                            className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-foreground"
-                            title="Replace exercise"
-                          >
+                          <button onClick={() => setReplaceIndex(idx)} className="p-2 rounded-lg hover:bg-muted/20 transition-colors text-muted-foreground hover:text-foreground" title={t("dash.replace")}>
                             <ArrowLeftRight className="w-3.5 h-3.5" />
                           </button>
-                          <button
-                            onClick={() => handleSkip(idx)}
-                            className={`p-2 rounded-lg hover:bg-muted/20 transition-colors ${
-                              isSkipped ? "text-destructive" : "text-muted-foreground hover:text-destructive"
-                            }`}
-                            title={isSkipped ? "Unskip" : "Skip"}
-                          >
+                          <button onClick={() => handleSkip(idx)} className={`p-2 rounded-lg hover:bg-muted/20 transition-colors ${isSkipped ? "text-destructive" : "text-muted-foreground hover:text-destructive"}`}>
                             <X className="w-3.5 h-3.5" />
                           </button>
                         </>
@@ -212,32 +186,27 @@ const ActiveWorkoutScreen = () => {
         </div>
       </div>
 
-      {/* Replace Exercise Sheet */}
       <Sheet open={replaceIndex !== null} onOpenChange={(open) => !open && setReplaceIndex(null)}>
         <SheetContent side="bottom" className="bg-background border-border rounded-t-3xl max-h-[70vh]">
           <SheetHeader className="pb-4">
             <SheetTitle className="text-foreground font-display">
-              Replace {replaceIndex !== null ? exercises[replaceIndex].name : ""}
+              {t("dash.replace")} {replaceIndex !== null ? exercises[replaceIndex].name : ""}
             </SheetTitle>
             <p className="text-xs text-muted-foreground capitalize">
-              Same movement — {replaceCategory}
+              {t("dash.same_movement", { cat: replaceCategory || "" })}
             </p>
           </SheetHeader>
-          <div className="space-y-2 overflow-y-auto max-h-[50vh] pr-1">
+          <div className="space-y-2 overflow-y-auto max-h-[50vh] pe-1">
             {alternatives.map((alt) => (
-              <button
-                key={alt.name}
-                onClick={() => handleReplace(alt)}
-                className="w-full flex items-center justify-between py-3 px-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors text-left"
-              >
+              <button key={alt.name} onClick={() => handleReplace(alt)} className="w-full flex items-center justify-between py-3 px-4 rounded-xl bg-muted/10 hover:bg-muted/20 transition-colors text-start">
                 <div>
                   <span className="text-sm font-medium text-foreground">{alt.name}</span>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] text-muted-foreground">{alt.sets} Sets</span>
+                    <span className="text-[10px] text-muted-foreground">{alt.sets} {t("dash.sets")}</span>
                     <span className="text-muted-foreground/30">·</span>
-                    <span className="text-[10px] text-muted-foreground">{alt.reps} Reps</span>
+                    <span className="text-[10px] text-muted-foreground">{alt.reps} {t("dash.reps")}</span>
                     <span className="text-muted-foreground/30">·</span>
-                    <span className="text-[10px] text-muted-foreground">{alt.rest} Rest</span>
+                    <span className="text-[10px] text-muted-foreground">{alt.rest} {t("dash.rest")}</span>
                   </div>
                 </div>
                 <ChevronRight className="w-4 h-4 text-muted-foreground/30" />
