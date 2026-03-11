@@ -75,6 +75,7 @@ const App = () => (
           </AnimatePresence>
         </BrowserRouter>
       </UserProvider>
+      </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
