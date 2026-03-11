@@ -5,11 +5,13 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Scale } from "lucide-react";
 
 const WeightScreen = () => {
   const navigate = useNavigate();
   const [weight, setWeight] = useState(75);
+  const { t } = useLanguage();
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -25,11 +27,10 @@ const WeightScreen = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">Step 3 of 6</p>
-          <h1 className="font-display text-3xl font-bold leading-tight">What's your<br />weight?</h1>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "3", y: "6" })}</p>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("weight.title1")}<br />{t("weight.title2")}</h1>
         </motion.div>
 
-        {/* Hero value */}
         <motion.div
           className="flex items-baseline justify-center gap-3 mt-10 mb-12"
           initial={{ scale: 0.8, opacity: 0 }}
@@ -40,10 +41,9 @@ const WeightScreen = () => {
             <Scale className="w-5 h-5 text-primary" />
           </div>
           <span className="font-display text-7xl font-bold text-gradient-mint tracking-tight">{weight}</span>
-          <span className="text-muted-foreground text-lg font-medium">kg</span>
+          <span className="text-muted-foreground text-lg font-medium">{t("weight.kg")}</span>
         </motion.div>
 
-        {/* Premium slider */}
         <motion.div
           className="glass-card-strong rounded-2xl p-6"
           initial={{ opacity: 0, y: 20 }}
@@ -62,15 +62,15 @@ const WeightScreen = () => {
             }}
           />
           <div className="flex justify-between mt-4 text-[10px] text-muted-foreground/60">
-            <span>40 kg</span>
-            <span>100 kg</span>
-            <span>160 kg</span>
+            <span>40 {t("weight.kg")}</span>
+            <span>100 {t("weight.kg")}</span>
+            <span>160 {t("weight.kg")}</span>
           </div>
         </motion.div>
 
         <div className="flex-1" />
 
-        <MetafiButton onClick={() => navigate("/birthdate")}>Continue</MetafiButton>
+        <MetafiButton onClick={() => navigate("/birthdate")}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );

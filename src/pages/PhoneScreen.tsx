@@ -5,11 +5,13 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Smartphone, Shield } from "lucide-react";
 
 const PhoneScreen = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState("");
+  const { t, isRTL } = useLanguage();
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -25,8 +27,8 @@ const PhoneScreen = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">Step 6 of 6</p>
-          <h1 className="font-display text-3xl font-bold leading-tight">Enter your<br />phone number</h1>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "6", y: "6" })}</p>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("phone.title1")}<br />{t("phone.title2")}</h1>
         </motion.div>
 
         <motion.div
@@ -38,7 +40,7 @@ const PhoneScreen = () => {
           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
             <Shield className="w-5 h-5 text-primary" />
           </div>
-          <span className="text-muted-foreground text-sm">We'll send a verification code</span>
+          <span className="text-muted-foreground text-sm">{t("phone.hint")}</span>
         </motion.div>
 
         <motion.div
@@ -47,7 +49,7 @@ const PhoneScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="absolute left-5 top-1/2 -translate-y-1/2">
+          <div className={`absolute ${isRTL ? "right-5" : "left-5"} top-1/2 -translate-y-1/2`}>
             <Smartphone className="w-5 h-5 text-muted-foreground/40" />
           </div>
           <input
@@ -55,15 +57,16 @@ const PhoneScreen = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+1 (555) 000-0000"
-            className="w-full text-lg py-5 pl-14 pr-6 rounded-2xl glass-card-strong bg-transparent focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground/20 transition-all"
+            className={`w-full text-lg py-5 ${isRTL ? "pr-14 pl-6" : "pl-14 pr-6"} rounded-2xl glass-card-strong bg-transparent focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground/20 transition-all`}
             autoFocus
+            dir="ltr"
           />
         </motion.div>
 
         <div className="flex-1 min-h-[60px]" />
 
         <MetafiButton onClick={() => navigate("/otp")} disabled={phone.length < 6}>
-          Send Code
+          {t("phone.send")}
         </MetafiButton>
       </div>
     </MetafiScreen>

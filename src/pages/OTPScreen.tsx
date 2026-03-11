@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Lock } from "lucide-react";
 
 const OTPScreen = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const { t } = useLanguage();
 
   const handleChange = (index: number, value: string) => {
     if (value.length > 1) return;
@@ -41,12 +43,13 @@ const OTPScreen = () => {
             >
               <Lock className="w-7 h-7 text-primary" />
             </motion.div>
-            <h1 className="font-display text-3xl font-bold">Verify your number</h1>
-            <p className="text-muted-foreground text-sm mt-3">Enter the 6-digit code we sent you</p>
+            <h1 className="font-display text-3xl font-bold">{t("otp.title")}</h1>
+            <p className="text-muted-foreground text-sm mt-3">{t("otp.hint")}</p>
           </motion.div>
 
           <motion.div
             className="flex gap-2.5 justify-center"
+            dir="ltr"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -68,19 +71,19 @@ const OTPScreen = () => {
           </motion.div>
 
           <motion.button
-            className="text-primary/70 text-xs mt-8 text-center hover:text-primary transition-colors"
+            className="text-primary/70 text-xs mt-8 text-center w-full hover:text-primary transition-colors"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Didn't receive a code? Resend
+            {t("otp.resend")}
           </motion.button>
         </div>
 
         <div className="flex-1" />
 
         <MetafiButton onClick={() => navigate("/verified")} disabled={otp.some((d) => !d)}>
-          Verify
+          {t("otp.verify")}
         </MetafiButton>
       </div>
     </MetafiScreen>

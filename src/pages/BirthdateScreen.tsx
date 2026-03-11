@@ -5,6 +5,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { CalendarDays } from "lucide-react";
 
 const BirthdateScreen = () => {
@@ -12,6 +13,7 @@ const BirthdateScreen = () => {
   const [day, setDay] = useState("15");
   const [month, setMonth] = useState("06");
   const [year, setYear] = useState("1995");
+  const { t } = useLanguage();
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -27,8 +29,8 @@ const BirthdateScreen = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">Step 4 of 6</p>
-          <h1 className="font-display text-3xl font-bold leading-tight">When were<br />you born?</h1>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "4", y: "6" })}</p>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("birthdate.title1")}<br />{t("birthdate.title2")}</h1>
         </motion.div>
 
         <motion.div
@@ -40,7 +42,7 @@ const BirthdateScreen = () => {
           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
             <CalendarDays className="w-5 h-5 text-primary" />
           </div>
-          <span className="text-muted-foreground text-sm">Enter your date of birth</span>
+          <span className="text-muted-foreground text-sm">{t("birthdate.hint")}</span>
         </motion.div>
 
         <motion.div
@@ -50,9 +52,9 @@ const BirthdateScreen = () => {
           transition={{ delay: 0.2 }}
         >
           {[
-            { label: "Day", value: day, setter: setDay, placeholder: "DD", max: 2 },
-            { label: "Month", value: month, setter: setMonth, placeholder: "MM", max: 2 },
-            { label: "Year", value: year, setter: setYear, placeholder: "YYYY", max: 4 },
+            { label: t("birthdate.day"), value: day, setter: setDay, placeholder: "DD", max: 2 },
+            { label: t("birthdate.month"), value: month, setter: setMonth, placeholder: "MM", max: 2 },
+            { label: t("birthdate.year"), value: year, setter: setYear, placeholder: "YYYY", max: 4 },
           ].map((field) => (
             <div key={field.label} className="flex-1 flex flex-col items-center gap-3">
               <label className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em]">{field.label}</label>
@@ -70,7 +72,7 @@ const BirthdateScreen = () => {
 
         <div className="flex-1" />
 
-        <MetafiButton onClick={() => navigate("/name")}>Continue</MetafiButton>
+        <MetafiButton onClick={() => navigate("/name")}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );

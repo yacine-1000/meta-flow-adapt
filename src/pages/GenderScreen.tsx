@@ -12,16 +12,16 @@ import { Check } from "lucide-react";
 const GenderScreen = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<string | null>(null);
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
 
   const options = [
-    { id: "male", label: t("male") },
-    { id: "female", label: t("female") },
+    { id: "male", label: t("gender.male") },
+    { id: "female", label: t("gender.female") },
   ];
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
-      <div className={`flex flex-col min-h-screen px-6 pt-14 pb-8 ${isRTL ? "text-right" : ""}`} dir={isRTL ? "rtl" : "ltr"}>
+      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <LanguageSwitch />
         <ProgressBar step={1} total={6} />
 
@@ -35,11 +35,9 @@ const GenderScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">
-            {t("step_x_of_y").replace("{x}", "1").replace("{y}", "6")}
-          </p>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "1", y: "6" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">
-            {t("whats_your_gender")}<br />{t("gender")}
+            {t("gender.title1")}<br />{t("gender.title2")}
           </h1>
         </motion.div>
 
@@ -51,14 +49,14 @@ const GenderScreen = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
               onClick={() => setSelected(opt.id)}
-              className={`relative w-full rounded-2xl text-left transition-all duration-300 overflow-hidden ${
+              className={`relative w-full rounded-2xl text-start transition-all duration-300 overflow-hidden ${
                 selected === opt.id
                   ? "chip-selected shadow-glow-sm"
                   : "glass-card hover:border-primary/10"
               }`}
             >
-              <div className={`flex items-center justify-between p-6 ${isRTL ? "flex-row-reverse" : ""}`}>
-                <div className={`flex items-center gap-5 ${isRTL ? "flex-row-reverse" : ""}`}>
+              <div className="flex items-center justify-between p-6">
+                <div className="flex items-center gap-5">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
                     selected === opt.id ? "bg-primary/20" : "bg-muted/20"
                   }`}>
