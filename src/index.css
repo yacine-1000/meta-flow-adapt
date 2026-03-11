@@ -78,6 +78,15 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+
+  [dir="rtl"] body,
+  [dir="rtl"] {
+    font-family: 'Noto Sans Arabic', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  [dir="rtl"] .font-display {
+    font-family: 'Noto Sans Arabic', 'Space Grotesk', 'Inter', sans-serif;
+  }
 }
 
 @layer utilities {
