@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { UserProvider } from "@/contexts/UserContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import SplashScreen from "./pages/SplashScreen";
 import GenderScreen from "./pages/GenderScreen";
 import HeightScreen from "./pages/HeightScreen";
