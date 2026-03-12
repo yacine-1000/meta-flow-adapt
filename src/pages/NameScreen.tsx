@@ -31,13 +31,11 @@ const NameScreen = () => {
         </div>
 
         <motion.div
-          className="mt-8"
+          className="mt-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "5", y: "8" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("name.title1")}<br />{t("name.title2")}</h1>
-          <p className="text-muted-foreground text-sm mt-3">{t("name.hint")}</p>
         </motion.div>
 
         <motion.div
