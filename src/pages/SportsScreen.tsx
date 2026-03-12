@@ -5,6 +5,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useUser } from "@/contexts/UserContext";
 import { Check } from "lucide-react";
 
 const SportIcon = ({ sport, active }: { sport: string; active: boolean }) => {
@@ -36,6 +37,7 @@ const SportsScreen = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<string[]>([]);
   const { t } = useLanguage();
+  const { setSelectedSports } = useUser();
 
   const toggle = (id: string) =>
     setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
@@ -82,7 +84,7 @@ const SportsScreen = () => {
           </div>
         </div>
 
-        <MetafiButton onClick={() => navigate("/focus")}>{t("continue")}</MetafiButton>
+        <MetafiButton onClick={() => { setSelectedSports(selected); navigate("/focus"); }}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );

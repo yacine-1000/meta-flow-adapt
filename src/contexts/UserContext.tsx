@@ -5,6 +5,8 @@ interface UserContextType {
   setUserName: (name: string) => void;
   userPhone: string;
   setUserPhone: (phone: string) => void;
+  selectedSports: string[];
+  setSelectedSports: (sports: string[]) => void;
   completedExercises: number[];
   markExerciseDone: (index: number) => void;
   workoutDone: boolean;
@@ -20,6 +22,8 @@ const UserContext = createContext<UserContextType>({
   setUserName: () => {},
   userPhone: "",
   setUserPhone: () => {},
+  selectedSports: [],
+  setSelectedSports: () => {},
   completedExercises: [],
   markExerciseDone: () => {},
   workoutDone: false,
@@ -35,6 +39,7 @@ const TOTAL_EXERCISES = 6;
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState("");
+  const [selectedSports, setSelectedSports] = useState<string[]>([]);
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
   const [workoutDone, setWorkoutDone] = useState(false);
   const [streak, setStreak] = useState(3);
@@ -68,6 +73,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setUserName,
         userPhone,
         setUserPhone,
+        selectedSports,
+        setSelectedSports,
         completedExercises,
         markExerciseDone,
         workoutDone,

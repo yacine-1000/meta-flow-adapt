@@ -5,12 +5,13 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useUser } from "@/contexts/UserContext";
 import { Plus, X, Calendar, Check } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const dayKeys = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
-const sportKeys = [
+const allSportKeys = [
   "football", "padel", "pilates", "yoga", "tennis", "running",
   "hiking", "mma", "boxing", "swimming", "cycling", "basketball",
 ];
@@ -26,6 +27,8 @@ interface Activity {
 const ActivitiesScreen = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { selectedSports } = useUser();
+  const sportKeys = selectedSports.length > 0 ? selectedSports : allSportKeys;
 
   const [activities, setActivities] = useState<Record<string, Activity[]>>({});
   const [addingDay, setAddingDay] = useState<string | null>(null);
