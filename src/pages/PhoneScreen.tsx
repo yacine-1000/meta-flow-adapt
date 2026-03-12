@@ -7,11 +7,13 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
 import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useUser } from "@/contexts/UserContext";
 
 const PhoneScreen = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState("");
   const { t, isRTL } = useLanguage();
+  const { setUserPhone } = useUser();
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
@@ -52,7 +54,7 @@ const PhoneScreen = () => {
 
         <div className="flex-1 min-h-[60px]" />
 
-        <MetafiButton onClick={() => navigate("/otp")} disabled={phone.length < 6}>
+        <MetafiButton onClick={() => { setUserPhone(phone); navigate("/otp"); }} disabled={phone.length < 6}>
           {t("phone.send")}
         </MetafiButton>
       </div>

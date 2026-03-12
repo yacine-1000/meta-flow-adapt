@@ -85,6 +85,19 @@ const translations: Record<string, Record<Language, string>> = {
   "nav.plan": { en: "Plan", ar: "الخطة" },
   "nav.profile": { en: "Profile", ar: "الملف" },
 
+  // Profile
+  "profile.title": { en: "Profile", ar: "الملف الشخصي" },
+  "profile.pro": { en: "PRO", ar: "PRO" },
+  "profile.workout": { en: "Workout", ar: "التمرين" },
+  "profile.change_plan": { en: "Change Plan", ar: "تغيير الخطة" },
+  "profile.personal_info": { en: "Personal Info", ar: "المعلومات الشخصية" },
+  "profile.account": { en: "Account", ar: "الحساب" },
+  "profile.subscription": { en: "Subscription", ar: "الاشتراك" },
+  "profile.contact_us": { en: "Contact Us", ar: "تواصل معنا" },
+  "profile.legal": { en: "Legal", ar: "قانوني" },
+  "profile.privacy_policy": { en: "Privacy Policy", ar: "سياسة الخصوصية" },
+  "profile.terms": { en: "Terms of Service", ar: "شروط الاستخدام" },
+
   // Sports
   "sports.title1": { en: "What sports", ar: "ما الرياضات التي" },
   "sports.title2": { en: "do you play?", ar: "تمارسها؟" },
