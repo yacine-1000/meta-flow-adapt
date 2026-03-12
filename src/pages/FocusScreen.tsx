@@ -15,9 +15,9 @@ const FocusScreen = () => {
   });
 
   const focusAreas = [
-    { id: "lifting", label: t("focus.weight_lifting"), icon: Dumbbell },
-    { id: "tennis", label: t("sport.tennis"), icon: Activity },
-    { id: "running", label: t("sport.running"), icon: Footprints },
+    { id: "lifting", label: t("focus.weight_lifting") },
+    { id: "tennis", label: t("sport.tennis") },
+    { id: "running", label: t("sport.running") },
   ];
 
   const update = (id: string, val: number) => setValues((v) => ({ ...v, [id]: val }));
