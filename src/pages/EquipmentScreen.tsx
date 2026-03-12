@@ -5,7 +5,19 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Check, Dumbbell } from "lucide-react";
+import { Check, Dumbbell, Cog, RectangleHorizontal, Cable, Weight, CircleDot, PersonStanding } from "lucide-react";
+
+const equipmentIcons: Record<string, React.ElementType> = {
+  dumbbells: Dumbbell,
+  barbell: Weight,
+  kettlebells: CircleDot,
+  cable: Cable,
+  weight_machines: Cog,
+  adj_bench: RectangleHorizontal,
+  flat_bench: RectangleHorizontal,
+  resistance_bands: CircleDot,
+  bodyweight: PersonStanding,
+};
 
 const EquipmentScreen = () => {
   const navigate = useNavigate();
