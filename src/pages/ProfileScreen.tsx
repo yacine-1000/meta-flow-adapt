@@ -59,7 +59,7 @@ const ProfileScreen = () => {
             background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
             backdropFilter: "blur(40px)",
             WebkitBackdropFilter: "blur(40px)",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.06)",
+            boxShadow: "0 2px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
