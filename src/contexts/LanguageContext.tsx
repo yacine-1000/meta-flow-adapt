@@ -156,8 +156,7 @@ const translations: Record<string, Record<Language, string>> = {
   "day.Su": { en: "S", ar: "ح" },
 
   // Equipment
-  "equipment.title": { en: "Equipment", ar: "المعدّات" },
-  "equipment.hint": { en: "What do you have access to?", ar: "ما المعدّات المتوفرة لديك؟" },
+  "equipment.title": { en: "What equipment do you have?", ar: "ما المعدّات المتوفرة لديك؟" },
   "equipment.select_all": { en: "Select All", ar: "اختر الكل" },
   "equipment.free_weights": { en: "Free Weights", ar: "أوزان حرة" },
   "equipment.machines": { en: "Machines", ar: "أجهزة" },
