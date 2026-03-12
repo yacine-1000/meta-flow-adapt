@@ -343,15 +343,10 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Share Card
   "share.streak_points": { en: "Streak Points", ar: "نقاط السلسلة" },
-  "share.current_streak": { en: "Current Streak", ar: "السلسلة الحالية" },
-  "share.total_workouts": { en: "Total Workouts", ar: "إجمالي التمارين" },
-  "share.this_week": { en: "This Week", ar: "هذا الأسبوع" },
-  "share.days": { en: "{n} days", ar: "{n} أيام" },
   "share.workouts": { en: "{n} workouts", ar: "{n} تمرين" },
-  "share.weekly_workouts": { en: "{n} this week", ar: "{n} هذا الأسبوع" },
-  "share.affirmation": { en: "{name} has been locked in: {streak}-day streak, {total} workouts completed, {week} this week.", ar: "{name} ملتزم بالكامل: سلسلة {streak} يوم، {total} تمرين مكتمل، {week} هذا الأسبوع." },
-  "share.share": { en: "Share", ar: "مشاركة" },
-  "share.save": { en: "Save", ar: "حفظ" },
+  "share.trained_this_week": { en: "trained this week", ar: "تدرّب هذا الأسبوع" },
+  "share.affirmation": { en: "{name} has been too consistent lately", ar: "{name} كان ملتزمًا بشكل لافت مؤخرًا" },
+  "share.brand": { en: "Metafi", ar: "تطبيق متعافي" },
 };
 
 const LanguageContext = createContext<LanguageContextType>({
