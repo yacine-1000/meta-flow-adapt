@@ -5,6 +5,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useUser } from "@/contexts/UserContext";
 import { Check } from "lucide-react";
 
 const SportIcon = ({ sport, active }: { sport: string; active: boolean }) => {
