@@ -3,6 +3,8 @@ import { createContext, useContext, useState, ReactNode } from "react";
 interface UserContextType {
   userName: string;
   setUserName: (name: string) => void;
+  userPhone: string;
+  setUserPhone: (phone: string) => void;
   completedExercises: number[];
   markExerciseDone: (index: number) => void;
   workoutDone: boolean;
@@ -16,6 +18,8 @@ interface UserContextType {
 const UserContext = createContext<UserContextType>({
   userName: "",
   setUserName: () => {},
+  userPhone: "",
+  setUserPhone: () => {},
   completedExercises: [],
   markExerciseDone: () => {},
   workoutDone: false,
@@ -30,6 +34,7 @@ const TOTAL_EXERCISES = 6;
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userName, setUserName] = useState("");
+  const [userPhone, setUserPhone] = useState("");
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
   const [workoutDone, setWorkoutDone] = useState(false);
   const [streak, setStreak] = useState(3);
@@ -46,7 +51,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       return next;
     });
     setJustCompleted(true);
-    // Check completion after update using functional access
     setCompletedExercises((current) => {
       if (current.length >= TOTAL_EXERCISES && !workoutDone) {
         setWorkoutDone(true);
@@ -62,6 +66,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       value={{
         userName,
         setUserName,
+        userPhone,
+        setUserPhone,
         completedExercises,
         markExerciseDone,
         workoutDone,

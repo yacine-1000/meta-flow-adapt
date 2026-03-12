@@ -340,7 +340,7 @@ const DashboardScreen = () => {
             {[
               { icon: Home, label: t("nav.home"), active: true, path: "/dashboard" },
               { icon: Dumbbell, label: t("nav.plan"), active: false, path: "/plan" },
-              { icon: User, label: t("nav.profile"), active: false, path: "/dashboard" },
+              { icon: User, label: t("nav.profile"), active: false, path: "/profile" },
             ].map((item) => (
               <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/30"}`} />

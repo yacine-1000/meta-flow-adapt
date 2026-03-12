@@ -54,7 +54,7 @@ const PhoneScreen = () => {
 
         <div className="flex-1 min-h-[60px]" />
 
-        <MetafiButton onClick={() => navigate("/otp")} disabled={phone.length < 6}>
+        <MetafiButton onClick={() => { setUserPhone(phone); navigate("/otp"); }} disabled={phone.length < 6}>
           {t("phone.send")}
         </MetafiButton>
       </div>
