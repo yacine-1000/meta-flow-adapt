@@ -123,8 +123,7 @@ const translations: Record<string, Record<Language, string>> = {
   "focus.top_priority": { en: "Top priority", ar: "أولوية قصوى" },
 
   // Activities
-  "activities.title": { en: "Weekly Activities", ar: "الأنشطة الأسبوعية" },
-  "activities.hint": { en: "Log your sports for each day", ar: "سجّل رياضاتك لكل يوم" },
+  "activities.title": { en: "What does your week look like?", ar: "كيف يبدو أسبوعك؟" },
   "activities.add": { en: "Add Activity", ar: "أضف نشاط" },
   "activities.select_sport": { en: "Select Sport", ar: "اختر الرياضة" },
   "activities.select_duration": { en: "Duration (min)", ar: "المدة (دقيقة)" },
