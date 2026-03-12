@@ -171,7 +171,7 @@ const DashboardScreen = () => {
         >
           {weekDays.map((d, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
-              <span className="text-[10px] text-muted-foreground">{t(`day.${d.shortKey}`)}</span>
+              <span className="text-[9px] text-muted-foreground font-medium">{t(`day.${d.shortKey}`)}</span>
               <div className={`w-full aspect-square rounded-xl flex items-center justify-center text-xs font-medium transition-all ${
                 d.done ? "bg-primary/20 border border-primary/40 text-primary" :
                 d.active ? "glass-card-strong border border-primary/20" :
