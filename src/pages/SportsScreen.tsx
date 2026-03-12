@@ -74,7 +74,15 @@ const SportsScreen = () => {
           </div>
         </div>
 
-        <MetafiButton onClick={() => { setSelectedSports(selected); navigate("/focus"); }}>{t("continue")}</MetafiButton>
+        <div className="space-y-3">
+          <MetafiButton onClick={() => { setSelectedSports(selected); navigate("/focus"); }}>{t("continue")}</MetafiButton>
+          <button
+            onClick={() => { setSelectedSports([]); navigate("/focus"); }}
+            className="w-full text-center text-sm text-muted-foreground/50 hover:text-muted-foreground transition-colors py-2"
+          >
+            {t("skip")}
+          </button>
+        </div>
       </div>
     </MetafiScreen>
   );
