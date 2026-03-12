@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
-import { MetafiButton } from "@/components/MetafiButton";
 import { useUser } from "@/contexts/UserContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CheckCircle } from "lucide-react";
@@ -10,6 +10,11 @@ const VerifiedScreen = () => {
   const navigate = useNavigate();
   const { userName } = useUser();
   const { t } = useLanguage();
+
+  useEffect(() => {
+    const timer = setTimeout(() => navigate("/home"), 2500);
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="strong">
@@ -51,14 +56,14 @@ const VerifiedScreen = () => {
         </motion.p>
 
         <motion.div
-          className="w-full mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
+          className="mt-12 flex items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.6, 0.3, 0.6] }}
+          transition={{ delay: 1, duration: 2, repeat: Infinity }}
         >
-          <MetafiButton onClick={() => navigate("/home")}>
-            {t("verified.start")}
-          </MetafiButton>
+          <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
+          <div className="w-1.5 h-1.5 rounded-full bg-primary/30" />
+          <div className="w-1.5 h-1.5 rounded-full bg-primary/20" />
         </motion.div>
       </div>
     </MetafiScreen>

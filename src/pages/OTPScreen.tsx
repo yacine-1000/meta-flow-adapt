@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { ProgressBar } from "@/components/ProgressBar";
+import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Lock } from "lucide-react";
 
 const OTPScreen = () => {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ const OTPScreen = () => {
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
-      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
+      <FloatingOrbs />
+      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8 relative z-10">
+        <ProgressBar step={7} total={8} />
+
         <div className="mt-2">
           <BackButton to="/phone" />
         </div>
@@ -35,14 +39,6 @@ const OTPScreen = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <motion.div
-              className="w-16 h-16 rounded-2xl bg-primary/10 mx-auto flex items-center justify-center mb-6"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.1 }}
-            >
-              <Lock className="w-7 h-7 text-primary" />
-            </motion.div>
             <h1 className="font-display text-3xl font-bold">{t("otp.title")}</h1>
             <p className="text-muted-foreground text-sm mt-3">{t("otp.hint")}</p>
           </motion.div>

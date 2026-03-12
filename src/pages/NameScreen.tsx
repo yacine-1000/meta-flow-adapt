@@ -5,9 +5,9 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useUser } from "@/contexts/UserContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { UserCircle } from "lucide-react";
 
 const NameScreen = () => {
   const navigate = useNavigate();
@@ -22,8 +22,9 @@ const NameScreen = () => {
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
-      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
-        <ProgressBar step={5} total={6} />
+      <FloatingOrbs />
+      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8 relative z-10">
+        <ProgressBar step={5} total={8} />
 
         <div className="mt-4">
           <BackButton to="/birthdate" />
@@ -34,26 +35,16 @@ const NameScreen = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "5", y: "6" })}</p>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "5", y: "8" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("name.title1")}<br />{t("name.title2")}</h1>
-        </motion.div>
-
-        <motion.div
-          className="flex items-center gap-3 mt-8 mb-8 justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15 }}
-        >
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <UserCircle className="w-5 h-5 text-primary" />
-          </div>
-          <span className="text-muted-foreground text-sm">{t("name.hint")}</span>
+          <p className="text-muted-foreground text-sm mt-3">{t("name.hint")}</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
+          className="mt-10"
         >
           <input
             type="text"

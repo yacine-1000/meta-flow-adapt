@@ -5,7 +5,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Check, Dumbbell, Gem, Zap, Target } from "lucide-react";
+import { Check, Dumbbell, Gem, Flame, Target } from "lucide-react";
 
 const GoalScreen = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const GoalScreen = () => {
   const goals = [
     { id: "strength", label: t("goal.strength"), desc: t("goal.strength_desc"), icon: Dumbbell },
     { id: "muscle", label: t("goal.muscle"), desc: t("goal.muscle_desc"), icon: Gem },
-    { id: "performance", label: t("goal.performance"), desc: t("goal.performance_desc"), icon: Zap },
+    { id: "cut_build", label: t("goal.cut_build"), desc: t("goal.cut_build_desc"), icon: Flame },
     { id: "general", label: t("goal.general"), desc: t("goal.general_desc"), icon: Target },
   ];
 

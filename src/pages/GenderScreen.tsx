@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
-import { BackButton } from "@/components/NavLink";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Check } from "lucide-react";
 
@@ -21,21 +21,18 @@ const GenderScreen = () => {
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
-      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
+      <FloatingOrbs />
+      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8 relative z-10">
         <LanguageSwitch />
-        <ProgressBar step={1} total={6} />
-
-        <div className="mt-4">
-          <BackButton to="/" />
-        </div>
+        <ProgressBar step={1} total={8} />
 
         <motion.div
-          className="mt-8"
+          className="mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "1", y: "6" })}</p>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "1", y: "8" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">
             {t("gender.title1")}<br />{t("gender.title2")}
           </h1>

@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
+import { WorkoutCelebration } from "@/components/WorkoutCelebration";
 import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X, Check } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useUser } from "@/contexts/UserContext";
@@ -68,6 +69,8 @@ const DashboardScreen = () => {
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [displayStreak, setDisplayStreak] = useState(streak);
 
   const weekDays = weekDaysBase.map((d, i) => ({
     ...d,
@@ -100,16 +103,29 @@ const DashboardScreen = () => {
   };
 
   useEffect(() => {
-    if (justCompleted) {
-      const timer = setTimeout(() => clearJustCompleted(), 4000);
-      return () => clearTimeout(timer);
+    if (justCompleted && workoutDone) {
+      setDisplayStreak(streak - 1);
+      setShowCelebration(true);
     }
-  }, [justCompleted, clearJustCompleted]);
+  }, [justCompleted, workoutDone]);
+
+  const handleCelebrationComplete = useCallback(() => {
+    setShowCelebration(false);
+    setDisplayStreak(streak);
+    clearJustCompleted();
+  }, [streak, clearJustCompleted]);
+
+  useEffect(() => {
+    if (!showCelebration) {
+      setDisplayStreak(streak);
+    }
+  }, [streak, showCelebration]);
 
   const navigate = useNavigate();
 
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
+      <WorkoutCelebration trigger={showCelebration} onComplete={handleCelebrationComplete} />
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
         {/* Header */}
         <motion.div
@@ -117,10 +133,22 @@ const DashboardScreen = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <div className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1 h-10">
+          <motion.div
+            className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1 h-10"
+            animate={showCelebration ? {} : {}}
+            key={displayStreak}
+          >
             <Flame className="w-3.5 h-3.5 text-primary" />
-            <span className="text-xs font-bold">{streak}</span>
-          </div>
+            <motion.span
+              className="text-xs font-bold"
+              key={displayStreak}
+              initial={justCompleted ? { scale: 1.5, color: "#95FFC3" } : {}}
+              animate={{ scale: 1, color: "inherit" }}
+              transition={{ duration: 0.4 }}
+            >
+              {displayStreak}
+            </motion.span>
+          </motion.div>
           <img src={metafiIcon} alt="Metafi" className="w-10 h-10 object-contain" />
         </motion.div>
 
@@ -196,8 +224,6 @@ const DashboardScreen = () => {
         {/* Today's workout card */}
         <div className="relative mt-6">
           <div className="absolute -z-10 -top-10 -right-8 w-44 h-44 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.10) 0%, transparent 70%)" }} />
-          <div className="absolute -z-10 top-1/2 -left-10 w-32 h-32 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(109,235,255,0.07) 0%, transparent 70%)" }} />
-          <div className="absolute -z-10 -bottom-8 right-1/4 w-36 h-36 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.08) 0%, transparent 70%)" }} />
         <motion.div
           className="relative rounded-3xl p-6 overflow-hidden border border-white/[0.08]"
           style={{

@@ -29,11 +29,14 @@ const translations: Record<string, Record<Language, string>> = {
   "height.title1": { en: "How tall", ar: "كم يبلغ" },
   "height.title2": { en: "are you?", ar: "طولك؟" },
   "height.cm": { en: "cm", ar: "سم" },
+  "height.inch": { en: "inch", ar: "إنش" },
+  "height.ft": { en: "ft", ar: "قدم" },
 
   // Weight
   "weight.title1": { en: "What's your", ar: "كم يبلغ" },
   "weight.title2": { en: "weight?", ar: "وزنك؟" },
   "weight.kg": { en: "kg", ar: "كغ" },
+  "weight.lbs": { en: "lbs", ar: "رطل" },
 
   // Birthdate
   "birthdate.title1": { en: "When were", ar: "ما هو تاريخ" },
@@ -109,7 +112,16 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Activities
   "activities.title": { en: "Weekly Activities", ar: "الأنشطة الأسبوعية" },
-  "activities.hint": { en: "Add sports to each day of the week", ar: "أضف الرياضات لكل يوم من الأسبوع" },
+  "activities.hint": { en: "Log your sports for each day", ar: "سجّل رياضاتك لكل يوم" },
+  "activities.add": { en: "Add Activity", ar: "أضف نشاط" },
+  "activities.select_sport": { en: "Select Sport", ar: "اختر الرياضة" },
+  "activities.select_duration": { en: "Duration (min)", ar: "المدة (دقيقة)" },
+  "activities.select_intensity": { en: "Intensity", ar: "الشدّة" },
+  "activities.easy": { en: "Easy", ar: "سهل" },
+  "activities.moderate": { en: "Moderate", ar: "متوسط" },
+  "activities.hard": { en: "Hard", ar: "قوي" },
+  "activities.add_confirm": { en: "Add", ar: "أضف" },
+
   "day.monday": { en: "Monday", ar: "الإثنين" },
   "day.tuesday": { en: "Tuesday", ar: "الثلاثاء" },
   "day.wednesday": { en: "Wednesday", ar: "الأربعاء" },
@@ -136,19 +148,20 @@ const translations: Record<string, Record<Language, string>> = {
   "equipment.title": { en: "Equipment", ar: "المعدّات" },
   "equipment.hint": { en: "What do you have access to?", ar: "ما المعدّات المتوفرة لديك؟" },
   "equipment.select_all": { en: "Select All", ar: "اختر الكل" },
-  "equipment.benches": { en: "Benches", ar: "مقاعد" },
   "equipment.free_weights": { en: "Free Weights", ar: "أوزان حرة" },
-  "equipment.cables_machines": { en: "Cables & Machines", ar: "كابلات وأجهزة" },
-  "equip.flat_bench": { en: "Flat bench press", ar: "مقعد ضغط مسطح" },
-  "equip.incline_bench": { en: "Incline bench press", ar: "مقعد ضغط مائل" },
-  "equip.shoulder_press": { en: "Shoulder press machine", ar: "جهاز ضغط الكتف" },
+  "equipment.machines": { en: "Machines", ar: "أجهزة" },
+  "equipment.benches": { en: "Benches", ar: "مقاعد" },
+  "equipment.accessories": { en: "Accessories", ar: "إكسسوارات" },
+  "equipment.minimal": { en: "Minimal Setup", ar: "أدنى تجهيز" },
   "equip.dumbbells": { en: "Dumbbells", ar: "دمبلز" },
-  "equip.barbell": { en: "Barbell + plates", ar: "بار + أوزان" },
+  "equip.barbell": { en: "Barbell", ar: "بار حديد" },
   "equip.kettlebells": { en: "Kettlebells", ar: "كيتل بيل" },
-  "equip.cable": { en: "Cable machine", ar: "جهاز كابل" },
-  "equip.lat_pulldown": { en: "Lat pulldown / row machine", ar: "جهاز سحب علوي / تجديف" },
-  "equip.leg_press": { en: "Leg press", ar: "جهاز ضغط الأرجل" },
-  "equip.smith": { en: "Smith machine", ar: "جهاز سميث" },
+  "equip.cable": { en: "Cable Machines", ar: "أجهزة كابل" },
+  "equip.weight_machines": { en: "Weight Machines", ar: "أجهزة أوزان" },
+  "equip.adj_bench": { en: "Adjustable Bench (Incline / Decline)", ar: "مقعد قابل للتعديل (مائل / منحدر)" },
+  "equip.flat_bench": { en: "Flat Bench", ar: "مقعد مسطح" },
+  "equip.resistance_bands": { en: "Resistance Bands", ar: "أشرطة مقاومة" },
+  "equip.bodyweight": { en: "Bodyweight Only", ar: "وزن الجسم فقط" },
 
   // Injuries
   "injuries.title": { en: "Pain & Injuries", ar: "الألم والإصابات" },
@@ -201,8 +214,8 @@ const translations: Record<string, Record<Language, string>> = {
   "goal.strength_desc": { en: "Get stronger with progressive overload", ar: "ازدد قوة مع التحميل التدريجي" },
   "goal.muscle": { en: "Build Muscle", ar: "بناء العضلات" },
   "goal.muscle_desc": { en: "Hypertrophy-focused training", ar: "تدريب يركّز على تضخيم العضلات" },
-  "goal.performance": { en: "Athletic Performance", ar: "أداء رياضي" },
-  "goal.performance_desc": { en: "Improve sport-specific power", ar: "تحسين القوة الخاصة بالرياضة" },
+  "goal.cut_build": { en: "Cut Fat, Build Muscle", ar: "حرق الدهون وبناء العضلات" },
+  "goal.cut_build_desc": { en: "Lean out while building strength", ar: "انحف مع بناء القوة" },
   "goal.general": { en: "General Fitness", ar: "لياقة عامة" },
   "goal.general_desc": { en: "Stay fit and balanced", ar: "حافظ على لياقتك وتوازنك" },
 
@@ -212,6 +225,7 @@ const translations: Record<string, Record<Language, string>> = {
   "lifting.hint": { en: "We'll plan around your existing activities", ar: "سنبني الخطة حول أنشطتك الحالية" },
   "lifting.day": { en: "Lifting day", ar: "يوم تمرين" },
   "lifting.generate": { en: "Generate My Plan", ar: "أنشئ خطتي" },
+  "lifting.sport_day": { en: "Sport day", ar: "يوم رياضة" },
 
   // Generating
   "gen.step1": { en: "Analyzing your schedule", ar: "نحلّل جدولك" },
@@ -235,7 +249,7 @@ const translations: Record<string, Record<Language, string>> = {
   "dash.reps": { en: "Reps", ar: "تكرارات" },
   "dash.rest": { en: "Rest", ar: "راحة" },
   "dash.start_workout": { en: "Start Workout", ar: "ابدأ التمرين" },
-  "dash.workout_complete": { en: "Workout Complete ✓", ar: "✓ التمرين مكتمل" },
+  "dash.workout_complete": { en: "Workout Complete", ar: "التمرين مكتمل" },
   "dash.replace": { en: "Replace", ar: "استبدال" },
   "dash.same_movement": { en: "Same movement — {cat}", ar: "نفس الحركة — {cat}" },
 
@@ -274,7 +288,7 @@ const translations: Record<string, Record<Language, string>> = {
   "exercise.max_effort": { en: "Max Effort", ar: "أقصى جهد" },
   "exercise.pain_q": { en: "Was there any pain?", ar: "هل شعرت بأي ألم؟" },
   "exercise.pain_hint": { en: "Not soreness — sharp, unusual, or joint pain", ar: "ليس التعب العادي — ألم حاد أو غير معتاد" },
-  "exercise.no_pain": { en: "No Pain ✓", ar: "✓ لا ألم" },
+  "exercise.no_pain": { en: "No Pain", ar: "لا ألم" },
   "exercise.yes": { en: "Yes", ar: "نعم" },
   "exercise.where_pain": { en: "Where was the pain?", ar: "أين كان الألم؟" },
   "exercise.select_location": { en: "Select location", ar: "اختر الموقع" },
@@ -302,6 +316,7 @@ const translations: Record<string, Record<Language, string>> = {
   // Intensity
   "intensity.moderate": { en: "Moderate", ar: "متوسط" },
   "intensity.hard": { en: "Hard", ar: "عالي" },
+  "intensity.easy": { en: "Easy", ar: "سهل" },
 
   // Plan screen types
   "type.lifting": { en: "lifting", ar: "تمرين" },
@@ -322,6 +337,9 @@ const translations: Record<string, Record<Language, string>> = {
   "instr.2": { en: "Grab both handles and bring them together in front of your chest.", ar: "أمسك بكلا المقبضين واجمعهما أمام صدرك." },
   "instr.3": { en: "Press the handles forward and inward, squeezing your chest at peak contraction.", ar: "ادفع المقابض للأمام وللداخل مع شد عضلات الصدر عند أقصى انقباض." },
   "instr.4": { en: "Slowly return to starting position with control.", ar: "عُد ببطء إلى وضع البداية بتحكم." },
+
+  // Duration
+  "duration.min": { en: "{n} min", ar: "{n} دقيقة" },
 };
 
 const LanguageContext = createContext<LanguageContextType>({

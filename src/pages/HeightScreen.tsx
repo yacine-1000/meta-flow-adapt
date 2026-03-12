@@ -5,18 +5,31 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { FloatingOrbs } from "@/components/FloatingOrbs";
+import { UnitSwitch } from "@/components/UnitSwitch";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Ruler } from "lucide-react";
 
 const HeightScreen = () => {
   const navigate = useNavigate();
-  const [height, setHeight] = useState(175);
+  const [heightCm, setHeightCm] = useState(175);
+  const [unit, setUnit] = useState<string>("cm");
   const { t } = useLanguage();
+
+  const cmToFtIn = (cm: number) => {
+    const totalInches = cm / 2.54;
+    const ft = Math.floor(totalInches / 12);
+    const inches = Math.round(totalInches % 12);
+    return { ft, inches };
+  };
+
+  const displayValue = unit === "cm" ? heightCm : (() => { const { ft, inches } = cmToFtIn(heightCm); return `${ft}'${inches}"`; })();
+  const displayUnit = unit === "cm" ? t("height.cm") : t("height.ft");
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
-      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
-        <ProgressBar step={2} total={6} />
+      <FloatingOrbs />
+      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8 relative z-10">
+        <ProgressBar step={2} total={8} />
 
         <div className="mt-4">
           <BackButton to="/gender" />
@@ -27,21 +40,34 @@ const HeightScreen = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "2", y: "6" })}</p>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "2", y: "8" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("height.title1")}<br />{t("height.title2")}</h1>
         </motion.div>
 
         <motion.div
-          className="flex items-baseline justify-center gap-3 mt-10 mb-12"
+          className="flex flex-col items-center mt-8 mb-4"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Ruler className="w-5 h-5 text-primary" />
-          </div>
-          <span className="font-display text-7xl font-bold text-gradient-mint tracking-tight">{height}</span>
-          <span className="text-muted-foreground text-lg font-medium">{t("height.cm")}</span>
+          <UnitSwitch
+            options={[
+              { label: t("height.cm"), value: "cm" },
+              { label: t("height.inch"), value: "inch" },
+            ]}
+            selected={unit}
+            onChange={setUnit}
+          />
+        </motion.div>
+
+        <motion.div
+          className="flex items-baseline justify-center gap-2 mt-6 mb-10"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.25 }}
+        >
+          <span className="font-display text-7xl font-bold text-gradient-mint tracking-tight">{displayValue}</span>
+          {unit === "cm" && <span className="text-muted-foreground text-lg font-medium">{displayUnit}</span>}
         </motion.div>
 
         <motion.div
@@ -53,18 +79,18 @@ const HeightScreen = () => {
           <input
             type="range"
             min={140}
-            max={200}
-            value={height}
-            onChange={(e) => setHeight(Number(e.target.value))}
+            max={210}
+            value={heightCm}
+            onChange={(e) => setHeightCm(Number(e.target.value))}
             className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, #95FFC3 0%, #6DEBFF ${((height - 140) / 60) * 100}%, rgba(255,255,255,0.06) ${((height - 140) / 60) * 100}%, rgba(255,255,255,0.06) 100%)`,
+              background: `linear-gradient(to right, #95FFC3 0%, #6DEBFF ${((heightCm - 140) / 70) * 100}%, rgba(255,255,255,0.06) ${((heightCm - 140) / 70) * 100}%, rgba(255,255,255,0.06) 100%)`,
             }}
           />
           <div className="flex justify-between mt-4 text-[10px] text-muted-foreground/60">
-            <span>140 {t("height.cm")}</span>
-            <span>170 {t("height.cm")}</span>
-            <span>200 {t("height.cm")}</span>
+            <span>{unit === "cm" ? "140" : "4'7\""}</span>
+            <span>{unit === "cm" ? "175" : "5'9\""}</span>
+            <span>{unit === "cm" ? "210" : "6'11\""}</span>
           </div>
         </motion.div>
 

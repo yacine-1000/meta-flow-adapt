@@ -5,8 +5,8 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { BackButton } from "@/components/NavLink";
+import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Smartphone, Shield } from "lucide-react";
 
 const PhoneScreen = () => {
   const navigate = useNavigate();
@@ -15,8 +15,9 @@ const PhoneScreen = () => {
 
   return (
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
-      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
-        <ProgressBar step={6} total={6} />
+      <FloatingOrbs />
+      <div className="flex flex-col min-h-screen px-6 pt-14 pb-8 relative z-10">
+        <ProgressBar step={6} total={8} />
 
         <div className="mt-4">
           <BackButton to="/name" />
@@ -27,37 +28,23 @@ const PhoneScreen = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "6", y: "6" })}</p>
+          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "6", y: "8" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("phone.title1")}<br />{t("phone.title2")}</h1>
+          <p className="text-muted-foreground text-sm mt-3">{t("phone.hint")}</p>
         </motion.div>
 
         <motion.div
-          className="flex items-center gap-3 mt-6 mb-6 justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15 }}
-        >
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Shield className="w-5 h-5 text-primary" />
-          </div>
-          <span className="text-muted-foreground text-sm">{t("phone.hint")}</span>
-        </motion.div>
-
-        <motion.div
-          className="relative"
+          className="mt-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div className={`absolute ${isRTL ? "right-5" : "left-5"} top-1/2 -translate-y-1/2`}>
-            <Smartphone className="w-5 h-5 text-muted-foreground/40" />
-          </div>
           <input
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+1 (555) 000-0000"
-            className={`w-full text-lg py-5 ${isRTL ? "pr-14 pl-6" : "pl-14 pr-6"} rounded-2xl glass-card-strong bg-transparent focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground/20 transition-all`}
+            className="w-full text-lg py-5 px-6 rounded-2xl glass-card-strong bg-transparent focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground/20 transition-all text-center"
             autoFocus
             dir="ltr"
           />
