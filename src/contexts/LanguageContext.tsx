@@ -117,16 +117,13 @@ const translations: Record<string, Record<Language, string>> = {
   "sport.basketball": { en: "Basketball", ar: "كرة سلة" },
 
   // Focus
-  "focus.title1": { en: "Set your", ar: "حدّد" },
-  "focus.title2": { en: "focus", ar: "أولوياتك" },
-  "focus.hint": { en: "How important is each activity to you?", ar: "ما مدى أهمية كل نشاط بالنسبة لك؟" },
+  "focus.title": { en: "What should we prioritize?", ar: "ما الذي نركّز عليه؟" },
   "focus.weight_lifting": { en: "Weight Lifting", ar: "رفع الأثقال" },
   "focus.not_priority": { en: "Not a priority", ar: "ليس أولوية" },
   "focus.top_priority": { en: "Top priority", ar: "أولوية قصوى" },
 
   // Activities
-  "activities.title": { en: "Weekly Activities", ar: "الأنشطة الأسبوعية" },
-  "activities.hint": { en: "Log your sports for each day", ar: "سجّل رياضاتك لكل يوم" },
+  "activities.title": { en: "What does your week look like?", ar: "كيف يبدو أسبوعك؟" },
   "activities.add": { en: "Add Activity", ar: "أضف نشاط" },
   "activities.select_sport": { en: "Select Sport", ar: "اختر الرياضة" },
   "activities.select_duration": { en: "Duration (min)", ar: "المدة (دقيقة)" },
@@ -159,8 +156,7 @@ const translations: Record<string, Record<Language, string>> = {
   "day.Su": { en: "S", ar: "ح" },
 
   // Equipment
-  "equipment.title": { en: "Equipment", ar: "المعدّات" },
-  "equipment.hint": { en: "What do you have access to?", ar: "ما المعدّات المتوفرة لديك؟" },
+  "equipment.title": { en: "What equipment do you have?", ar: "ما المعدّات المتوفرة لديك؟" },
   "equipment.select_all": { en: "Select All", ar: "اختر الكل" },
   "equipment.free_weights": { en: "Free Weights", ar: "أوزان حرة" },
   "equipment.machines": { en: "Machines", ar: "أجهزة" },
@@ -178,8 +174,7 @@ const translations: Record<string, Record<Language, string>> = {
   "equip.bodyweight": { en: "Bodyweight Only", ar: "وزن الجسم فقط" },
 
   // Injuries
-  "injuries.title": { en: "Pain & Injuries", ar: "الألم والإصابات" },
-  "injuries.hint": { en: "We'll adapt your plan accordingly", ar: "سنعدّل خطتك بناءً على ذلك" },
+  "injuries.title": { en: "Any injuries or pain?", ar: "هل لديك أي إصابات أو ألم؟" },
   "injuries.none": { en: "No injuries or pain", ar: "لا إصابات أو ألم" },
   "injuries.lower_body": { en: "Lower Body", ar: "الجزء السفلي" },
   "injuries.back_neck": { en: "Back & Neck", ar: "الظهر والرقبة" },
@@ -211,9 +206,7 @@ const translations: Record<string, Record<Language, string>> = {
   "severity.no_pain": { en: "No pain", ar: "بدون ألم" },
 
   // Training Level
-  "level.title1": { en: "Training", ar: "مستوى" },
-  "level.title2": { en: "level", ar: "التدريب" },
-  "level.hint": { en: "How experienced are you with weight training?", ar: "ما مدى خبرتك في تدريبات الأوزان؟" },
+  "level.title": { en: "What's your training level?", ar: "ما مستواك في التدريب؟" },
   "level.beginner": { en: "Beginner", ar: "مبتدئ" },
   "level.beginner_desc": { en: "New to lifting or less than 6 months", ar: "جديد في رفع الأثقال أو أقل من 6 أشهر" },
   "level.intermediate": { en: "Intermediate", ar: "متوسط" },
@@ -222,8 +215,7 @@ const translations: Record<string, Record<Language, string>> = {
   "level.advanced_desc": { en: "3+ years, strong foundation", ar: "+٣ سنوات، أساس قوي" },
 
   // Goal
-  "goal.title1": { en: "What's your", ar: "ما هو" },
-  "goal.title2": { en: "main goal?", ar: "هدفك الأساسي؟" },
+  "goal.title": { en: "What's your main goal?", ar: "ما هدفك الأساسي؟" },
   "goal.strength": { en: "Build Strength", ar: "بناء القوة" },
   "goal.strength_desc": { en: "Get stronger with progressive overload", ar: "ازدد قوة مع التحميل التدريجي" },
   "goal.muscle": { en: "Build Muscle", ar: "بناء العضلات" },
@@ -234,9 +226,7 @@ const translations: Record<string, Record<Language, string>> = {
   "goal.general_desc": { en: "Stay fit and balanced", ar: "حافظ على لياقتك وتوازنك" },
 
   // Lifting Days
-  "lifting.title1": { en: "Pick your", ar: "اختر أيام" },
-  "lifting.title2": { en: "lifting days", ar: "التمرين" },
-  "lifting.hint": { en: "We'll plan around your existing activities", ar: "سنبني الخطة حول أنشطتك الحالية" },
+  "lifting.title": { en: "Which days do you want to lift?", ar: "أي أيام تريد التمرين؟" },
   "lifting.day": { en: "Lifting day", ar: "يوم تمرين" },
   "lifting.generate": { en: "Generate My Plan", ar: "أنشئ خطتي" },
   "lifting.sport_day": { en: "Sport day", ar: "يوم رياضة" },

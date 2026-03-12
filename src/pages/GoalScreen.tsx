@@ -24,8 +24,8 @@ const GoalScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/training-level" />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-3xl font-bold leading-tight">{t("goal.title1")}<br />{t("goal.title2")}</h1>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("goal.title")}</h1>
         </motion.div>
 
         <div className="flex-1 mt-10 grid grid-cols-2 gap-3">

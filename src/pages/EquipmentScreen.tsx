@@ -47,9 +47,8 @@ const EquipmentScreen = () => {
           <button onClick={selectAll} className="text-primary text-xs font-medium tracking-wide">{t("equipment.select_all")}</button>
         </div>
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-2xl font-bold">{t("equipment.title")}</h1>
-          <p className="text-muted-foreground text-sm mt-2">{t("equipment.hint")}</p>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("equipment.title")}</h1>
         </motion.div>
 
         <div className="flex-1 mt-8 space-y-7 overflow-y-auto scrollbar-hide pb-4">
