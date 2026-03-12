@@ -47,9 +47,8 @@ const SportsScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/home" />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("sports.title1")}<br />{t("sports.title2")}</h1>
-          <p className="text-muted-foreground text-sm mt-3">{t("sports.hint")}</p>
         </motion.div>
 
         <div className="flex-1 mt-8">
@@ -69,15 +68,6 @@ const SportsScreen = () => {
                 >
                   <SportIcon sport={sport} active={isSelected} />
                   <span className="text-xs font-medium">{t(`sport.${sport}`)}</span>
-                  {isSelected && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute top-2 end-2 w-4 h-4 rounded-full bg-primary/30 flex items-center justify-center"
-                    >
-                      <Check className="w-2.5 h-2.5 text-primary" />
-                    </motion.div>
-                  )}
                 </motion.button>
               );
             })}
