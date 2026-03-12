@@ -5,6 +5,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useUser } from "@/contexts/UserContext";
 import { Plus, X, Calendar, Check } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
