@@ -89,7 +89,6 @@ const ActivitiesScreen = () => {
             const dayActivities = activities[dayKey] || [];
             const hasActivities = dayActivities.length > 0;
             const dayLabel = t(`day.${dayKey}`);
-            const shortLabel = dayLabel.slice(0, 3);
             return (
               <motion.div
                 key={dayKey}
@@ -99,10 +98,7 @@ const ActivitiesScreen = () => {
                 className={`rounded-2xl p-4 transition-all ${hasActivities ? "glass-card-strong" : "glass-card"}`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-muted-foreground/40 w-8 font-medium">{shortLabel}</span>
-                    <span className="font-medium text-sm">{dayLabel}</span>
-                  </div>
+                  <span className="font-medium text-sm">{dayLabel}</span>
                   <button
                     onClick={() => openAddSheet(dayKey)}
                     className="w-8 h-8 rounded-xl bg-primary/8 flex items-center justify-center text-primary/70 hover:bg-primary/15 transition-colors"
