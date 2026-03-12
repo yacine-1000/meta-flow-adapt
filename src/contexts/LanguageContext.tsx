@@ -117,9 +117,7 @@ const translations: Record<string, Record<Language, string>> = {
   "sport.basketball": { en: "Basketball", ar: "كرة سلة" },
 
   // Focus
-  "focus.title1": { en: "Set your", ar: "حدّد" },
-  "focus.title2": { en: "focus", ar: "أولوياتك" },
-  "focus.hint": { en: "How important is each activity to you?", ar: "ما مدى أهمية كل نشاط بالنسبة لك؟" },
+  "focus.title": { en: "What should we prioritize?", ar: "ما الذي نركّز عليه؟" },
   "focus.weight_lifting": { en: "Weight Lifting", ar: "رفع الأثقال" },
   "focus.not_priority": { en: "Not a priority", ar: "ليس أولوية" },
   "focus.top_priority": { en: "Top priority", ar: "أولوية قصوى" },
