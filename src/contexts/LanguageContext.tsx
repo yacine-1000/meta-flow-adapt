@@ -174,8 +174,7 @@ const translations: Record<string, Record<Language, string>> = {
   "equip.bodyweight": { en: "Bodyweight Only", ar: "وزن الجسم فقط" },
 
   // Injuries
-  "injuries.title": { en: "Pain & Injuries", ar: "الألم والإصابات" },
-  "injuries.hint": { en: "We'll adapt your plan accordingly", ar: "سنعدّل خطتك بناءً على ذلك" },
+  "injuries.title": { en: "Any injuries or pain?", ar: "هل لديك أي إصابات أو ألم؟" },
   "injuries.none": { en: "No injuries or pain", ar: "لا إصابات أو ألم" },
   "injuries.lower_body": { en: "Lower Body", ar: "الجزء السفلي" },
   "injuries.back_neck": { en: "Back & Neck", ar: "الظهر والرقبة" },
