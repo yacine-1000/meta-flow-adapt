@@ -5,7 +5,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Dumbbell, Activity, Footprints } from "lucide-react";
+
 
 const FocusScreen = () => {
   const navigate = useNavigate();
@@ -15,9 +15,9 @@ const FocusScreen = () => {
   });
 
   const focusAreas = [
-    { id: "lifting", label: t("focus.weight_lifting"), icon: Dumbbell },
-    { id: "tennis", label: t("sport.tennis"), icon: Activity },
-    { id: "running", label: t("sport.running"), icon: Footprints },
+    { id: "lifting", label: t("focus.weight_lifting") },
+    { id: "tennis", label: t("sport.tennis") },
+    { id: "running", label: t("sport.running") },
   ];
 
   const update = (id: string, val: number) => setValues((v) => ({ ...v, [id]: val }));
@@ -33,9 +33,7 @@ const FocusScreen = () => {
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-5">
-          {focusAreas.map((area, i) => {
-            const Icon = area.icon;
-            return (
+          {focusAreas.map((area, i) => (
               <motion.div
                 key={area.id}
                 className="glass-card-strong rounded-2xl p-5"
@@ -44,12 +42,7 @@ const FocusScreen = () => {
                 transition={{ delay: i * 0.1 }}
               >
                 <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <span className="font-semibold">{area.label}</span>
-                  </div>
+                  <span className="font-semibold">{area.label}</span>
                   <div className="flex items-baseline gap-1">
                     <span className="text-primary font-display font-bold text-xl">{values[area.id]}</span>
                     <span className="text-muted-foreground/40 text-xs">/10</span>
@@ -71,8 +64,7 @@ const FocusScreen = () => {
                   <span>{t("focus.top_priority")}</span>
                 </div>
               </motion.div>
-            );
-          })}
+          ))}
         </div>
 
         <MetafiButton onClick={() => navigate("/activities")}>{t("continue")}</MetafiButton>
