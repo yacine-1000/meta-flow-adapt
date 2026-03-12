@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { WorkoutCelebration } from "@/components/WorkoutCelebration";
+import { StreakShareCard } from "@/components/StreakShareCard";
 import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X, Check } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
 import { useState, useEffect, useCallback } from "react";
