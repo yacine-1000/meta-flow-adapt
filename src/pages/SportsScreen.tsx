@@ -47,9 +47,8 @@ const SportsScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/home" />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("sports.title1")}<br />{t("sports.title2")}</h1>
-          <p className="text-muted-foreground text-sm mt-3">{t("sports.hint")}</p>
         </motion.div>
 
         <div className="flex-1 mt-8">
