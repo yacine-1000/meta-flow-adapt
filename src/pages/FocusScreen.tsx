@@ -5,19 +5,22 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-
+import { useUser } from "@/contexts/UserContext";
 
 const FocusScreen = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [values, setValues] = useState<Record<string, number>>({
-    lifting: 8, tennis: 5, running: 3,
+  const { selectedSports } = useUser();
+
+  const [values, setValues] = useState<Record<string, number>>(() => {
+    const initial: Record<string, number> = { lifting: 8 };
+    selectedSports.forEach((s) => { initial[s] = 5; });
+    return initial;
   });
 
   const focusAreas = [
     { id: "lifting", label: t("focus.weight_lifting") },
-    { id: "tennis", label: t("sport.tennis") },
-    { id: "running", label: t("sport.running") },
+    ...selectedSports.map((s) => ({ id: s, label: t(`sport.${s}`) })),
   ];
 
   const update = (id: string, val: number) => setValues((v) => ({ ...v, [id]: val }));
