@@ -8,17 +8,15 @@ import { BackButton } from "@/components/NavLink";
 import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const ITEM_HEIGHT = 44;
-const VISIBLE_ITEMS = 5;
+const ITEM_HEIGHT = 48;
+const VISIBLE_ITEMS = 7;
 
-const ScrollPicker = ({ items, selected, onChange, label }: {
+const WheelColumn = ({ items, selected, onChange }: {
   items: { value: number; label: string }[];
   selected: number;
   onChange: (val: number) => void;
-  label: string;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false);
   const scrollTimeout = useRef<ReturnType<typeof setTimeout>>();
 
   const scrollToIndex = useCallback((index: number, smooth = true) => {
@@ -36,53 +34,77 @@ const ScrollPicker = ({ items, selected, onChange, label }: {
 
   const handleScroll = () => {
     if (!containerRef.current) return;
-    isScrolling.current = true;
     if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     scrollTimeout.current = setTimeout(() => {
-      isScrolling.current = false;
       if (!containerRef.current) return;
       const scrollTop = containerRef.current.scrollTop;
       const index = Math.round(scrollTop / ITEM_HEIGHT);
       const clampedIndex = Math.max(0, Math.min(items.length - 1, index));
       scrollToIndex(clampedIndex);
       if (items[clampedIndex]) onChange(items[clampedIndex].value);
-    }, 80);
+    }, 60);
   };
 
   const padding = Math.floor(VISIBLE_ITEMS / 2) * ITEM_HEIGHT;
 
+  // Calculate which item index is currently centered
+  const selectedIdx = items.findIndex(i => i.value === selected);
+
   return (
-    <div className="flex-1 flex flex-col items-center gap-2">
-      <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.15em]">{label}</span>
-      <div className="relative w-full" style={{ height: VISIBLE_ITEMS * ITEM_HEIGHT }}>
-        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background/90 to-transparent z-10 pointer-events-none rounded-t-2xl" />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background/90 to-transparent z-10 pointer-events-none rounded-b-2xl" />
-        <div
-          className="absolute inset-x-2 z-10 pointer-events-none rounded-xl border border-primary/20 bg-primary/[0.05]"
-          style={{ top: padding, height: ITEM_HEIGHT }}
-        />
-        <div
-          ref={containerRef}
-          onScroll={handleScroll}
-          className="h-full overflow-y-auto scrollbar-hide snap-y snap-mandatory"
-          style={{ scrollSnapType: "y mandatory" }}
-        >
-          <div style={{ height: padding }} />
-          {items.map((item) => (
+    <div className="flex-1 relative" style={{ height: VISIBLE_ITEMS * ITEM_HEIGHT }}>
+      {/* Top fade */}
+      <div
+        className="absolute inset-x-0 top-0 z-20 pointer-events-none"
+        style={{
+          height: padding - ITEM_HEIGHT * 0.3,
+          background: "linear-gradient(to bottom, hsl(var(--background)) 10%, hsl(var(--background) / 0.85) 40%, hsl(var(--background) / 0.4) 70%, transparent 100%)",
+        }}
+      />
+      {/* Bottom fade */}
+      <div
+        className="absolute inset-x-0 bottom-0 z-20 pointer-events-none"
+        style={{
+          height: padding - ITEM_HEIGHT * 0.3,
+          background: "linear-gradient(to top, hsl(var(--background)) 10%, hsl(var(--background) / 0.85) 40%, hsl(var(--background) / 0.4) 70%, transparent 100%)",
+        }}
+      />
+
+      <div
+        ref={containerRef}
+        onScroll={handleScroll}
+        className="h-full overflow-y-auto scrollbar-hide"
+        style={{
+          scrollSnapType: "y mandatory",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        <div style={{ height: padding }} />
+        {items.map((item, i) => {
+          const distance = Math.abs(i - selectedIdx);
+          const opacity = distance === 0 ? 1 : distance === 1 ? 0.35 : distance === 2 ? 0.15 : 0.08;
+          const scale = distance === 0 ? 1.1 : distance === 1 ? 0.92 : 0.82;
+
+          return (
             <div
               key={item.value}
               className="flex items-center justify-center snap-center"
               style={{ height: ITEM_HEIGHT }}
             >
-              <span className={`font-display text-lg font-bold transition-all ${
-                item.value === selected ? "text-foreground scale-110" : "text-muted-foreground/30 scale-90"
-              }`}>
+              <span
+                className="font-display font-bold transition-all duration-200 ease-out"
+                style={{
+                  fontSize: distance === 0 ? "1.5rem" : "1.125rem",
+                  opacity,
+                  transform: `scale(${scale})`,
+                  color: distance === 0 ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))",
+                }}
+              >
                 {item.label}
               </span>
             </div>
-          ))}
-          <div style={{ height: padding }} />
-        </div>
+          );
+        })}
+        <div style={{ height: padding }} />
       </div>
     </div>
   );
@@ -93,10 +115,20 @@ const BirthdateScreen = () => {
   const [day, setDay] = useState(15);
   const [month, setMonth] = useState(6);
   const [year, setYear] = useState(1995);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const days = Array.from({ length: 31 }, (_, i) => ({ value: i + 1, label: String(i + 1).padStart(2, "0") }));
-  const months = Array.from({ length: 12 }, (_, i) => ({ value: i + 1, label: String(i + 1).padStart(2, "0") }));
+
+  const monthNames: Record<string, string[]> = {
+    en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+  };
+
+  const months = Array.from({ length: 12 }, (_, i) => ({
+    value: i + 1,
+    label: monthNames[language]?.[i] || monthNames.en[i],
+  }));
+
   const years = Array.from({ length: 60 }, (_, i) => ({ value: 2008 - i, label: String(2008 - i) }));
 
   return (
@@ -119,17 +151,47 @@ const BirthdateScreen = () => {
         </motion.div>
 
         <motion.div
-          className="flex gap-3 w-full mt-10 glass-card-strong rounded-2xl p-4"
+          className="w-full mt-10 flex-1 flex flex-col justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <ScrollPicker items={days} selected={day} onChange={setDay} label={t("birthdate.day")} />
-          <ScrollPicker items={months} selected={month} onChange={setMonth} label={t("birthdate.month")} />
-          <ScrollPicker items={years} selected={year} onChange={setYear} label={t("birthdate.year")} />
-        </motion.div>
+          {/* Column labels */}
+          <div className="flex gap-0 mb-2 px-2">
+            <div className="flex-1 text-center">
+              <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium">{t("birthdate.day")}</span>
+            </div>
+            <div className="flex-1 text-center">
+              <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium">{t("birthdate.month")}</span>
+            </div>
+            <div className="flex-1 text-center">
+              <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium">{t("birthdate.year")}</span>
+            </div>
+          </div>
 
-        <div className="flex-1" />
+          {/* Wheels container */}
+          <div className="relative">
+            {/* Selection indicator — a single continuous line across all 3 columns */}
+            <div
+              className="absolute inset-x-0 z-10 pointer-events-none"
+              style={{
+                top: Math.floor(VISIBLE_ITEMS / 2) * ITEM_HEIGHT,
+                height: ITEM_HEIGHT,
+              }}
+            >
+              <div className="h-full mx-2 rounded-2xl border border-primary/15 bg-primary/[0.04]" />
+            </div>
+
+            <div className="flex gap-0">
+              <WheelColumn items={days} selected={day} onChange={setDay} />
+              {/* Subtle separator */}
+              <div className="w-px bg-white/[0.04] my-8" />
+              <WheelColumn items={months} selected={month} onChange={setMonth} />
+              <div className="w-px bg-white/[0.04] my-8" />
+              <WheelColumn items={years} selected={year} onChange={setYear} />
+            </div>
+          </div>
+        </motion.div>
 
         <MetafiButton onClick={() => navigate("/name")}>{t("continue")}</MetafiButton>
       </div>
