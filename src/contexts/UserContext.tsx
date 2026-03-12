@@ -5,6 +5,8 @@ interface UserContextType {
   setUserName: (name: string) => void;
   userPhone: string;
   setUserPhone: (phone: string) => void;
+  selectedSports: string[];
+  setSelectedSports: (sports: string[]) => void;
   completedExercises: number[];
   markExerciseDone: (index: number) => void;
   workoutDone: boolean;
