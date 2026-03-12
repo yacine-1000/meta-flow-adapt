@@ -5,7 +5,19 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Check, Dumbbell } from "lucide-react";
+import { Check, Dumbbell, Cog, RectangleHorizontal, Cable, Weight, CircleDot, PersonStanding } from "lucide-react";
+
+const equipmentIcons: Record<string, React.ElementType> = {
+  dumbbells: Dumbbell,
+  barbell: Weight,
+  kettlebells: CircleDot,
+  cable: Cable,
+  weight_machines: Cog,
+  adj_bench: RectangleHorizontal,
+  flat_bench: RectangleHorizontal,
+  resistance_bands: CircleDot,
+  bodyweight: PersonStanding,
+};
 
 const EquipmentScreen = () => {
   const navigate = useNavigate();
@@ -60,7 +72,10 @@ const EquipmentScreen = () => {
                         isSelected ? "chip-selected" : "glass-card hover:border-primary/10"
                       }`}
                     >
-                      <span className="text-sm font-medium">{t(`equip.${item}`)}</span>
+                      <div className="flex items-center gap-3">
+                        {(() => { const Icon = equipmentIcons[item]; return Icon ? <Icon className={`w-4 h-4 ${isSelected ? "text-primary" : "text-muted-foreground/50"}`} /> : null; })()}
+                        <span className="text-sm font-medium">{t(`equip.${item}`)}</span>
+                      </div>
                       {isSelected && (
                         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center">
                           <Check className="w-3.5 h-3.5 text-primary" />
