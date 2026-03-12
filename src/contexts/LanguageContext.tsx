@@ -206,9 +206,7 @@ const translations: Record<string, Record<Language, string>> = {
   "severity.no_pain": { en: "No pain", ar: "بدون ألم" },
 
   // Training Level
-  "level.title1": { en: "Training", ar: "مستوى" },
-  "level.title2": { en: "level", ar: "التدريب" },
-  "level.hint": { en: "How experienced are you with weight training?", ar: "ما مدى خبرتك في تدريبات الأوزان؟" },
+  "level.title": { en: "What's your training level?", ar: "ما مستواك في التدريب؟" },
   "level.beginner": { en: "Beginner", ar: "مبتدئ" },
   "level.beginner_desc": { en: "New to lifting or less than 6 months", ar: "جديد في رفع الأثقال أو أقل من 6 أشهر" },
   "level.intermediate": { en: "Intermediate", ar: "متوسط" },
