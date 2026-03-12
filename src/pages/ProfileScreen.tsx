@@ -115,7 +115,7 @@ const ProfileScreen = () => {
                 background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%)",
                 backdropFilter: "blur(40px)",
                 WebkitBackdropFilter: "blur(40px)",
-                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.04)",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.03)",
               }}
             >
               {section.rows.map((row, rowIdx) => (
