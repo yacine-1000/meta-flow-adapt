@@ -22,6 +22,8 @@ const UserContext = createContext<UserContextType>({
   setUserName: () => {},
   userPhone: "",
   setUserPhone: () => {},
+  selectedSports: [],
+  setSelectedSports: () => {},
   completedExercises: [],
   markExerciseDone: () => {},
   workoutDone: false,
