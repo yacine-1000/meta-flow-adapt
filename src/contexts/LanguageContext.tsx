@@ -100,8 +100,8 @@ const translations: Record<string, Record<Language, string>> = {
   "profile.terms": { en: "Terms of Service", ar: "شروط الاستخدام" },
 
   // Sports
-  "sports.title1": { en: "What sports", ar: "ما الرياضات التي" },
-  "sports.title2": { en: "do you play?", ar: "تمارسها؟" },
+  "sports.title1": { en: "What sports", ar: "وش الرياضات اللي" },
+  "sports.title2": { en: "do you play?", ar: "تلعبها؟" },
   "sports.hint": { en: "Select all that apply to your typical week", ar: "اختر كل ما ينطبق على أسبوعك" },
   "sport.football": { en: "Football", ar: "كرة القدم" },
   "sport.padel": { en: "Padel", ar: "بادل" },
