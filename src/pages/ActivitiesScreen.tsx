@@ -27,6 +27,8 @@ interface Activity {
 const ActivitiesScreen = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { selectedSports } = useUser();
+  const sportKeys = selectedSports.length > 0 ? selectedSports : allSportKeys;
 
   const [activities, setActivities] = useState<Record<string, Activity[]>>({});
   const [addingDay, setAddingDay] = useState<string | null>(null);
