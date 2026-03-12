@@ -5,7 +5,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Dumbbell, Activity, Footprints } from "lucide-react";
+
 
 const FocusScreen = () => {
   const navigate = useNavigate();
