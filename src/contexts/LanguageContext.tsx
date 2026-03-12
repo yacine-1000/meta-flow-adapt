@@ -18,6 +18,7 @@ const translations: Record<string, Record<Language, string>> = {
   "continue": { en: "Continue", ar: "متابعة" },
   "step_of": { en: "Step {x} of {y}", ar: "الخطوة {x} من {y}" },
   "back": { en: "Back", ar: "رجوع" },
+  "skip": { en: "Skip", ar: "تخطي" },
 
   // Gender
   "gender.title1": { en: "What's your", ar: "ما هو" },
