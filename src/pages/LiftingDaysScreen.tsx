@@ -10,23 +10,20 @@ import { Dumbbell, Check, Activity } from "lucide-react";
 const dayShortKeys = ["M", "T", "W", "Th", "F", "S", "Su"];
 const dayFullKeys = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
-const daysData = [
-  { id: "mon", shortKey: "M", fullKey: "monday", sports: [] as { nameKey: string; intensityKey: string; duration: string }[] },
-  { id: "tue", shortKey: "T", fullKey: "tuesday", sports: [] },
-  { id: "wed", shortKey: "W", fullKey: "wednesday", sports: [] },
-  { id: "thu", shortKey: "Th", fullKey: "thursday", sports: [] },
-  { id: "fri", shortKey: "F", fullKey: "friday", sports: [] },
-  { id: "sat", shortKey: "S", fullKey: "saturday", sports: [
-    { nameKey: "sport.tennis", intensityKey: "intensity.moderate", duration: "60 min" },
-    { nameKey: "sport.running", intensityKey: "intensity.hard", duration: "45 min" },
-  ]},
-  { id: "sun", shortKey: "Su", fullKey: "sunday", sports: [] },
-];
+// Placeholder: in a real app, this would come from context/state set by ActivitiesScreen
+const sportsData: Record<string, { nameKey: string; intensityKey: string; duration: string }[]> = {};
 
 const LiftingDaysScreen = () => {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState<string[]>(["mon", "wed", "fri"]);
+  const [selected, setSelected] = useState<string[]>([]);
   const { t } = useLanguage();
+
+  const daysData = dayFullKeys.map((fullKey, i) => ({
+    id: fullKey.slice(0, 3),
+    shortKey: dayShortKeys[i],
+    fullKey,
+    sports: sportsData[fullKey] || [],
+  }));
 
   const toggle = (id: string) =>
     setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
@@ -84,19 +81,22 @@ const LiftingDaysScreen = () => {
                 transition={{ delay: 0.15 + i * 0.04 }}
                 onClick={() => toggle(day.id)}
                 className={`w-full rounded-2xl p-4 text-start transition-all duration-300 ${
-                  isSelected ? "chip-selected shadow-glow-sm" : "glass-card"
+                  isSelected ? "chip-selected shadow-glow-sm" : hasSports ? "glass-card-strong" : "glass-card"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                      isSelected ? "bg-primary/20" : "bg-muted/10"
+                      isSelected ? "bg-primary/20" : hasSports ? "bg-primary/8" : "bg-muted/10"
                     }`}>
-                      {isSelected ? <Dumbbell className="w-4 h-4 text-primary" /> : <span className="text-xs text-muted-foreground/40">{t(`day.${day.shortKey}`)}</span>}
+                      {isSelected ? <Dumbbell className="w-4 h-4 text-primary" /> : 
+                       hasSports ? <Activity className="w-4 h-4 text-primary/40" /> :
+                       <span className="text-xs text-muted-foreground/40">{t(`day.${day.shortKey}`)}</span>}
                     </div>
                     <div>
                       <span className="font-medium text-sm">{t(`day.${day.fullKey}`)}</span>
                       {isSelected && <p className="text-[10px] text-primary/60 mt-0.5">{t("lifting.day")}</p>}
+                      {hasSports && !isSelected && <p className="text-[10px] text-muted-foreground/40 mt-0.5">{t("lifting.sport_day")}</p>}
                     </div>
                   </div>
                   {isSelected && (

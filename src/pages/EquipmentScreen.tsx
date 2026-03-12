@@ -5,40 +5,27 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Check, Layers, Armchair, Dumbbell, Weight, CircleDot, Cable, ArrowDownUp, Footprints, Box } from "lucide-react";
-
-const equipmentIcons: Record<string, React.ElementType> = {
-  "flat_bench": Armchair,
-  "incline_bench": Armchair,
-  "shoulder_press": ArrowDownUp,
-  "dumbbells": Dumbbell,
-  "barbell": Weight,
-  "kettlebells": CircleDot,
-  "cable": Cable,
-  "lat_pulldown": ArrowDownUp,
-  "leg_press": Footprints,
-  "smith": Box,
-};
+import { Check, Dumbbell } from "lucide-react";
 
 const EquipmentScreen = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
   const categories = [
-    { nameKey: "equipment.benches", items: ["flat_bench", "incline_bench", "shoulder_press"] },
     { nameKey: "equipment.free_weights", items: ["dumbbells", "barbell", "kettlebells"] },
-    { nameKey: "equipment.cables_machines", items: ["cable", "lat_pulldown", "leg_press", "smith"] },
+    { nameKey: "equipment.machines", items: ["cable", "weight_machines"] },
+    { nameKey: "equipment.benches", items: ["adj_bench", "flat_bench"] },
+    { nameKey: "equipment.accessories", items: ["resistance_bands"] },
+    { nameKey: "equipment.minimal", items: ["bodyweight"] },
   ];
 
-  const [selected, setSelected] = useState<string[]>(["dumbbells", "barbell", "cable"]);
+  const allItems = categories.flatMap((c) => c.items);
+  const [selected, setSelected] = useState<string[]>([]);
 
   const toggle = (item: string) =>
     setSelected((s) => (s.includes(item) ? s.filter((x) => x !== item) : [...s, item]));
 
-  const selectAll = () => {
-    const all = categories.flatMap((c) => c.items);
-    setSelected(all);
-  };
+  const selectAll = () => setSelected(allItems);
 
   return (
     <MetafiScreen glowPosition="top" glowIntensity="subtle">
@@ -49,28 +36,22 @@ const EquipmentScreen = () => {
         </div>
 
         <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-center gap-3 mb-1">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Layers className="w-5 h-5 text-primary" />
-            </div>
-            <h1 className="font-display text-2xl font-bold">{t("equipment.title")}</h1>
-          </div>
-          <p className="text-muted-foreground text-sm mt-2 ms-[52px]">{t("equipment.hint")}</p>
+          <h1 className="font-display text-2xl font-bold">{t("equipment.title")}</h1>
+          <p className="text-muted-foreground text-sm mt-2">{t("equipment.hint")}</p>
         </motion.div>
 
-        <div className="flex-1 mt-8 space-y-8 overflow-y-auto scrollbar-hide pb-4">
+        <div className="flex-1 mt-8 space-y-7 overflow-y-auto scrollbar-hide pb-4">
           {categories.map((cat, ci) => (
             <motion.div
               key={cat.nameKey}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: ci * 0.1 }}
+              transition={{ delay: ci * 0.08 }}
             >
               <h3 className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50 mb-3 font-medium">{t(cat.nameKey)}</h3>
               <div className="space-y-2">
                 {cat.items.map((item) => {
                   const isSelected = selected.includes(item);
-                  const IconComponent = equipmentIcons[item] || Dumbbell;
                   return (
                     <button
                       key={item}
@@ -79,12 +60,7 @@ const EquipmentScreen = () => {
                         isSelected ? "chip-selected" : "glass-card hover:border-primary/10"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected ? "bg-primary/15" : "bg-muted/20"}`}>
-                          <IconComponent className={`w-4 h-4 ${isSelected ? "text-primary" : "text-muted-foreground/60"}`} />
-                        </div>
-                        <span className="text-sm font-medium">{t(`equip.${item}`)}</span>
-                      </div>
+                      <span className="text-sm font-medium">{t(`equip.${item}`)}</span>
                       {isSelected && (
                         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center">
                           <Check className="w-3.5 h-3.5 text-primary" />
