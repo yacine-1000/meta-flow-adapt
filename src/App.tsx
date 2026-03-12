@@ -71,6 +71,7 @@ const App = () => (
               <Route path="/plan" element={<PlanScreen />} />
               <Route path="/edit-plan" element={<EditPlanScreen />} />
               <Route path="/exercise/:id" element={<ExerciseDetailScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
