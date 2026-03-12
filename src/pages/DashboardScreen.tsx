@@ -128,6 +128,7 @@ const DashboardScreen = () => {
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
       <WorkoutCelebration trigger={showCelebration} onComplete={handleCelebrationComplete} />
+      <StreakShareCard open={showShareCard} onClose={() => setShowShareCard(false)} />
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
         {/* Header */}
         <motion.div
