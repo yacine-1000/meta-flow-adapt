@@ -65,16 +65,6 @@ const WheelColumn = ({ items, selected, onChange }: {
 
   return (
     <div className="flex-1 relative" style={{ height: VISIBLE_ITEMS * ITEM_HEIGHT }}>
-      {/* Selection highlight bar */}
-      <div
-        className="absolute inset-x-2 z-10 pointer-events-none rounded-xl"
-        style={{
-          top: padding,
-          height: ITEM_HEIGHT,
-          background: "linear-gradient(135deg, rgba(149, 255, 195, 0.08) 0%, rgba(109, 235, 255, 0.05) 100%)",
-          border: "1px solid rgba(149, 255, 195, 0.1)",
-        }}
-      />
       <div
         ref={containerRef}
         onScroll={handleScroll}
