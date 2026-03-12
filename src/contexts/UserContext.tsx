@@ -39,6 +39,7 @@ const TOTAL_EXERCISES = 6;
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState("");
+  const [selectedSports, setSelectedSports] = useState<string[]>([]);
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
   const [workoutDone, setWorkoutDone] = useState(false);
   const [streak, setStreak] = useState(3);
