@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { WorkoutCelebration } from "@/components/WorkoutCelebration";
+import { StreakShareCard } from "@/components/StreakShareCard";
 import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X, Check } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
 import { useState, useEffect, useCallback } from "react";
@@ -70,6 +71,7 @@ const DashboardScreen = () => {
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showShareCard, setShowShareCard] = useState(false);
   const [displayStreak, setDisplayStreak] = useState(streak);
 
   const weekDays = weekDaysBase.map((d, i) => ({
@@ -126,6 +128,7 @@ const DashboardScreen = () => {
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
       <WorkoutCelebration trigger={showCelebration} onComplete={handleCelebrationComplete} />
+      <StreakShareCard open={showShareCard} onClose={() => setShowShareCard(false)} />
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
         {/* Header */}
         <motion.div
@@ -133,8 +136,10 @@ const DashboardScreen = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <motion.div
-            className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1 h-10"
+          <motion.button
+            onClick={() => setShowShareCard(true)}
+            className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1 h-10 cursor-pointer hover:bg-white/[0.08] transition-colors"
+            whileTap={{ scale: 0.95 }}
             animate={showCelebration ? {} : {}}
             key={displayStreak}
           >
@@ -148,7 +153,7 @@ const DashboardScreen = () => {
             >
               {displayStreak}
             </motion.span>
-          </motion.div>
+          </motion.button>
           <img src={metafiIcon} alt="Metafi" className="w-10 h-10 object-contain" />
         </motion.div>
 
