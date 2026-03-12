@@ -44,14 +44,8 @@ const InjuriesScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/equipment" />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-center gap-3 mb-1">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <AlertTriangle className="w-5 h-5 text-primary" />
-            </div>
-            <h1 className="font-display text-2xl font-bold">{t("injuries.title")}</h1>
-          </div>
-          <p className="text-muted-foreground text-sm mt-2 ms-[52px]">{t("injuries.hint")}</p>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("injuries.title")}</h1>
         </motion.div>
 
         <div className="flex-1 mt-8 overflow-y-auto scrollbar-hide pb-4">

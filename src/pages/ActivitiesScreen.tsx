@@ -72,16 +72,8 @@ const ActivitiesScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/focus" />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Calendar className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h1 className="font-display text-2xl font-bold">{t("activities.title")}</h1>
-              <p className="text-muted-foreground text-xs mt-0.5">{t("activities.hint")}</p>
-            </div>
-          </div>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("activities.title")}</h1>
         </motion.div>
 
         <div className="flex-1 mt-6 space-y-2.5 overflow-y-auto scrollbar-hide pb-4">

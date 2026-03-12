@@ -33,9 +33,8 @@ const LiftingDaysScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/goal" />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-3xl font-bold leading-tight">{t("lifting.title1")}<br />{t("lifting.title2")}</h1>
-          <p className="text-muted-foreground text-sm mt-3">{t("lifting.hint")}</p>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("lifting.title")}</h1>
         </motion.div>
 
         <motion.div

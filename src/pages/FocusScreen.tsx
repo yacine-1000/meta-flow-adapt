@@ -30,9 +30,8 @@ const FocusScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/sports" />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-3xl font-bold leading-tight">{t("focus.title1")}<br />{t("focus.title2")}</h1>
-          <p className="text-muted-foreground text-sm mt-3">{t("focus.hint")}</p>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("focus.title")}</h1>
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-5">

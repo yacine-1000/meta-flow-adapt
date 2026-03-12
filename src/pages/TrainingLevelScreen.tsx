@@ -23,9 +23,8 @@ const TrainingLevelScreen = () => {
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to={-1} />
 
-        <motion.div className="mt-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-3xl font-bold leading-tight">{t("level.title1")}<br />{t("level.title2")}</h1>
-          <p className="text-muted-foreground text-sm mt-3">{t("level.hint")}</p>
+        <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="font-display text-3xl font-bold leading-tight">{t("level.title")}</h1>
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-4">
