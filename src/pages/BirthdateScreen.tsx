@@ -52,20 +52,20 @@ const WheelColumn = ({ items, selected, onChange }: {
 
   return (
     <div className="flex-1 relative" style={{ height: VISIBLE_ITEMS * ITEM_HEIGHT }}>
-      {/* Top fade */}
+      {/* Top fade — mask only, no visible background */}
       <div
         className="absolute inset-x-0 top-0 z-20 pointer-events-none"
         style={{
-          height: padding - ITEM_HEIGHT * 0.3,
-          background: "linear-gradient(to bottom, hsl(var(--background)) 10%, hsl(var(--background) / 0.85) 40%, hsl(var(--background) / 0.4) 70%, transparent 100%)",
+          height: padding,
+          background: "linear-gradient(to bottom, hsl(var(--background)), transparent)",
         }}
       />
       {/* Bottom fade */}
       <div
         className="absolute inset-x-0 bottom-0 z-20 pointer-events-none"
         style={{
-          height: padding - ITEM_HEIGHT * 0.3,
-          background: "linear-gradient(to top, hsl(var(--background)) 10%, hsl(var(--background) / 0.85) 40%, hsl(var(--background) / 0.4) 70%, transparent 100%)",
+          height: padding,
+          background: "linear-gradient(to top, hsl(var(--background)), transparent)",
         }}
       />
 
