@@ -33,9 +33,7 @@ const FocusScreen = () => {
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-5">
-          {focusAreas.map((area, i) => {
-            const Icon = area.icon;
-            return (
+          {focusAreas.map((area, i) => (
               <motion.div
                 key={area.id}
                 className="glass-card-strong rounded-2xl p-5"
@@ -44,12 +42,7 @@ const FocusScreen = () => {
                 transition={{ delay: i * 0.1 }}
               >
                 <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <span className="font-semibold">{area.label}</span>
-                  </div>
+                  <span className="font-semibold">{area.label}</span>
                   <div className="flex items-baseline gap-1">
                     <span className="text-primary font-display font-bold text-xl">{values[area.id]}</span>
                     <span className="text-muted-foreground/40 text-xs">/10</span>
