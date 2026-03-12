@@ -151,7 +151,7 @@ const BirthdateScreen = () => {
         </motion.div>
 
         <motion.div
-          className="w-full mt-10 flex-1 flex flex-col justify-center"
+          className="w-full mt-6 flex-1 flex flex-col justify-start pt-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -169,25 +169,13 @@ const BirthdateScreen = () => {
             </div>
           </div>
 
-          {/* Wheels container */}
+          {/* Wheels — no borders, no boxes */}
           <div className="relative">
-            {/* Selection indicator — a single continuous line across all 3 columns */}
-            <div
-              className="absolute inset-x-0 z-10 pointer-events-none"
-              style={{
-                top: Math.floor(VISIBLE_ITEMS / 2) * ITEM_HEIGHT,
-                height: ITEM_HEIGHT,
-              }}
-            >
-              <div className="h-full mx-2 rounded-2xl border border-primary/15 bg-primary/[0.04]" />
-            </div>
-
             <div className="flex gap-0">
               <WheelColumn items={days} selected={day} onChange={setDay} />
-              {/* Subtle separator */}
-              <div className="w-px bg-white/[0.04] my-8" />
+              <div className="w-px bg-white/[0.05] my-16 shrink-0" />
               <WheelColumn items={months} selected={month} onChange={setMonth} />
-              <div className="w-px bg-white/[0.04] my-8" />
+              <div className="w-px bg-white/[0.05] my-16 shrink-0" />
               <WheelColumn items={years} selected={year} onChange={setYear} />
             </div>
           </div>
