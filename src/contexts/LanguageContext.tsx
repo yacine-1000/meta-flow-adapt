@@ -215,8 +215,7 @@ const translations: Record<string, Record<Language, string>> = {
   "level.advanced_desc": { en: "3+ years, strong foundation", ar: "+٣ سنوات، أساس قوي" },
 
   // Goal
-  "goal.title1": { en: "What's your", ar: "ما هو" },
-  "goal.title2": { en: "main goal?", ar: "هدفك الأساسي؟" },
+  "goal.title": { en: "What's your main goal?", ar: "ما هدفك الأساسي؟" },
   "goal.strength": { en: "Build Strength", ar: "بناء القوة" },
   "goal.strength_desc": { en: "Get stronger with progressive overload", ar: "ازدد قوة مع التحميل التدريجي" },
   "goal.muscle": { en: "Build Muscle", ar: "بناء العضلات" },
