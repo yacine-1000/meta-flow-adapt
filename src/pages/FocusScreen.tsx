@@ -64,8 +64,7 @@ const FocusScreen = () => {
                   <span>{t("focus.top_priority")}</span>
                 </div>
               </motion.div>
-            );
-          })}
+          ))}
         </div>
 
         <MetafiButton onClick={() => navigate("/activities")}>{t("continue")}</MetafiButton>
