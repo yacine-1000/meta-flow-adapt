@@ -27,12 +27,11 @@ const GenderScreen = () => {
         <ProgressBar step={1} total={8} />
 
         <motion.div
-          className="mt-12"
+          className="mt-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "1", y: "8" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">
             {t("gender.title1")}<br />{t("gender.title2")}
           </h1>

@@ -36,11 +36,10 @@ const HeightScreen = () => {
         </div>
 
         <motion.div
-          className="mt-8"
+          className="mt-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-primary/80 text-xs font-medium tracking-widest uppercase mb-3">{t("step_of", { x: "2", y: "8" })}</p>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("height.title1")}<br />{t("height.title2")}</h1>
         </motion.div>
 
