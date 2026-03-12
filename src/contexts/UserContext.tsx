@@ -73,6 +73,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setUserName,
         userPhone,
         setUserPhone,
+        selectedSports,
+        setSelectedSports,
         completedExercises,
         markExerciseDone,
         workoutDone,
