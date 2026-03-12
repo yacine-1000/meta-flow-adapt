@@ -11,7 +11,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 
 const dayKeys = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
-const sportKeys = [
+const allSportKeys = [
   "football", "padel", "pilates", "yoga", "tennis", "running",
   "hiking", "mma", "boxing", "swimming", "cycling", "basketball",
 ];
