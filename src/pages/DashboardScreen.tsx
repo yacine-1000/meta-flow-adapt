@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { useUser } from "@/contexts/UserContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const weekDayShortKeys = ["M", "T", "W", "Th", "F", "S", "Su"];
+const weekDayShortKeys = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
 const weekDaysBase = [
   { short: "M", active: true },
