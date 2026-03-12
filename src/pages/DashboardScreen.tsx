@@ -71,6 +71,7 @@ const DashboardScreen = () => {
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [replaceIndex, setReplaceIndex] = useState<number | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showShareCard, setShowShareCard] = useState(false);
   const [displayStreak, setDisplayStreak] = useState(streak);
 
   const weekDays = weekDaysBase.map((d, i) => ({
