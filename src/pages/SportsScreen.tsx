@@ -83,7 +83,7 @@ const SportsScreen = () => {
           </div>
         </div>
 
-        <MetafiButton onClick={() => navigate("/focus")}>{t("continue")}</MetafiButton>
+        <MetafiButton onClick={() => { setSelectedSports(selected); navigate("/focus"); }}>{t("continue")}</MetafiButton>
       </div>
     </MetafiScreen>
   );
