@@ -18,6 +18,12 @@ const WheelColumn = ({ items, selected, onChange }: {
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const [centeredIdx, setCenteredIdx] = useState(() => {
+    const idx = items.findIndex(i => i.value === selected);
+    return idx >= 0 ? idx : 0;
+  });
+
+  const padding = Math.floor(VISIBLE_ITEMS / 2) * ITEM_HEIGHT;
 
   const scrollToIndex = useCallback((index: number, smooth = true) => {
     if (!containerRef.current) return;
@@ -29,33 +35,50 @@ const WheelColumn = ({ items, selected, onChange }: {
 
   useEffect(() => {
     const idx = items.findIndex(i => i.value === selected);
-    if (idx >= 0) scrollToIndex(idx, false);
+    if (idx >= 0) {
+      // Use requestAnimationFrame to ensure DOM is ready
+      requestAnimationFrame(() => {
+        scrollToIndex(idx, false);
+        setCenteredIdx(idx);
+      });
+    }
   }, []);
 
   const handleScroll = () => {
     if (!containerRef.current) return;
+    const scrollTop = containerRef.current.scrollTop;
+    const visualIdx = Math.round(scrollTop / ITEM_HEIGHT);
+    const clamped = Math.max(0, Math.min(items.length - 1, visualIdx));
+    setCenteredIdx(clamped);
+
     if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     scrollTimeout.current = setTimeout(() => {
       if (!containerRef.current) return;
-      const scrollTop = containerRef.current.scrollTop;
-      const index = Math.round(scrollTop / ITEM_HEIGHT);
-      const clampedIndex = Math.max(0, Math.min(items.length - 1, index));
-      scrollToIndex(clampedIndex);
-      if (items[clampedIndex]) onChange(items[clampedIndex].value);
-    }, 60);
+      const finalTop = containerRef.current.scrollTop;
+      const finalIdx = Math.round(finalTop / ITEM_HEIGHT);
+      const finalClamped = Math.max(0, Math.min(items.length - 1, finalIdx));
+      scrollToIndex(finalClamped);
+      setCenteredIdx(finalClamped);
+      if (items[finalClamped]) onChange(items[finalClamped].value);
+    }, 80);
   };
-
-  const padding = Math.floor(VISIBLE_ITEMS / 2) * ITEM_HEIGHT;
-
-  // Calculate which item index is currently centered
-  const selectedIdx = items.findIndex(i => i.value === selected);
 
   return (
     <div className="flex-1 relative" style={{ height: VISIBLE_ITEMS * ITEM_HEIGHT }}>
+      {/* Selection highlight bar */}
+      <div
+        className="absolute inset-x-2 z-10 pointer-events-none rounded-xl"
+        style={{
+          top: padding,
+          height: ITEM_HEIGHT,
+          background: "linear-gradient(135deg, rgba(149, 255, 195, 0.08) 0%, rgba(109, 235, 255, 0.05) 100%)",
+          border: "1px solid rgba(149, 255, 195, 0.1)",
+        }}
+      />
       <div
         ref={containerRef}
         onScroll={handleScroll}
-        className="h-full overflow-y-auto scrollbar-hide"
+        className="h-full overflow-y-auto scrollbar-hide relative z-0"
         style={{
           scrollSnapType: "y mandatory",
           WebkitOverflowScrolling: "touch",
@@ -65,9 +88,10 @@ const WheelColumn = ({ items, selected, onChange }: {
       >
         <div style={{ height: padding }} />
         {items.map((item, i) => {
-          const distance = Math.abs(i - selectedIdx);
-          const opacity = distance === 0 ? 1 : distance === 1 ? 0.35 : distance === 2 ? 0.15 : 0.08;
-          const scale = distance === 0 ? 1.1 : distance === 1 ? 0.92 : 0.82;
+          const distance = Math.abs(i - centeredIdx);
+          const opacity = distance === 0 ? 1 : distance === 1 ? 0.4 : distance === 2 ? 0.18 : 0.08;
+          const scale = distance === 0 ? 1.1 : distance === 1 ? 0.95 : 0.85;
+          const isCentered = distance === 0;
 
           return (
             <div
@@ -76,12 +100,13 @@ const WheelColumn = ({ items, selected, onChange }: {
               style={{ height: ITEM_HEIGHT }}
             >
               <span
-                className="font-display font-bold transition-all duration-200 ease-out"
+                className="font-display font-bold transition-all duration-150 ease-out"
                 style={{
-                  fontSize: distance === 0 ? "1.5rem" : "1.125rem",
+                  fontSize: isCentered ? "1.5rem" : "1.125rem",
                   opacity,
                   transform: `scale(${scale})`,
-                  color: distance === 0 ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))",
+                  color: isCentered ? "#95FFC3" : "hsl(var(--muted-foreground))",
+                  textShadow: isCentered ? "0 0 20px rgba(149, 255, 195, 0.3)" : "none",
                 }}
               >
                 {item.label}
