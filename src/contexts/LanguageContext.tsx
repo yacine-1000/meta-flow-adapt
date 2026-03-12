@@ -226,9 +226,7 @@ const translations: Record<string, Record<Language, string>> = {
   "goal.general_desc": { en: "Stay fit and balanced", ar: "حافظ على لياقتك وتوازنك" },
 
   // Lifting Days
-  "lifting.title1": { en: "Pick your", ar: "اختر أيام" },
-  "lifting.title2": { en: "lifting days", ar: "التمرين" },
-  "lifting.hint": { en: "We'll plan around your existing activities", ar: "سنبني الخطة حول أنشطتك الحالية" },
+  "lifting.title": { en: "Which days do you want to lift?", ar: "أي أيام تريد التمرين؟" },
   "lifting.day": { en: "Lifting day", ar: "يوم تمرين" },
   "lifting.generate": { en: "Generate My Plan", ar: "أنشئ خطتي" },
   "lifting.sport_day": { en: "Sport day", ar: "يوم رياضة" },
