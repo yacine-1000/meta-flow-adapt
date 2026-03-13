@@ -47,7 +47,8 @@ const App = () => (
         <BrowserRouter>
           <AnimatePresence mode="wait">
             <Routes>
-              <Route path="/" element={<SplashScreen />} />
+              <Route path="/" element={<IntroSlider />} />
+              <Route path="/splash" element={<SplashScreen />} />
               <Route path="/gender" element={<GenderScreen />} />
               <Route path="/height" element={<HeightScreen />} />
               <Route path="/weight" element={<WeightScreen />} />
