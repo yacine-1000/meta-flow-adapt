@@ -367,7 +367,7 @@ const IntroSlider = () => {
         {/* Top bar */}
         <div className="items-center justify-between px-6 pt-14 pb-2 flex flex-col">
           <LanguageSwitch />
-          <img src={metafiIcon} alt="Metafi" className="w-9 h-9 object-contain" />
+          
         </div>
 
         {/* Skip */}
