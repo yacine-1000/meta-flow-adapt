@@ -65,7 +65,7 @@ const exerciseDatabase: Record<string, Exercise[]> = {
 };
 
 const DashboardScreen = () => {
-  const { completedExercises, workoutDone, streak, completedDays, todayDayIndex, justCompleted, clearJustCompleted } = useUser();
+  const { userName, completedExercises, workoutDone, streak, completedDays, todayDayIndex, justCompleted, clearJustCompleted } = useUser();
   const { t } = useLanguage();
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
@@ -163,8 +163,8 @@ const DashboardScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <p className="text-muted-foreground text-sm">{t("day.monday")}</p>
-          <h1 className="font-display text-2xl font-bold">{t("dash.today")}</h1>
+          <h1 className="font-display text-2xl font-bold">{t("dash.greeting", { name: userName || t("dash.default_name") })}</h1>
+          <p className="text-muted-foreground text-sm">{t("day.monday")},</p>
         </motion.div>
 
         {/* Week bar */}

@@ -241,6 +241,8 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Dashboard
   "dash.today": { en: "Today", ar: "اليوم" },
+  "dash.greeting": { en: "Hey {name}", ar: "هلا {name}" },
+  "dash.default_name": { en: "there", ar: "فيك" },
   "dash.weekly_progress": { en: "Weekly Progress", ar: "التقدم الأسبوعي" },
   "dash.days_count": { en: "{x}/{y} days", ar: "{x}/{y} أيام" },
   "dash.exercises_done": { en: "{x}/{y} exercises done", ar: "{x}/{y} تمرين مكتمل" },
