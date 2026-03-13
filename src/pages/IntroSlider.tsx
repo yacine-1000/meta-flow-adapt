@@ -374,7 +374,7 @@ const IntroSlider = () => {
         {!isLastSlide && (
           <motion.button
             className="absolute top-[60px] left-6 text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors z-20"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/splash")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
