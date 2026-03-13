@@ -32,6 +32,7 @@ import EditPlanScreen from "./pages/EditPlanScreen";
 import ExerciseDetailScreen from "./pages/ExerciseDetailScreen";
 import ActiveWorkoutScreen from "./pages/ActiveWorkoutScreen";
 import ProfileScreen from "./pages/ProfileScreen";
+import IntroSlider from "./pages/IntroSlider";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,7 +47,8 @@ const App = () => (
         <BrowserRouter>
           <AnimatePresence mode="wait">
             <Routes>
-              <Route path="/" element={<SplashScreen />} />
+              <Route path="/" element={<IntroSlider />} />
+              <Route path="/splash" element={<SplashScreen />} />
               <Route path="/gender" element={<GenderScreen />} />
               <Route path="/height" element={<HeightScreen />} />
               <Route path="/weight" element={<WeightScreen />} />
