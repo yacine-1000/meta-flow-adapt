@@ -32,6 +32,7 @@ import EditPlanScreen from "./pages/EditPlanScreen";
 import ExerciseDetailScreen from "./pages/ExerciseDetailScreen";
 import ActiveWorkoutScreen from "./pages/ActiveWorkoutScreen";
 import ProfileScreen from "./pages/ProfileScreen";
+import IntroSlider from "./pages/IntroSlider";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
