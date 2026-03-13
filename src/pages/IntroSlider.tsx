@@ -6,47 +6,47 @@ import { MetafiButton } from "@/components/MetafiButton";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import {
   Dumbbell, Timer, RotateCcw, Flame, Check, Calendar,
-  TrendingUp, Target, Shield, Clock, Bike, Footprints
-} from "lucide-react";
+  TrendingUp, Target, Shield, Clock, Bike, Footprints } from
+"lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
 
 /* ─── Floating UI Fragment Components ─── */
 
 const FloatingCard = ({
-  children, className = "", delay = 0, x = 0, y = 0, rotate = 0, scale = 1,
-}: {
-  children: React.ReactNode; className?: string; delay?: number;
-  x?: number; y?: number; rotate?: number; scale?: number;
-}) => (
-  <motion.div
-    className={`absolute ${className}`}
-    initial={{ opacity: 0, y: 30, scale: 0.85 }}
-    animate={{ opacity: 1, y: 0, scale }}
-    exit={{ opacity: 0, y: -20, scale: 0.9 }}
-    transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-    style={{ x, y, rotate }}
-  >
-    {children}
-  </motion.div>
-);
+  children, className = "", delay = 0, x = 0, y = 0, rotate = 0, scale = 1
 
-const GlassFragment = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div
-    className={`rounded-2xl border border-white/[0.08] ${className}`}
-    style={{
-      background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
-      backdropFilter: "blur(40px)",
-      WebkitBackdropFilter: "blur(40px)",
-      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.05)",
-    }}
-  >
+
+
+}: {children: React.ReactNode;className?: string;delay?: number;x?: number;y?: number;rotate?: number;scale?: number;}) =>
+<motion.div
+  className={`absolute ${className}`}
+  initial={{ opacity: 0, y: 30, scale: 0.85 }}
+  animate={{ opacity: 1, y: 0, scale }}
+  exit={{ opacity: 0, y: -20, scale: 0.9 }}
+  transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+  style={{ x, y, rotate }}>
+  
     {children}
-  </div>
-);
+  </motion.div>;
+
+
+const GlassFragment = ({ children, className = "" }: {children: React.ReactNode;className?: string;}) =>
+<div
+  className={`rounded-2xl border border-white/[0.08] ${className}`}
+  style={{
+    background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
+    backdropFilter: "blur(40px)",
+    WebkitBackdropFilter: "blur(40px)",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.05)"
+  }}>
+  
+    {children}
+  </div>;
+
 
 /* ─── Slide 1: Today's Workout ─── */
-const Slide1Visuals = () => (
-  <div className="relative w-full h-[340px]">
+const Slide1Visuals = () =>
+<div className="relative w-full h-[340px]">
     {/* Main workout card */}
     <FloatingCard className="left-4 top-4 right-4" delay={0.15}>
       <GlassFragment className="p-5">
@@ -62,29 +62,29 @@ const Slide1Visuals = () => (
         </div>
         {/* Exercise rows */}
         {[
-          { name: "Dumbbell Bench Press", info: "3 sets · 8-10 reps", done: true },
-          { name: "Incline DB Fly", info: "3 sets · 10-12 reps", done: true },
-          { name: "Barbell Row", info: "3 sets · 8-10 reps", done: false },
-        ].map((ex, i) => (
-          <div
-            key={i}
-            className={`flex items-center justify-between py-2.5 px-3 rounded-xl mt-1.5 ${
-              ex.done ? "bg-primary/[0.06] border border-primary/10" : "bg-white/[0.03]"
-            }`}
-          >
+      { name: "Dumbbell Bench Press", info: "3 sets · 8-10 reps", done: true },
+      { name: "Incline DB Fly", info: "3 sets · 10-12 reps", done: true },
+      { name: "Barbell Row", info: "3 sets · 8-10 reps", done: false }].
+      map((ex, i) =>
+      <div
+        key={i}
+        className={`flex items-center justify-between py-2.5 px-3 rounded-xl mt-1.5 ${
+        ex.done ? "bg-primary/[0.06] border border-primary/10" : "bg-white/[0.03]"}`
+        }>
+        
             <div className="flex items-center gap-2.5">
-              {ex.done && (
-                <div className="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center">
+              {ex.done &&
+          <div className="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center">
                   <Check className="w-2.5 h-2.5 text-primary" />
                 </div>
-              )}
+          }
               <div>
                 <span className={`text-xs font-medium ${ex.done ? "text-muted-foreground" : "text-foreground"}`}>{ex.name}</span>
                 <p className="text-[9px] text-muted-foreground/60 mt-0.5">{ex.info}</p>
               </div>
             </div>
           </div>
-        ))}
+      )}
       </GlassFragment>
     </FloatingCard>
 
@@ -102,23 +102,23 @@ const Slide1Visuals = () => (
         <p className="text-[9px] text-muted-foreground/60 mb-1.5">Weekly Progress</p>
         <div className="w-28 h-1.5 rounded-full bg-muted/30 overflow-hidden">
           <motion.div
-            className="h-full rounded-full bg-gradient-accent"
-            initial={{ width: 0 }}
-            animate={{ width: "40%" }}
-            transition={{ delay: 0.8, duration: 1 }}
-          />
+          className="h-full rounded-full bg-gradient-accent"
+          initial={{ width: 0 }}
+          animate={{ width: "40%" }}
+          transition={{ delay: 0.8, duration: 1 }} />
+        
         </div>
       </GlassFragment>
     </FloatingCard>
 
     {/* Ambient glow */}
     <div className="absolute top-10 left-1/2 -translate-x-1/2 w-60 h-60 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.06) 0%, transparent 70%)" }} />
-  </div>
-);
+  </div>;
+
 
 /* ─── Slide 2: Sports Integration ─── */
-const Slide2Visuals = () => (
-  <div className="relative w-full h-[340px]">
+const Slide2Visuals = () =>
+<div className="relative w-full h-[340px]">
     {/* Sports cards floating */}
     <FloatingCard className="left-5 top-5" delay={0.15} rotate={-2}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
@@ -156,41 +156,41 @@ const Slide2Visuals = () => (
         </div>
         {/* Weekly timeline */}
         <div className="flex gap-1.5">
-          {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-1">
+          {["M", "T", "W", "T", "F", "S", "S"].map((d, i) =>
+        <div key={i} className="flex-1 flex flex-col items-center gap-1">
               <span className="text-[8px] text-muted-foreground/40">{d}</span>
               <div className={`w-full aspect-square rounded-lg flex items-center justify-center ${
-                [0, 2, 4].includes(i)
-                  ? "bg-primary/15 border border-primary/20"
-                  : [1, 5].includes(i)
-                  ? "bg-accent/40 border border-white/[0.06]"
-                  : "bg-white/[0.02]"
-              }`}>
+          [0, 2, 4].includes(i) ?
+          "bg-primary/15 border border-primary/20" :
+          [1, 5].includes(i) ?
+          "bg-accent/40 border border-white/[0.06]" :
+          "bg-white/[0.02]"}`
+          }>
                 {[0, 2, 4].includes(i) && <Dumbbell className="w-2.5 h-2.5 text-primary/60" />}
                 {i === 1 && <Bike className="w-2.5 h-2.5 text-muted-foreground/40" />}
                 {i === 5 && <Footprints className="w-2.5 h-2.5 text-muted-foreground/40" />}
               </div>
             </div>
-          ))}
+        )}
         </div>
       </GlassFragment>
     </FloatingCard>
 
     <div className="absolute top-20 right-10 w-48 h-48 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(109,235,255,0.05) 0%, transparent 70%)" }} />
-  </div>
-);
+  </div>;
+
 
 /* ─── Slide 3: Personalized Plan ─── */
-const Slide3Visuals = () => (
-  <div className="relative w-full h-[340px]">
+const Slide3Visuals = () =>
+<div className="relative w-full h-[340px]">
     {/* Equipment card */}
     <FloatingCard className="left-4 top-4" delay={0.15} rotate={-2}>
       <GlassFragment className="px-4 py-3">
         <p className="text-[9px] text-muted-foreground/50 uppercase tracking-wider mb-2">Equipment</p>
         <div className="flex gap-1.5">
-          {["Dumbbells", "Barbell", "Cable"].map((eq) => (
-            <span key={eq} className="text-[10px] px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary/80">{eq}</span>
-          ))}
+          {["Dumbbells", "Barbell", "Cable"].map((eq) =>
+        <span key={eq} className="text-[10px] px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary/80">{eq}</span>
+        )}
         </div>
       </GlassFragment>
     </FloatingCard>
@@ -241,12 +241,12 @@ const Slide3Visuals = () => (
     </FloatingCard>
 
     <div className="absolute top-16 left-1/2 -translate-x-1/2 w-56 h-56 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.05) 0%, transparent 70%)" }} />
-  </div>
-);
+  </div>;
+
 
 /* ─── Slide 4: Momentum & Progress ─── */
-const Slide4Visuals = () => (
-  <div className="relative w-full h-[340px]">
+const Slide4Visuals = () =>
+<div className="relative w-full h-[340px]">
     {/* Streak card */}
     <FloatingCard className="left-1/2 -translate-x-1/2 top-4" delay={0.15}>
       <GlassFragment className="px-6 py-4 flex items-center gap-4">
@@ -266,11 +266,11 @@ const Slide4Visuals = () => (
         <p className="text-[9px] text-muted-foreground/50 mb-2">This week</p>
         <div className="w-full h-1.5 rounded-full bg-muted/30 overflow-hidden">
           <motion.div
-            className="h-full rounded-full bg-gradient-accent"
-            initial={{ width: 0 }}
-            animate={{ width: "75%" }}
-            transition={{ delay: 0.8, duration: 1 }}
-          />
+          className="h-full rounded-full bg-gradient-accent"
+          initial={{ width: 0 }}
+          animate={{ width: "75%" }}
+          transition={{ delay: 0.8, duration: 1 }} />
+        
         </div>
         <p className="text-[10px] font-medium text-foreground mt-1.5">3/4 days</p>
       </GlassFragment>
@@ -306,32 +306,32 @@ const Slide4Visuals = () => (
     </FloatingCard>
 
     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-40 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.06) 0%, transparent 70%)" }} />
-  </div>
-);
+  </div>;
+
 
 /* ─── Slide Data ─── */
 const slides = [
-  {
-    title: "اعرف وش تمرن اليوم",
-    subtitle: "تعرف بالضبط وش أفضل تمرين تسويه لبناء العضلات",
-    Visual: Slide1Visuals,
-  },
-  {
-    title: "نحسب رياضاتك الثانية",
-    subtitle: "ما نعطيك تمارين لها، لكن ناخذها بعين الاعتبار لما نبني خطتك",
-    Visual: Slide2Visuals,
-  },
-  {
-    title: "خطة تناسب وضعك",
-    subtitle: "نراعي إصاباتك ووقتك وحتى معداتك المتوفرة",
-    Visual: Slide3Visuals,
-  },
-  {
-    title: "جهدك لا يضيع",
-    subtitle: "بدون خطة تناسبك، ممكن تبذل جهد كثير بدون تقدم واضح",
-    Visual: Slide4Visuals,
-  },
-];
+{
+  title: "اعرف وش تمرن اليوم",
+  subtitle: "تعرف بالضبط وش أفضل تمرين تسويه لبناء العضلات",
+  Visual: Slide1Visuals
+},
+{
+  title: "نحسب رياضاتك الثانية",
+  subtitle: "ما نعطيك تمارين لها، لكن ناخذها بعين الاعتبار لما نبني خطتك",
+  Visual: Slide2Visuals
+},
+{
+  title: "خطة تناسب وضعك",
+  subtitle: "نراعي إصاباتك ووقتك وحتى معداتك المتوفرة",
+  Visual: Slide3Visuals
+},
+{
+  title: "جهدك لا يضيع",
+  subtitle: "بدون خطة تناسبك، ممكن تبذل جهد كثير بدون تقدم واضح",
+  Visual: Slide4Visuals
+}];
+
 
 /* ─── Main IntroSlider ─── */
 const IntroSlider = () => {
@@ -365,23 +365,23 @@ const IntroSlider = () => {
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
       <div className="flex flex-col min-h-screen relative">
         {/* Top bar */}
-        <div className="flex items-center justify-between px-6 pt-14 pb-2">
+        <div className="items-center justify-between px-6 pt-14 pb-2 flex flex-col">
           <LanguageSwitch />
           <img src={metafiIcon} alt="Metafi" className="w-9 h-9 object-contain" />
         </div>
 
         {/* Skip */}
-        {!isLastSlide && (
-          <motion.button
-            className="absolute top-[60px] left-6 text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors z-20"
-            onClick={() => navigate("/splash")}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            Skip
-          </motion.button>
-        )}
+        {!isLastSlide
+
+
+
+
+
+
+
+
+
+        }
 
         {/* Slide content */}
         <div className="flex-1 flex flex-col justify-between px-2 overflow-hidden">
@@ -398,11 +398,11 @@ const IntroSlider = () => {
               dragElastic={0.7}
               onDragEnd={(_e, { offset, velocity }) => {
                 const swipe = swipePower(offset.x, velocity.x);
-                if (swipe < -swipeConfidenceThreshold) goNext();
-                else if (swipe > swipeConfidenceThreshold) goPrev();
+                if (swipe < -swipeConfidenceThreshold) goNext();else
+                if (swipe > swipeConfidenceThreshold) goPrev();
               }}
-              className="flex flex-col flex-1"
-            >
+              className="flex flex-col flex-1">
+              
               {/* Visual composition area */}
               <div className="flex-1 flex items-center justify-center relative mt-4">
                 <slide.Visual />
@@ -414,16 +414,16 @@ const IntroSlider = () => {
                   className="font-display text-[26px] font-bold leading-tight text-foreground"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                >
+                  transition={{ delay: 0.2, duration: 0.6 }}>
+                  
                   {slide.title}
                 </motion.h1>
                 <motion.p
                   className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.6 }}
-                >
+                  transition={{ delay: 0.35, duration: 0.6 }}>
+                  
                   {slide.subtitle}
                 </motion.p>
               </div>
@@ -435,22 +435,22 @@ const IntroSlider = () => {
         <div className="px-6 pb-10 pt-4">
           {/* Dots */}
           <div className="flex justify-center gap-2 mb-6">
-            {slides.map((_, i) => (
-              <motion.button
-                key={i}
-                onClick={() => {
-                  setDirection(i > currentSlide ? 1 : -1);
-                  setCurrentSlide(i);
-                }}
-                className="h-1 rounded-full transition-all duration-300"
-                animate={{
-                  width: i === currentSlide ? 24 : 6,
-                  backgroundColor: i === currentSlide
-                    ? "hsl(152, 100%, 72%)"
-                    : "rgba(255,255,255,0.15)",
-                }}
-              />
-            ))}
+            {slides.map((_, i) =>
+            <motion.button
+              key={i}
+              onClick={() => {
+                setDirection(i > currentSlide ? 1 : -1);
+                setCurrentSlide(i);
+              }}
+              className="h-1 rounded-full transition-all duration-300"
+              animate={{
+                width: i === currentSlide ? 24 : 6,
+                backgroundColor: i === currentSlide ?
+                "hsl(152, 100%, 72%)" :
+                "rgba(255,255,255,0.15)"
+              }} />
+
+            )}
           </div>
 
           {/* CTA */}
@@ -459,8 +459,8 @@ const IntroSlider = () => {
           </MetafiButton>
         </div>
       </div>
-    </MetafiScreen>
-  );
+    </MetafiScreen>);
+
 };
 
 export default IntroSlider;
