@@ -342,7 +342,7 @@ const IntroSlider = () => {
 
   const goNext = useCallback(() => {
     if (isLastSlide) {
-      navigate("/");
+      navigate("/splash");
       return;
     }
     setDirection(1);
