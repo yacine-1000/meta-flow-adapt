@@ -120,22 +120,32 @@ const Slide1Visuals = () => (
 const Slide2Visuals = () => (
   <div className="relative w-full h-[340px]">
     {/* Sports cards floating */}
-    {[
-      { icon: Bike, label: "Cycling", x: 20, y: 20, delay: 0.15, rot: -2 },
-      { icon: Footprints, label: "Running", x: 180, y: 8, delay: 0.25, rot: 3 },
-      { icon: Target, label: "Padel", x: 60, y: 110, delay: 0.35, rot: -1 },
-    ].map((sport, i) => (
-      <FloatingCard key={i} className="" delay={sport.delay} rotate={sport.rot} style={{ left: sport.x, top: sport.y }}>
-        <motion.div style={{ position: "absolute", left: sport.x, top: sport.y }}>
-          <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
-              <sport.icon className="w-4 h-4 text-primary/70" />
-            </div>
-            <span className="text-xs font-medium text-foreground">{sport.label}</span>
-          </GlassFragment>
-        </motion.div>
-      </FloatingCard>
-    ))}
+    <FloatingCard className="left-5 top-5" delay={0.15} rotate={-2}>
+      <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
+        <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
+          <Bike className="w-4 h-4 text-primary/70" />
+        </div>
+        <span className="text-xs font-medium text-foreground">Cycling</span>
+      </GlassFragment>
+    </FloatingCard>
+
+    <FloatingCard className="right-8 top-3" delay={0.25} rotate={3}>
+      <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
+        <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
+          <Footprints className="w-4 h-4 text-primary/70" />
+        </div>
+        <span className="text-xs font-medium text-foreground">Running</span>
+      </GlassFragment>
+    </FloatingCard>
+
+    <FloatingCard className="left-12 top-[110px]" delay={0.35} rotate={-1}>
+      <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
+        <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
+          <Target className="w-4 h-4 text-primary/70" />
+        </div>
+        <span className="text-xs font-medium text-foreground">Padel</span>
+      </GlassFragment>
+    </FloatingCard>
 
     {/* Plan adaptation card */}
     <FloatingCard className="left-6 right-6 bottom-8" delay={0.5}>
