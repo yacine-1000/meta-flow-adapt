@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
-import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Check } from "lucide-react";
@@ -23,7 +22,6 @@ const GenderScreen = () => {
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
       <FloatingOrbs />
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8 relative z-10">
-        <LanguageSwitch />
         <ProgressBar step={1} total={8} />
 
         <motion.div
