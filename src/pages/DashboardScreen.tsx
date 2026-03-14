@@ -336,7 +336,7 @@ const DashboardScreen = () => {
 
         {/* Bottom nav */}
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
-          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
+          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around pl-[38px] pr-[38px] mb-[9px] pt-[20px] pb-[23px]">
             {[
             { icon: Home, label: t("nav.home"), active: true, path: "/dashboard" },
             { icon: Dumbbell, label: t("nav.plan"), active: false, path: "/plan" },
@@ -344,7 +344,7 @@ const DashboardScreen = () => {
             map((item) =>
             <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/30"}`} />
-                <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/30"}`}>{item.label}</span>
+                
               </button>
             )}
           </div>
