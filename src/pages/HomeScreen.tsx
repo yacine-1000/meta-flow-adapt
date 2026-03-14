@@ -14,7 +14,7 @@ const HomeScreen = () => {
 
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
-      <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
+      <div className="flex flex-col min-h-screen px-6 pb-28 pt-[62px]">
         <motion.div
           className="flex items-center justify-between"
           initial={{ opacity: 0, y: -10 }}
@@ -78,13 +78,13 @@ const HomeScreen = () => {
         </motion.div>
 
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
-          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
+          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around pl-[38px] pr-[38px] pb-0 mb-[9px] pt-[6px]">
             {[
             { icon: Home, label: t("nav.home"), active: true, path: "/home" },
             { icon: Dumbbell, label: t("nav.plan"), active: false, path: "/plan" },
             { icon: User, label: t("nav.profile"), active: false, path: "/profile" }].
             map((item) =>
-            <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1 pt-[20px] pb-[23px] pl-[38px] pr-[38px] mb-[9px]">
+            <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1 mb-[9px] pt-[20px] pb-[20px] pl-0 pr-0">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/40"}`} />
                 
               </button>
