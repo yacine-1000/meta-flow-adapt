@@ -15,7 +15,7 @@ const injuries = [
 
 const SeverityScreen = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const [values, setValues] = useState<Record<string, number>>({
     hip: 3, quad: 2, upper_back: 4,
   });
