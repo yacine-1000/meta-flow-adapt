@@ -13,7 +13,7 @@ const HeightScreen = () => {
   const navigate = useNavigate();
   const [heightCm, setHeightCm] = useState(175);
   const [unit, setUnit] = useState<string>("cm");
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   const cmToFtIn = (cm: number) => {
     const totalInches = cm / 2.54;
@@ -83,7 +83,7 @@ const HeightScreen = () => {
             onChange={(e) => setHeightCm(Number(e.target.value))}
             className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, #95FFC3 0%, #6DEBFF ${((heightCm - 140) / 70) * 100}%, rgba(255,255,255,0.06) ${((heightCm - 140) / 70) * 100}%, rgba(255,255,255,0.06) 100%)`,
+              background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, #95FFC3 0%, #6DEBFF ${((heightCm - 140) / 70) * 100}%, rgba(255,255,255,0.06) ${((heightCm - 140) / 70) * 100}%, rgba(255,255,255,0.06) 100%)`,
             }}
           />
           <div className="flex justify-between mt-4 text-[10px] text-muted-foreground/60">

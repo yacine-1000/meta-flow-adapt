@@ -9,7 +9,7 @@ import { useUser } from "@/contexts/UserContext";
 
 const FocusScreen = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const { selectedSports } = useUser();
 
   const [values, setValues] = useState<Record<string, number>>(() => {
@@ -58,7 +58,7 @@ const FocusScreen = () => {
                   onChange={(e) => update(area.id, Number(e.target.value))}
                   className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
                   style={{
-                    background: `linear-gradient(to right, #95FFC3 0%, #6DEBFF ${values[area.id] * 10}%, rgba(255,255,255,0.06) ${values[area.id] * 10}%, rgba(255,255,255,0.06) 100%)`,
+                    background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, #95FFC3 0%, #6DEBFF ${values[area.id] * 10}%, rgba(255,255,255,0.06) ${values[area.id] * 10}%, rgba(255,255,255,0.06) 100%)`,
                   }}
                 />
                 <div className="flex justify-between mt-3 text-[10px] text-muted-foreground/40">

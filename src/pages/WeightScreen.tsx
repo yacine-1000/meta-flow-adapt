@@ -13,7 +13,7 @@ const WeightScreen = () => {
   const navigate = useNavigate();
   const [weightKg, setWeightKg] = useState(75);
   const [unit, setUnit] = useState<string>("kg");
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   const kgToLbs = (kg: number) => Math.round(kg * 2.205);
   const displayValue = unit === "kg" ? weightKg : kgToLbs(weightKg);
@@ -77,7 +77,7 @@ const WeightScreen = () => {
             onChange={(e) => setWeightKg(Number(e.target.value))}
             className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, #95FFC3 0%, #6DEBFF ${((weightKg - 40) / 120) * 100}%, rgba(255,255,255,0.06) ${((weightKg - 40) / 120) * 100}%, rgba(255,255,255,0.06) 100%)`,
+              background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, #95FFC3 0%, #6DEBFF ${((weightKg - 40) / 120) * 100}%, rgba(255,255,255,0.06) ${((weightKg - 40) / 120) * 100}%, rgba(255,255,255,0.06) 100%)`,
             }}
           />
           <div className="flex justify-between mt-4 text-[10px] text-muted-foreground/60">
