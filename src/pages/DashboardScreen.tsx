@@ -3,7 +3,7 @@ import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { WorkoutCelebration } from "@/components/WorkoutCelebration";
 import { StreakShareCard } from "@/components/StreakShareCard";
-import { Home, Dumbbell, User, ChevronRight, Flame, Timer, RotateCcw, Sparkles, ArrowLeftRight, X, Check } from "lucide-react";
+import { Home, Dumbbell, User, ChevronRight, Flame, RotateCcw, Sparkles, ArrowLeftRight, X, Check } from "lucide-react";
 import metafiIcon from "@/assets/metafi-icon.png";
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -250,7 +250,7 @@ const DashboardScreen = () => {
             </div>
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
-                <Timer className="w-3.5 h-3.5" />
+                
                 <span>{t("dash.min", { n: "55" })}</span>
               </div>
               <div className="flex items-center gap-1">
