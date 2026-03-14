@@ -164,7 +164,7 @@ const DashboardScreen = () => {
           transition={{ delay: 0.1 }}>
           
           <h1 className="font-display text-2xl font-bold">{t("dash.greeting", { name: userName || t("dash.default_name") })}</h1>
-          <p className="text-muted-foreground text-sm">{t("day.monday")},</p>
+          
         </motion.div>
 
         {/* Week bar */}
@@ -243,7 +243,7 @@ const DashboardScreen = () => {
             
           <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary/5 blur-2xl" />
 
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 pb-[29px]">
             <div>
               <h2 className="font-display text-lg font-bold">{t("dash.upper_body")}</h2>
               <p className="text-xs text-muted-foreground mt-0.5">{t("dash.push_pull")}</p>
