@@ -5,7 +5,7 @@ export const LanguageSwitch = () => {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="flex items-center justify-center mb-4">
+    <div className="flex items-center justify-center">
       <div className="flex rounded-full bg-muted/20 border border-border/20 p-0.5 backdrop-blur-sm">
         <button
           onClick={() => setLanguage("ar")}
