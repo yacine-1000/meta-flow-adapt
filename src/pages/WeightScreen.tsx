@@ -13,7 +13,7 @@ const WeightScreen = () => {
   const navigate = useNavigate();
   const [weightKg, setWeightKg] = useState(75);
   const [unit, setUnit] = useState<string>("kg");
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   const kgToLbs = (kg: number) => Math.round(kg * 2.205);
   const displayValue = unit === "kg" ? weightKg : kgToLbs(weightKg);
