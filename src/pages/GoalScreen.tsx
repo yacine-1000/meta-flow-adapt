@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { ProgressBar } from "@/components/ProgressBar";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Check, Dumbbell, Gem, Flame, Target } from "lucide-react";
 
@@ -23,6 +24,8 @@ const GoalScreen = () => {
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/training-level" />
+
+        <ProgressBar step={6} total={6} />
 
         <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("goal.title")}</h1>

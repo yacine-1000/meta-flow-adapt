@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { Home, Dumbbell, User, ChevronRight, Crown, RefreshCw, UserCircle, CreditCard, Mail, Shield, FileText } from "lucide-react";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
 import metafiIcon from "@/assets/metafi-icon.png";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/contexts/UserContext";
@@ -19,22 +20,22 @@ const ProfileScreen = () => {
     {
       label: t("profile.workout"),
       rows: [
-        { icon: RefreshCw, label: t("profile.change_plan") },
-        { icon: UserCircle, label: t("profile.personal_info") },
+        { icon: RefreshCw, label: t("profile.change_plan"), action: () => navigate("/plan") },
+        { icon: UserCircle, label: t("profile.personal_info"), action: () => navigate("/personal-info") },
       ],
     },
     {
       label: t("profile.account"),
       rows: [
-        { icon: CreditCard, label: t("profile.subscription") },
-        { icon: Mail, label: t("profile.contact_us") },
+        { icon: CreditCard, label: t("profile.subscription"), action: () => navigate("/subscription") },
+        { icon: Mail, label: t("profile.contact_us"), action: () => navigate("/contact") },
       ],
     },
     {
       label: t("profile.legal"),
       rows: [
-        { icon: Shield, label: t("profile.privacy_policy") },
-        { icon: FileText, label: t("profile.terms") },
+        { icon: Shield, label: t("profile.privacy_policy"), action: () => {} },
+        { icon: FileText, label: t("profile.terms"), action: () => {} },
       ],
     },
   ];
@@ -66,7 +67,6 @@ const ProfileScreen = () => {
           transition={{ delay: 0.1 }}
         >
           <div className="flex items-center gap-4">
-            {/* Avatar */}
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
               style={{
@@ -76,8 +76,6 @@ const ProfileScreen = () => {
             >
               <span className="text-xl font-display font-bold text-primary">{initial}</span>
             </div>
-
-            {/* Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span className="font-display font-bold text-lg truncate">{displayName}</span>
@@ -97,6 +95,27 @@ const ProfileScreen = () => {
           </div>
         </motion.div>
 
+        {/* Language */}
+        <motion.div
+          className="mt-6"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+        >
+          <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium mb-2 px-1">
+            {t("profile.language")}
+          </p>
+          <div
+            className="rounded-2xl border border-white/[0.08] overflow-hidden p-4"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%)",
+              backdropFilter: "blur(40px)",
+            }}
+          >
+            <LanguageSwitch />
+          </div>
+        </motion.div>
+
         {/* Settings sections */}
         {sections.map((section, sectionIdx) => (
           <motion.div
@@ -104,7 +123,7 @@ const ProfileScreen = () => {
             className="mt-6"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 + sectionIdx * 0.08 }}
+            transition={{ delay: 0.2 + sectionIdx * 0.08 }}
           >
             <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium mb-2 px-1">
               {section.label}
@@ -121,6 +140,7 @@ const ProfileScreen = () => {
               {section.rows.map((row, rowIdx) => (
                 <button
                   key={row.label}
+                  onClick={row.action}
                   className="w-full flex items-center gap-3.5 px-5 py-4 hover:bg-white/[0.03] transition-colors"
                   style={rowIdx < section.rows.length - 1 ? { borderBottom: "1px solid rgba(255,255,255,0.04)" } : {}}
                 >

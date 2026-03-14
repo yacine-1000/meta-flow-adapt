@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { UserProvider } from "@/contexts/UserContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import SplashScreen from "./pages/SplashScreen";
 import GenderScreen from "./pages/GenderScreen";
 import HeightScreen from "./pages/HeightScreen";
 import WeightScreen from "./pages/WeightScreen";
@@ -32,6 +31,9 @@ import EditPlanScreen from "./pages/EditPlanScreen";
 import ExerciseDetailScreen from "./pages/ExerciseDetailScreen";
 import ActiveWorkoutScreen from "./pages/ActiveWorkoutScreen";
 import ProfileScreen from "./pages/ProfileScreen";
+import PersonalInfoScreen from "./pages/PersonalInfoScreen";
+import SubscriptionScreen from "./pages/SubscriptionScreen";
+import ContactScreen from "./pages/ContactScreen";
 import IntroSlider from "./pages/IntroSlider";
 import NotFound from "./pages/NotFound";
 
@@ -48,7 +50,6 @@ const App = () => (
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<IntroSlider />} />
-              <Route path="/splash" element={<SplashScreen />} />
               <Route path="/gender" element={<GenderScreen />} />
               <Route path="/height" element={<HeightScreen />} />
               <Route path="/weight" element={<WeightScreen />} />
@@ -74,6 +75,9 @@ const App = () => (
               <Route path="/edit-plan" element={<EditPlanScreen />} />
               <Route path="/exercise/:id" element={<ExerciseDetailScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/personal-info" element={<PersonalInfoScreen />} />
+              <Route path="/subscription" element={<SubscriptionScreen />} />
+              <Route path="/contact" element={<ContactScreen />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>

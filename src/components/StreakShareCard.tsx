@@ -28,7 +28,12 @@ export const StreakShareCard = ({ open, onClose }: StreakShareCardProps) => {
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0"
+            style={{
+              background: "rgba(0,0,0,0.6)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+            }}
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -37,26 +42,37 @@ export const StreakShareCard = ({ open, onClose }: StreakShareCardProps) => {
 
           {/* Card */}
           <motion.div
-            className="relative w-full max-w-[320px] rounded-3xl overflow-hidden border border-white/[0.08]"
+            className="relative w-full max-w-[320px] rounded-3xl overflow-hidden border border-white/[0.12]"
             style={{
-              background: "linear-gradient(160deg, rgba(16,20,16,0.98) 0%, rgba(8,12,8,0.99) 100%)",
-              boxShadow: "0 0 60px rgba(149,255,195,0.06), 0 24px 48px rgba(0,0,0,0.5)",
+              background: "linear-gradient(160deg, rgba(20,30,25,0.92) 0%, rgba(10,18,14,0.95) 50%, rgba(8,14,10,0.98) 100%)",
+              backdropFilter: "blur(60px)",
+              WebkitBackdropFilter: "blur(60px)",
+              boxShadow: "0 0 80px rgba(149,255,195,0.08), 0 0 40px rgba(149,255,195,0.04), 0 24px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
             }}
             initial={{ opacity: 0, scale: 0.92, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
           >
-            {/* Ambient glow */}
+            {/* Ambient glows */}
             <div
-              className="absolute -top-24 left-1/2 -translate-x-1/2 w-56 h-56 rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(circle, rgba(149,255,195,0.08) 0%, transparent 70%)" }}
+              className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(149,255,195,0.1) 0%, transparent 60%)" }}
+            />
+            <div
+              className="absolute -bottom-20 left-1/4 w-40 h-40 rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(109,235,255,0.06) 0%, transparent 70%)" }}
             />
 
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 end-4 z-10 w-7 h-7 rounded-full bg-white/[0.05] flex items-center justify-center hover:bg-white/[0.1] transition-colors"
+              className="absolute top-4 end-4 z-10 w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/[0.08] transition-colors"
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                backdropFilter: "blur(10px)",
+              }}
             >
               <X className="w-3.5 h-3.5 text-muted-foreground/60" />
             </button>
@@ -86,9 +102,9 @@ export const StreakShareCard = ({ open, onClose }: StreakShareCardProps) => {
               </motion.div>
 
               {/* Divider */}
-              <div className="w-10 h-px bg-white/[0.08] my-6" />
+              <div className="w-10 h-px my-6" style={{ background: "linear-gradient(90deg, transparent, rgba(149,255,195,0.2), transparent)" }} />
 
-              {/* Two supporting stats — inline */}
+              {/* Two supporting stats */}
               <motion.div
                 className="flex items-center gap-3 text-[13px] text-muted-foreground/60 mb-6"
                 initial={{ opacity: 0 }}
@@ -113,10 +129,16 @@ export const StreakShareCard = ({ open, onClose }: StreakShareCardProps) => {
               {/* Download action */}
               <motion.button
                 onClick={onClose}
-                className="w-10 h-10 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center hover:bg-white/[0.07] transition-colors"
+                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/[0.08] transition-colors"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(10px)",
+                }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.35 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <Download className="w-4 h-4 text-muted-foreground/50" />
               </motion.button>

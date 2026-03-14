@@ -14,6 +14,18 @@ const translations: Record<string, Record<Language, string>> = {
   "splash.tagline": { en: "A plan that adapts to your week", ar: "خطة تتكيّف مع أسبوعك" },
   "splash.tap": { en: "Tap to start", ar: "انقر للبدء" },
 
+  // Intro Slider
+  "intro.slide1_title": { en: "Know what to train today", ar: "اعرف وش تمرن اليوم" },
+  "intro.slide1_subtitle": { en: "Know exactly the best workout for building muscle", ar: "تعرف بالضبط وش أفضل تمرين تسويه لبناء العضلات" },
+  "intro.slide2_title": { en: "We factor in your other sports", ar: "نحسب رياضاتك الثانية" },
+  "intro.slide2_subtitle": { en: "We don't give you exercises for them, but we consider them when building your plan", ar: "ما نعطيك تمارين لها، لكن ناخذها بعين الاعتبار لما نبني خطتك" },
+  "intro.slide3_title": { en: "A plan that fits your situation", ar: "خطة تناسب وضعك" },
+  "intro.slide3_subtitle": { en: "We consider your injuries, time, and even your available equipment", ar: "نراعي إصاباتك ووقتك وحتى معداتك المتوفرة" },
+  "intro.slide4_title": { en: "Your effort won't go to waste", ar: "جهدك لا يضيع" },
+  "intro.slide4_subtitle": { en: "Without a plan that fits you, you might put in a lot of effort with no clear progress", ar: "بدون خطة تناسبك، ممكن تبذل جهد كثير بدون تقدم واضح" },
+  "intro.start": { en: "Start Now", ar: "ابدأ الآن" },
+  "intro.next": { en: "Next", ar: "التالي" },
+
   // Common
   "continue": { en: "Continue", ar: "متابعة" },
   "step_of": { en: "Step {x} of {y}", ar: "الخطوة {x} من {y}" },
@@ -37,7 +49,7 @@ const translations: Record<string, Record<Language, string>> = {
   "weight.title1": { en: "What's your", ar: "كم يبلغ" },
   "weight.title2": { en: "weight?", ar: "وزنك؟" },
   "weight.kg": { en: "kg", ar: "كغ" },
-  "weight.lbs": { en: "lbs", ar: "رطل" },
+  "weight.lbs": { en: "lbs", ar: "باوند" },
 
   // Birthdate
   "birthdate.title1": { en: "When were", ar: "ما هو تاريخ" },
@@ -98,6 +110,30 @@ const translations: Record<string, Record<Language, string>> = {
   "profile.legal": { en: "Legal", ar: "قانوني" },
   "profile.privacy_policy": { en: "Privacy Policy", ar: "سياسة الخصوصية" },
   "profile.terms": { en: "Terms of Service", ar: "شروط الاستخدام" },
+  "profile.language": { en: "Language", ar: "اللغة" },
+
+  // Personal Info
+  "personal.name": { en: "Name", ar: "الاسم" },
+  "personal.age": { en: "Age", ar: "العمر" },
+  "personal.weight_label": { en: "Weight", ar: "الوزن" },
+  "personal.height_label": { en: "Height", ar: "الطول" },
+  "personal.subtitle": { en: "Update your personal details", ar: "حدّث معلوماتك الشخصية" },
+  "personal.save": { en: "Save", ar: "حفظ" },
+
+  // Subscription
+  "sub.title": { en: "Metafi Pro", ar: "Metafi Pro" },
+  "sub.subtitle": { en: "Unlock the full experience", ar: "افتح التجربة الكاملة" },
+  "sub.month": { en: "month", ar: "شهر" },
+  "sub.feature1": { en: "Personalized adaptive plans", ar: "خطط تدريبية تتكيّف معك" },
+  "sub.feature2": { en: "Sport-aware scheduling", ar: "جدولة تراعي رياضاتك" },
+  "sub.feature3": { en: "Injury-adapted exercises", ar: "تمارين معدّلة للإصابات" },
+  "sub.feature4": { en: "Progress tracking & streaks", ar: "تتبع التقدم والسلاسل" },
+  "sub.subscribe": { en: "Subscribe Now", ar: "اشترك الآن" },
+
+  // Contact
+  "contact.whatsapp_desc": { en: "Chat with us directly", ar: "تواصل معنا مباشرة" },
+  "contact.email": { en: "Email", ar: "البريد الإلكتروني" },
+  "contact.subtitle": { en: "We're here to help", ar: "نحن هنا للمساعدة" },
 
   // Sports
   "sports.title1": { en: "What sports", ar: "وش الرياضات اللي" },
@@ -269,6 +305,7 @@ const translations: Record<string, Record<Language, string>> = {
   "plan.est_volume": { en: "Est. Weekly Volume", ar: "الحجم الأسبوعي المقدّر" },
   "plan.avg_session": { en: "Avg Session", ar: "متوسط الجلسة" },
   "plan.shoulder_adapted": { en: "Shoulder-adapted — reduced overhead pressing volume", ar: "معدّل للكتف — تقليل حجم تمارين الضغط العلوي" },
+  "plan.lifting_calendar": { en: "Lifting Days", ar: "أيام التمرين" },
 
   // Edit Plan
   "edit.title": { en: "Edit Your Plan", ar: "عدّل خطتك" },

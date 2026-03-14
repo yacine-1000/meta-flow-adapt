@@ -4,19 +4,93 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { ProgressBar } from "@/components/ProgressBar";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Check, Dumbbell, Cog, RectangleHorizontal, Cable, Weight, CircleDot, PersonStanding } from "lucide-react";
+import { Check } from "lucide-react";
 
-const equipmentIcons: Record<string, React.ElementType> = {
-  dumbbells: Dumbbell,
-  barbell: Weight,
-  kettlebells: CircleDot,
-  cable: Cable,
-  weight_machines: Cog,
-  adj_bench: RectangleHorizontal,
-  flat_bench: RectangleHorizontal,
-  resistance_bands: CircleDot,
-  bodyweight: PersonStanding,
+/* ─── Custom Equipment Icons (matching sport icon quality) ─── */
+const EquipmentIcon = ({ id, active }: { id: string; active: boolean }) => {
+  const color = active ? "#95FFC3" : "rgba(255,255,255,0.5)";
+  const s = 22;
+  const icons: Record<string, JSX.Element> = {
+    dumbbells: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="9" width="3" height="6" rx="1" stroke={color} strokeWidth="1.5"/>
+        <rect x="19" y="9" width="3" height="6" rx="1" stroke={color} strokeWidth="1.5"/>
+        <rect x="5" y="7" width="3" height="10" rx="1" stroke={color} strokeWidth="1.5"/>
+        <rect x="16" y="7" width="3" height="10" rx="1" stroke={color} strokeWidth="1.5"/>
+        <line x1="8" y1="12" x2="16" y2="12" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    barbell: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <rect x="1" y="10" width="4" height="4" rx="1" stroke={color} strokeWidth="1.5"/>
+        <rect x="19" y="10" width="4" height="4" rx="1" stroke={color} strokeWidth="1.5"/>
+        <rect x="5" y="8" width="3" height="8" rx="1" stroke={color} strokeWidth="1.5"/>
+        <rect x="16" y="8" width="3" height="8" rx="1" stroke={color} strokeWidth="1.5"/>
+        <line x1="8" y1="12" x2="16" y2="12" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    kettlebells: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <path d="M9 6C9 4.343 10.343 3 12 3C13.657 3 15 4.343 15 6" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="12" cy="14" r="6" stroke={color} strokeWidth="1.5"/>
+        <circle cx="12" cy="14" r="2" stroke={color} strokeWidth="1.2"/>
+      </svg>
+    ),
+    cable: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <rect x="4" y="2" width="16" height="3" rx="1" stroke={color} strokeWidth="1.5"/>
+        <line x1="8" y1="5" x2="8" y2="8" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="16" y1="5" x2="16" y2="8" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M8 8L12 16L16 8" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <line x1="10" y1="20" x2="14" y2="20" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="12" y1="16" x2="12" y2="20" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    weight_machines: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="3" stroke={color} strokeWidth="1.5"/>
+        <circle cx="12" cy="12" r="4" stroke={color} strokeWidth="1.5"/>
+        <line x1="12" y1="8" x2="12" y2="3" stroke={color} strokeWidth="1.5"/>
+        <line x1="12" y1="21" x2="12" y2="16" stroke={color} strokeWidth="1.5"/>
+        <line x1="8" y1="12" x2="3" y2="12" stroke={color} strokeWidth="1.5"/>
+        <line x1="21" y1="12" x2="16" y2="12" stroke={color} strokeWidth="1.5"/>
+      </svg>
+    ),
+    adj_bench: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <path d="M3 18L10 18L18 10" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <line x1="3" y1="22" x2="3" y2="18" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="10" y1="22" x2="10" y2="18" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="18" cy="10" r="1.5" fill={color}/>
+      </svg>
+    ),
+    flat_bench: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="13" width="20" height="3" rx="1.5" stroke={color} strokeWidth="1.5"/>
+        <line x1="5" y1="16" x2="5" y2="21" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="19" y1="16" x2="19" y2="21" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    resistance_bands: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <path d="M6 4C6 4 4 10 4 12C4 14 6 20 6 20" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M18 4C18 4 20 10 20 12C20 14 18 20 18 20" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M6 8C10 6 14 6 18 8" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M6 16C10 18 14 18 18 16" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    bodyweight: (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="4" r="2.5" stroke={color} strokeWidth="1.5"/>
+        <path d="M12 8V14" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M8 11L12 8L16 11" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8 22L12 14L16 22" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  };
+  return icons[id] || null;
 };
 
 const EquipmentScreen = () => {
@@ -47,6 +121,8 @@ const EquipmentScreen = () => {
           <button onClick={selectAll} className="text-primary text-xs font-medium tracking-wide">{t("equipment.select_all")}</button>
         </div>
 
+        <ProgressBar step={4} total={6} />
+
         <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("equipment.title")}</h1>
         </motion.div>
@@ -72,7 +148,7 @@ const EquipmentScreen = () => {
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        {(() => { const Icon = equipmentIcons[item]; return Icon ? <Icon className={`w-4 h-4 ${isSelected ? "text-primary" : "text-muted-foreground/50"}`} /> : null; })()}
+                        <EquipmentIcon id={item} active={isSelected} />
                         <span className="text-sm font-medium">{t(`equip.${item}`)}</span>
                       </div>
                       {isSelected && (

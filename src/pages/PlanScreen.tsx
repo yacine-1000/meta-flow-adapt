@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 import { MetafiScreen } from "@/components/MetafiScreen";
-import { Home, Dumbbell, User, Target, TrendingUp, Calendar, Clock } from "lucide-react";
+import { Home, Dumbbell, User, Target, TrendingUp, Calendar, Clock, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+const dayShortKeys = ["M", "T", "W", "Th", "F", "S", "Su"];
+const dayFullKeys = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+
+const liftingDays = [0, 2, 4]; // Mon, Wed, Fri
 
 const PlanScreen = () => {
   const navigate = useNavigate();
@@ -11,7 +16,6 @@ const PlanScreen = () => {
   const weekStats = {
     liftingSessions: 3,
     sportSessions: 1,
-    totalVolume: "~12,400 lbs",
     avgDuration: "50 min",
   };
 
@@ -55,6 +59,7 @@ const PlanScreen = () => {
           ))}
         </motion.div>
 
+        {/* Avg session + adaptation */}
         <motion.div
           className="glass-card-strong rounded-2xl p-4 mt-4"
           initial={{ opacity: 0, y: 10 }}
@@ -63,12 +68,8 @@ const PlanScreen = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{t("plan.est_volume")}</span>
-              <p className="text-lg font-display font-bold mt-0.5">{weekStats.totalVolume}</p>
-            </div>
-            <div className="text-end">
               <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{t("plan.avg_session")}</span>
-              <p className="text-lg font-display font-bold mt-0.5 flex items-center gap-1 justify-end">
+              <p className="text-lg font-display font-bold mt-0.5 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-primary/50" />
                 {weekStats.avgDuration}
               </p>
@@ -80,13 +81,44 @@ const PlanScreen = () => {
           </div>
         </motion.div>
 
+        {/* Lifting Days Calendar */}
+        <motion.div
+          className="mt-6"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium mb-3 px-1">
+            {t("plan.lifting_calendar")}
+          </p>
+          <div className="flex gap-2">
+            {dayFullKeys.map((fullKey, i) => {
+              const isLifting = liftingDays.includes(i);
+              return (
+                <div key={fullKey} className="flex-1 flex flex-col items-center gap-2">
+                  <span className="text-[9px] text-muted-foreground/40 font-medium">{t(`day.${dayShortKeys[i]}`)}</span>
+                  <div className={`w-full aspect-square rounded-xl flex items-center justify-center transition-all ${
+                    isLifting
+                      ? "bg-primary/15 border border-primary/30"
+                      : "glass-card"
+                  }`}>
+                    {isLifting && <Dumbbell className="w-3.5 h-3.5 text-primary" />}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        <div className="h-14" />
+
         {/* Bottom nav */}
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
           <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
             {[
               { icon: Home, label: t("nav.home"), active: false, path: "/dashboard" },
               { icon: Dumbbell, label: t("nav.plan"), active: true, path: "/plan" },
-              { icon: User, label: t("nav.profile"), active: false, path: "/plan" },
+              { icon: User, label: t("nav.profile"), active: false, path: "/profile" },
             ].map((item) => (
               <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/30"}`} />
