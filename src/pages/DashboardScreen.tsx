@@ -260,7 +260,7 @@ const DashboardScreen = () => {
             </div>
           </div>
 
-          <div className="bg-primary/[0.08] rounded-xl px-3 py-2 mb-5 border border-primary/10 flex items-center gap-2">
+          <div className="bg-primary/[0.08] rounded-xl px-3 mb-5 border border-primary/10 flex items-center gap-2 py-[16px]">
             <Sparkles className="w-3.5 h-3.5 text-primary/60 flex-shrink-0" />
             <p className="text-[10px] text-primary/80">{t("dash.adaptation")}</p>
           </div>
