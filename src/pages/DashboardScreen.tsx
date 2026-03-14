@@ -251,7 +251,7 @@ const DashboardScreen = () => {
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
                 
-                <span>{t("dash.min", { n: "55" })}</span>
+                
               </div>
               <div className="flex items-center gap-1">
                 <RotateCcw className="w-3.5 h-3.5" />
