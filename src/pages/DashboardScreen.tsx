@@ -135,7 +135,7 @@ const DashboardScreen = () => {
           className="flex items-center justify-end"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}>
-          <img src={metafiIcon} alt="Metafi" className="w-10 h-10 object-contain" />
+          
         </motion.div>
 
         {/* Greeting + Streak on same row */}
