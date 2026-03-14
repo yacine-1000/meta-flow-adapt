@@ -67,15 +67,15 @@ const ProfileScreen = () => {
           transition={{ delay: 0.1 }}>
           
           <div className="flex items-center gap-4">
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--primary) / 0.2), hsl(var(--primary) / 0.05))",
-                border: "1px solid hsl(var(--primary) / 0.15)"
-              }}>
-              
-              <span className="text-xl font-display font-bold text-primary">{initial}</span>
-            </div>
+            
+
+
+
+
+
+
+
+            
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span className="font-display font-bold text-lg truncate">{displayName}</span>
