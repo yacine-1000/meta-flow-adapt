@@ -378,7 +378,7 @@ const DashboardScreen = () => {
                     <span className="text-[10px] text-muted-foreground">{alt.rest} {t("dash.rest")}</span>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground/30" />
+                <ChevronRight className="w-4 h-4 text-muted-foreground/30 rtl:rotate-180" />
               </button>
             )}
           </div>
