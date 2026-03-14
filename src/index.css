@@ -108,6 +108,24 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
+  .gradient-border-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .gradient-border-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(149, 255, 195, 0.15) 0%, transparent 50%, rgba(109, 235, 255, 0.10) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
   .bg-metafi-gradient {
     background: var(--gradient-bg);
   }
