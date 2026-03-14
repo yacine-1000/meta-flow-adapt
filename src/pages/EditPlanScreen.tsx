@@ -158,7 +158,7 @@ const EditPlanScreen = () => {
                     onChange={(e) => setFocusValues((v) => ({ ...v, [area.id]: Number(e.target.value) }))}
                     className="w-full h-[5px] rounded-full appearance-none cursor-pointer"
                     style={{
-                      background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) 100%)`,
+                      background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, hsl(var(--primary)) 0%, hsl(var(--primary)) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) ${(focusValues[area.id] ?? 5) * 10}%, rgba(255,255,255,0.06) 100%)`,
                     }}
                   />
                 </div>

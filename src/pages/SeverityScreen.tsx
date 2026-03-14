@@ -78,7 +78,7 @@ const SeverityScreen = () => {
                 onChange={(e) => update(injury.id, Number(e.target.value))}
                 className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
                 style={{
-                  background: `linear-gradient(to right, ${getSeverityColor(values[injury.id])} 0%, ${getSeverityColor(values[injury.id])} ${values[injury.id] * 10}%, rgba(255,255,255,0.06) ${values[injury.id] * 10}%, rgba(255,255,255,0.06) 100%)`,
+                  background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, ${getSeverityColor(values[injury.id])} 0%, ${getSeverityColor(values[injury.id])} ${values[injury.id] * 10}%, rgba(255,255,255,0.06) ${values[injury.id] * 10}%, rgba(255,255,255,0.06) 100%)`,
                 }}
               />
               <div className="flex justify-between mt-3 text-[10px] text-muted-foreground/30">
