@@ -9,7 +9,7 @@ import { useUser } from "@/contexts/UserContext";
 
 const FocusScreen = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const { selectedSports } = useUser();
 
   const [values, setValues] = useState<Record<string, number>>(() => {
