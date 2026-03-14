@@ -243,7 +243,7 @@ const DashboardScreen = () => {
             
           <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary/5 blur-2xl" />
 
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-[29px]">
             <div>
               <h2 className="font-display text-lg font-bold">{t("dash.upper_body")}</h2>
               <p className="text-xs text-muted-foreground mt-0.5">{t("dash.push_pull")}</p>
