@@ -114,7 +114,7 @@ const PlanScreen = () => {
 
         {/* Bottom nav */}
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
-          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around pt-[20px] pb-[23px]">
+          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around pt-[20px] pb-[23px] pl-[38px] pr-[38px] mb-[9px]">
             {[
             { icon: Home, label: t("nav.home"), active: false, path: "/dashboard" },
             { icon: Dumbbell, label: t("nav.plan"), active: true, path: "/plan" },
