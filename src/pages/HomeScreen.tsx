@@ -14,14 +14,14 @@ const HomeScreen = () => {
 
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
-      <div className="flex flex-col min-h-screen px-6 pb-28 pt-[62px]">
+      <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
         <motion.div
           className="flex items-center justify-between"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}>
           
           <div>
-            
+            <p className="text-muted-foreground/60 text-xs tracking-widest uppercase">{t("home.welcome_back")}</p>
             <h1 className="font-display text-2xl font-bold mt-1 text-gradient-mint">
               {t("home.hi", { name: displayName })}
             </h1>
@@ -56,17 +56,17 @@ const HomeScreen = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25 }}>
           
-          <div className="glass-card-strong rounded-3xl p-8 w-full text-center relative overflow-hidden pb-[10px]">
+          <div className="glass-card-strong rounded-3xl p-8 w-full text-center relative overflow-hidden">
             <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
             <motion.button
               onClick={() => navigate("/sports")}
               whileTap={{ scale: 0.95 }}
-              className="w-16 h-16 rounded-2xl bg-gradient-accent mx-auto flex items-center justify-center shadow-glow relative z-10 cursor-pointer hover:shadow-[0_0_50px_rgba(149,255,195,0.3)] transition-shadow pb-0 mb-[42px]">
+              className="w-16 h-16 rounded-2xl bg-gradient-accent mx-auto flex items-center justify-center mb-6 shadow-glow relative z-10 cursor-pointer hover:shadow-[0_0_50px_rgba(149,255,195,0.3)] transition-shadow">
               
               <Plus className="w-7 h-7 text-primary-foreground" />
             </motion.button>
             <h2 className="font-display text-xl font-bold mb-2 relative z-10">{t("home.create_plan")}</h2>
-            <p className="text-muted-foreground text-sm mb-8 leading-relaxed max-w-[280px] mx-auto relative z-10 mt-[10px] pt-[6px]">
+            <p className="text-muted-foreground text-sm mb-8 leading-relaxed max-w-[280px] mx-auto relative z-10">
               {t("home.create_desc")}
             </p>
             <div className="relative z-10">
@@ -78,15 +78,15 @@ const HomeScreen = () => {
         </motion.div>
 
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
-          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around pl-[38px] pr-[38px] pb-0 mb-[9px] pt-[6px]">
+          <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
             {[
             { icon: Home, label: t("nav.home"), active: true, path: "/home" },
             { icon: Dumbbell, label: t("nav.plan"), active: false, path: "/plan" },
             { icon: User, label: t("nav.profile"), active: false, path: "/profile" }].
             map((item) =>
-            <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1 mb-[9px] pt-[20px] pb-[20px] pl-0 pr-0">
+            <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/40"}`} />
-                
+                <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/40"}`}>{item.label}</span>
               </button>
             )}
           </div>
