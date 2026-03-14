@@ -10,12 +10,12 @@ const GeneratingScreen = () => {
   const [progress, setProgress] = useState(0);
 
   const steps = [
-    t("gen.step1"),
-    t("gen.step2"),
-    t("gen.step3"),
-    t("gen.step4"),
-    t("gen.step5"),
-  ];
+  t("gen.step1"),
+  t("gen.step2"),
+  t("gen.step3"),
+  t("gen.step4"),
+  t("gen.step5")];
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,8 +41,8 @@ const GeneratingScreen = () => {
           className="relative"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+          
           <span className="font-display text-8xl font-bold text-gradient-mint tracking-tight tabular-nums">
             {roundedProgress}%
           </span>
@@ -52,21 +52,21 @@ const GeneratingScreen = () => {
           className="mt-10 text-center"
           key={currentStep}
           initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
+          animate={{ opacity: 1, y: 0 }}>
+          
           <p className="text-foreground/70 font-medium text-sm">{steps[currentStep]}</p>
         </motion.div>
 
-        <motion.p
-          className="text-muted-foreground/20 text-[10px] mt-16 tracking-widest uppercase"
-          animate={{ opacity: [0.15, 0.4, 0.15] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          {t("gen.personalizing")}
-        </motion.p>
+        
+
+
+
+
+
+        
       </div>
-    </MetafiScreen>
-  );
+    </MetafiScreen>);
+
 };
 
 export default GeneratingScreen;
