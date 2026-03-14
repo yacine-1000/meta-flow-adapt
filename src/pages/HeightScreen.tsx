@@ -13,7 +13,7 @@ const HeightScreen = () => {
   const navigate = useNavigate();
   const [heightCm, setHeightCm] = useState(175);
   const [unit, setUnit] = useState<string>("cm");
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   const cmToFtIn = (cm: number) => {
     const totalInches = cm / 2.54;
