@@ -21,7 +21,7 @@ const HomeScreen = () => {
           animate={{ opacity: 1, y: 0 }}>
           
           <div>
-            <p className="text-muted-foreground/60 text-xs tracking-widest uppercase">{t("home.welcome_back")}</p>
+            
             <h1 className="font-display text-2xl font-bold mt-1 text-gradient-mint">
               {t("home.hi", { name: displayName })}
             </h1>
