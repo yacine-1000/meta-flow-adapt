@@ -84,9 +84,9 @@ const HomeScreen = () => {
             { icon: Dumbbell, label: t("nav.plan"), active: false, path: "/plan" },
             { icon: User, label: t("nav.profile"), active: false, path: "/profile" }].
             map((item) =>
-            <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
+            <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1 pl-[38px] pr-[38px] pb-[10px] pt-[10px]">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/40"}`} />
-                <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/40"}`}>{item.label}</span>
+                
               </button>
             )}
           </div>
