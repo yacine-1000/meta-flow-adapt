@@ -55,7 +55,7 @@ interface DayActivity {
 
 const EditPlanScreen = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   const [openSection, setOpenSection] = useState<string | null>("goal");
   const [selectedGoal, setSelectedGoal] = useState("muscle");
