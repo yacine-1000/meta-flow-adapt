@@ -28,7 +28,7 @@ const PlanScreen = () => {
           animate={{ opacity: 1, y: 0 }}>
           
           <div>
-            <p className="text-muted-foreground text-sm">{t("plan.week", { x: "1", y: "12" })}</p>
+            
             <h1 className="font-display text-2xl font-bold">{t("plan.your_plan")}</h1>
           </div>
           <button
