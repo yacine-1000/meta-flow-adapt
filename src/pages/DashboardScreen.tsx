@@ -149,7 +149,7 @@ const DashboardScreen = () => {
           
           <motion.button
             onClick={() => setShowShareCard(true)}
-            className="glass-card rounded-xl px-2.5 py-1.5 flex items-center gap-1 h-10 cursor-pointer hover:bg-white/[0.08] transition-colors"
+            className="flex items-center gap-1 cursor-pointer"
             whileTap={{ scale: 0.95 }}
             animate={showCelebration ? {} : {}}
             key={displayStreak}>
