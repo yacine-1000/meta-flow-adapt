@@ -12,7 +12,7 @@ import { useUser } from "@/contexts/UserContext";
 const PhoneScreen = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState("");
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
   const { setUserPhone } = useUser();
 
   return (
@@ -44,7 +44,13 @@ const PhoneScreen = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+1 (555) 000-0000"
-            className="w-full text-lg py-5 px-6 rounded-2xl glass-card-strong bg-transparent focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground/20 transition-all text-center"
+            className="w-full text-lg py-5 px-6 rounded-2xl border border-white/[0.08] bg-transparent focus:outline-none focus:ring-1 focus:ring-primary/30 focus:border-primary/20 placeholder:text-muted-foreground/20 transition-all text-center"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%)",
+              backdropFilter: "blur(30px)",
+              WebkitBackdropFilter: "blur(30px)",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.04)",
+            }}
             autoFocus
             dir="ltr"
           />

@@ -26,9 +26,6 @@ const HomeScreen = () => {
               {t("home.hi", { name: displayName })}
             </h1>
           </div>
-          <div className="w-11 h-11 rounded-2xl glass-card-strong flex items-center justify-center">
-            <User className="w-5 h-5 text-muted-foreground" />
-          </div>
         </motion.div>
 
         <motion.div
@@ -53,13 +50,13 @@ const HomeScreen = () => {
           ))}
         </motion.div>
 
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <motion.div
-            className="glass-card-strong rounded-3xl p-8 w-full text-center relative overflow-hidden"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.25 }}
-          >
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.25 }}
+        >
+          <div className="glass-card-strong rounded-3xl p-8 w-full text-center relative overflow-hidden">
             <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
             <motion.button
               onClick={() => navigate("/sports")}
@@ -77,17 +74,17 @@ const HomeScreen = () => {
                 {t("home.get_started")}
               </MetafiButton>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
           <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
             {[
-              { icon: Home, label: t("nav.home"), active: true },
-              { icon: Dumbbell, label: t("nav.plan"), active: false },
-              { icon: User, label: t("nav.profile"), active: false },
+              { icon: Home, label: t("nav.home"), active: true, path: "/home" },
+              { icon: Dumbbell, label: t("nav.plan"), active: false, path: "/plan" },
+              { icon: User, label: t("nav.profile"), active: false, path: "/profile" },
             ].map((item) => (
-              <button key={item.label} className="flex flex-col items-center gap-1">
+              <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/40"}`} />
                 <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/40"}`}>{item.label}</span>
               </button>

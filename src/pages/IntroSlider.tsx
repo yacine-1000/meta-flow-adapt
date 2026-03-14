@@ -4,28 +4,32 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Dumbbell, Timer, RotateCcw, Flame, Check, Calendar,
   TrendingUp, Target, Shield, Clock, Bike, Footprints } from
 "lucide-react";
-import metafiIcon from "@/assets/metafi-icon.png";
 
 /* ─── Floating UI Fragment Components ─── */
 
 const FloatingCard = ({
   children, className = "", delay = 0, x = 0, y = 0, rotate = 0, scale = 1
-
-
-
 }: {children: React.ReactNode;className?: string;delay?: number;x?: number;y?: number;rotate?: number;scale?: number;}) =>
 <motion.div
   className={`absolute ${className}`}
   initial={{ opacity: 0, y: 30, scale: 0.85 }}
-  animate={{ opacity: 1, y: 0, scale }}
+  animate={{
+    opacity: 1,
+    y: [0, -4, 0],
+    scale,
+  }}
   exit={{ opacity: 0, y: -20, scale: 0.9 }}
-  transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+  transition={{
+    opacity: { delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+    y: { delay: delay + 0.7, duration: 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+    scale: { delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  }}
   style={{ x, y, rotate }}>
-  
     {children}
   </motion.div>;
 
@@ -39,7 +43,6 @@ const GlassFragment = ({ children, className = "" }: {children: React.ReactNode;
     WebkitBackdropFilter: "blur(40px)",
     boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.05)"
   }}>
-  
     {children}
   </div>;
 
@@ -47,7 +50,6 @@ const GlassFragment = ({ children, className = "" }: {children: React.ReactNode;
 /* ─── Slide 1: Today's Workout ─── */
 const Slide1Visuals = () =>
 <div className="relative w-full h-[340px]">
-    {/* Main workout card */}
     <FloatingCard className="left-4 top-4 right-4" delay={0.15}>
       <GlassFragment className="p-5">
         <div className="flex items-center justify-between mb-3">
@@ -60,7 +62,6 @@ const Slide1Visuals = () =>
             <span className="flex items-center gap-1"><RotateCcw className="w-3 h-3" />6</span>
           </div>
         </div>
-        {/* Exercise rows */}
         {[
       { name: "Dumbbell Bench Press", info: "3 sets · 8-10 reps", done: true },
       { name: "Incline DB Fly", info: "3 sets · 10-12 reps", done: true },
@@ -71,7 +72,6 @@ const Slide1Visuals = () =>
         className={`flex items-center justify-between py-2.5 px-3 rounded-xl mt-1.5 ${
         ex.done ? "bg-primary/[0.06] border border-primary/10" : "bg-white/[0.03]"}`
         }>
-        
             <div className="flex items-center gap-2.5">
               {ex.done &&
           <div className="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center">
@@ -88,7 +88,6 @@ const Slide1Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Floating streak badge */}
     <FloatingCard className="right-6 bottom-12" delay={0.45} rotate={-3}>
       <GlassFragment className="px-3.5 py-2 flex items-center gap-2">
         <Flame className="w-3.5 h-3.5 text-primary" />
@@ -96,7 +95,6 @@ const Slide1Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Floating progress pill */}
     <FloatingCard className="left-6 bottom-6" delay={0.55} rotate={2}>
       <GlassFragment className="px-4 py-2.5">
         <p className="text-[9px] text-muted-foreground/60 mb-1.5">Weekly Progress</p>
@@ -106,12 +104,10 @@ const Slide1Visuals = () =>
           initial={{ width: 0 }}
           animate={{ width: "40%" }}
           transition={{ delay: 0.8, duration: 1 }} />
-        
         </div>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Ambient glow */}
     <div className="absolute top-10 left-1/2 -translate-x-1/2 w-60 h-60 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(149,255,195,0.06) 0%, transparent 70%)" }} />
   </div>;
 
@@ -119,7 +115,6 @@ const Slide1Visuals = () =>
 /* ─── Slide 2: Sports Integration ─── */
 const Slide2Visuals = () =>
 <div className="relative w-full h-[340px]">
-    {/* Sports cards floating */}
     <FloatingCard className="left-5 top-5" delay={0.15} rotate={-2}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
@@ -147,14 +142,12 @@ const Slide2Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Plan adaptation card */}
     <FloatingCard className="left-6 right-6 bottom-8" delay={0.5}>
       <GlassFragment className="p-4">
         <div className="flex items-center gap-2 mb-2.5">
           <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
           <span className="text-[10px] text-primary/80">Sport-aware plan adaptation</span>
         </div>
-        {/* Weekly timeline */}
         <div className="flex gap-1.5">
           {["M", "T", "W", "T", "F", "S", "S"].map((d, i) =>
         <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -183,7 +176,6 @@ const Slide2Visuals = () =>
 /* ─── Slide 3: Personalized Plan ─── */
 const Slide3Visuals = () =>
 <div className="relative w-full h-[340px]">
-    {/* Equipment card */}
     <FloatingCard className="left-4 top-4" delay={0.15} rotate={-2}>
       <GlassFragment className="px-4 py-3">
         <p className="text-[9px] text-muted-foreground/50 uppercase tracking-wider mb-2">Equipment</p>
@@ -195,7 +187,6 @@ const Slide3Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Injury adaptation */}
     <FloatingCard className="right-4 top-20" delay={0.3} rotate={2}>
       <GlassFragment className="px-4 py-3">
         <div className="flex items-center gap-2">
@@ -208,7 +199,6 @@ const Slide3Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Time constraint */}
     <FloatingCard className="left-8 top-[140px]" delay={0.4} rotate={-1}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <Clock className="w-3.5 h-3.5 text-primary/50" />
@@ -219,7 +209,6 @@ const Slide3Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Goal card */}
     <FloatingCard className="right-6 bottom-16" delay={0.5} rotate={-1.5}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <Target className="w-3.5 h-3.5 text-primary/60" />
@@ -230,7 +219,6 @@ const Slide3Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Central connecting element */}
     <FloatingCard className="left-1/2 -translate-x-1/2 bottom-4" delay={0.6}>
       <GlassFragment className="px-5 py-3">
         <div className="flex items-center gap-2">
@@ -247,7 +235,6 @@ const Slide3Visuals = () =>
 /* ─── Slide 4: Momentum & Progress ─── */
 const Slide4Visuals = () =>
 <div className="relative w-full h-[340px]">
-    {/* Streak card */}
     <FloatingCard className="left-1/2 -translate-x-1/2 top-4" delay={0.15}>
       <GlassFragment className="px-6 py-4 flex items-center gap-4">
         <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/15 flex items-center justify-center">
@@ -260,7 +247,6 @@ const Slide4Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Progress bar card */}
     <FloatingCard className="left-6 top-[110px]" delay={0.3} rotate={-2}>
       <GlassFragment className="px-4 py-3 w-44">
         <p className="text-[9px] text-muted-foreground/50 mb-2">This week</p>
@@ -270,13 +256,11 @@ const Slide4Visuals = () =>
           initial={{ width: 0 }}
           animate={{ width: "75%" }}
           transition={{ delay: 0.8, duration: 1 }} />
-        
         </div>
         <p className="text-[10px] font-medium text-foreground mt-1.5">3/4 days</p>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Completion card */}
     <FloatingCard className="right-6 top-[130px]" delay={0.4} rotate={2}>
       <GlassFragment className="px-4 py-3">
         <div className="flex items-center gap-2">
@@ -289,7 +273,6 @@ const Slide4Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Volume stat */}
     <FloatingCard className="left-10 bottom-12" delay={0.5} rotate={1}>
       <GlassFragment className="px-4 py-3">
         <p className="text-[9px] text-muted-foreground/50">Est. Volume</p>
@@ -297,7 +280,6 @@ const Slide4Visuals = () =>
       </GlassFragment>
     </FloatingCard>
 
-    {/* Trend indicator */}
     <FloatingCard className="right-8 bottom-16" delay={0.55} rotate={-1.5}>
       <GlassFragment className="px-3.5 py-2.5 flex items-center gap-2">
         <TrendingUp className="w-3.5 h-3.5 text-primary" />
@@ -310,25 +292,25 @@ const Slide4Visuals = () =>
 
 
 /* ─── Slide Data ─── */
-const slides = [
+const slidesData = [
 {
-  title: "اعرف وش تمرن اليوم",
-  subtitle: "تعرف بالضبط وش أفضل تمرين تسويه لبناء العضلات",
+  titleKey: "intro.slide1_title",
+  subtitleKey: "intro.slide1_subtitle",
   Visual: Slide1Visuals
 },
 {
-  title: "نحسب رياضاتك الثانية",
-  subtitle: "ما نعطيك تمارين لها، لكن ناخذها بعين الاعتبار لما نبني خطتك",
+  titleKey: "intro.slide2_title",
+  subtitleKey: "intro.slide2_subtitle",
   Visual: Slide2Visuals
 },
 {
-  title: "خطة تناسب وضعك",
-  subtitle: "نراعي إصاباتك ووقتك وحتى معداتك المتوفرة",
+  titleKey: "intro.slide3_title",
+  subtitleKey: "intro.slide3_subtitle",
   Visual: Slide3Visuals
 },
 {
-  title: "جهدك لا يضيع",
-  subtitle: "بدون خطة تناسبك، ممكن تبذل جهد كثير بدون تقدم واضح",
+  titleKey: "intro.slide4_title",
+  subtitleKey: "intro.slide4_subtitle",
   Visual: Slide4Visuals
 }];
 
@@ -336,13 +318,14 @@ const slides = [
 /* ─── Main IntroSlider ─── */
 const IntroSlider = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
-  const isLastSlide = currentSlide === slides.length - 1;
+  const isLastSlide = currentSlide === slidesData.length - 1;
 
   const goNext = useCallback(() => {
     if (isLastSlide) {
-      navigate("/splash");
+      navigate("/gender");
       return;
     }
     setDirection(1);
@@ -356,7 +339,7 @@ const IntroSlider = () => {
     }
   }, [currentSlide]);
 
-  const slide = slides[currentSlide];
+  const slide = slidesData[currentSlide];
 
   const swipeConfidenceThreshold = 10000;
   const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity;
@@ -367,21 +350,7 @@ const IntroSlider = () => {
         {/* Top bar */}
         <div className="items-center justify-between px-6 pt-14 pb-2 flex flex-col">
           <LanguageSwitch />
-          
         </div>
-
-        {/* Skip */}
-        {!isLastSlide
-
-
-
-
-
-
-
-
-
-        }
 
         {/* Slide content */}
         <div className="flex-1 flex flex-col justify-between px-2 overflow-hidden">
@@ -409,22 +378,20 @@ const IntroSlider = () => {
               </div>
 
               {/* Text */}
-              <div className="px-6 pb-4 text-center" dir="rtl">
+              <div className="px-6 pb-4 text-center">
                 <motion.h1
                   className="font-display text-[26px] font-bold leading-tight text-foreground"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}>
-                  
-                  {slide.title}
+                  {t(slide.titleKey)}
                 </motion.h1>
                 <motion.p
                   className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35, duration: 0.6 }}>
-                  
-                  {slide.subtitle}
+                  {t(slide.subtitleKey)}
                 </motion.p>
               </div>
             </motion.div>
@@ -435,7 +402,7 @@ const IntroSlider = () => {
         <div className="px-6 pb-10 pt-4">
           {/* Dots */}
           <div className="flex justify-center gap-2 mb-6">
-            {slides.map((_, i) =>
+            {slidesData.map((_, i) =>
             <motion.button
               key={i}
               onClick={() => {
@@ -449,18 +416,16 @@ const IntroSlider = () => {
                 "hsl(152, 100%, 72%)" :
                 "rgba(255,255,255,0.15)"
               }} />
-
             )}
           </div>
 
           {/* CTA */}
           <MetafiButton onClick={goNext}>
-            {isLastSlide ? "ابدأ الآن" : "التالي"}
+            {isLastSlide ? t("intro.start") : t("intro.next")}
           </MetafiButton>
         </div>
       </div>
     </MetafiScreen>);
-
 };
 
 export default IntroSlider;

@@ -52,41 +52,45 @@ const SeverityScreen = () => {
         </motion.div>
 
         <div className="flex-1 mt-10 space-y-5">
-          {injuries.map((injury, i) => (
-            <motion.div
-              key={injury.id}
-              className="glass-card-strong rounded-2xl p-5"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <div className="flex items-center justify-between mb-5">
-                <span className="font-semibold">{t(injury.labelKey)}</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground/50">{getSeverityLabel(values[injury.id])}</span>
-                  <span className="font-display font-bold text-lg" style={{ color: getSeverityColor(values[injury.id]) }}>
-                    {values[injury.id]}
-                  </span>
-                  <span className="text-muted-foreground/30 text-xs">/10</span>
+          {injuries.map((injury, i) => {
+            const color = getSeverityColor(values[injury.id]);
+            return (
+              <motion.div
+                key={injury.id}
+                className="glass-card-strong rounded-2xl p-5"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div className="flex items-center justify-between mb-5">
+                  <span className="font-semibold">{t(injury.labelKey)}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground/50">{getSeverityLabel(values[injury.id])}</span>
+                    <span className="font-display font-bold text-lg" style={{ color }}>
+                      {values[injury.id]}
+                    </span>
+                    <span className="text-muted-foreground/30 text-xs">/10</span>
+                  </div>
                 </div>
-              </div>
-              <input
-                type="range"
-                min={0}
-                max={10}
-                value={values[injury.id]}
-                onChange={(e) => update(injury.id, Number(e.target.value))}
-                className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, ${getSeverityColor(values[injury.id])} 0%, ${getSeverityColor(values[injury.id])} ${values[injury.id] * 10}%, rgba(255,255,255,0.06) ${values[injury.id] * 10}%, rgba(255,255,255,0.06) 100%)`,
-                }}
-              />
-              <div className="flex justify-between mt-3 text-[10px] text-muted-foreground/30">
-                <span>{t("severity.no_pain")}</span>
-                <span>{t("severity.severe")}</span>
-              </div>
-            </motion.div>
-          ))}
+                <input
+                  type="range"
+                  min={0}
+                  max={10}
+                  value={values[injury.id]}
+                  onChange={(e) => update(injury.id, Number(e.target.value))}
+                  className="w-full h-[6px] rounded-full appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, ${color} 0%, ${color} ${values[injury.id] * 10}%, rgba(255,255,255,0.06) ${values[injury.id] * 10}%, rgba(255,255,255,0.06) 100%)`,
+                    accentColor: color,
+                  }}
+                />
+                <div className="flex justify-between mt-3 text-[10px] text-muted-foreground/30">
+                  <span>{t("severity.no_pain")}</span>
+                  <span>{t("severity.severe")}</span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         <MetafiButton onClick={() => navigate("/training-level")}>{t("continue")}</MetafiButton>

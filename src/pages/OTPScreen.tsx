@@ -59,9 +59,18 @@ const OTPScreen = () => {
                 maxLength={1}
                 value={digit}
                 onChange={(e) => handleChange(i, e.target.value)}
-                className={`w-12 h-14 text-center text-xl font-display font-bold rounded-xl bg-transparent focus:outline-none transition-all ${
-                  digit ? "glass-card-strong ring-1 ring-primary/30" : "glass-card"
+                className={`w-12 h-14 text-center text-xl font-display font-bold rounded-xl bg-transparent focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all border ${
+                  digit ? "border-primary/30" : "border-white/[0.08]"
                 }`}
+                style={{
+                  background: digit
+                    ? "linear-gradient(135deg, rgba(149,255,195,0.06) 0%, rgba(149,255,195,0.02) 100%)"
+                    : "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)",
+                  backdropFilter: "blur(20px)",
+                  boxShadow: digit
+                    ? "0 2px 12px rgba(149,255,195,0.08), inset 0 1px 0 rgba(255,255,255,0.04)"
+                    : "0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.03)",
+                }}
               />
             ))}
           </motion.div>

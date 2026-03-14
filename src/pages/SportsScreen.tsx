@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
 import { BackButton } from "@/components/NavLink";
+import { ProgressBar } from "@/components/ProgressBar";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useUser } from "@/contexts/UserContext";
 import { Check } from "lucide-react";
@@ -46,6 +47,8 @@ const SportsScreen = () => {
     <MetafiScreen glowPosition="top" glowIntensity="subtle">
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8">
         <BackButton to="/home" />
+
+        <ProgressBar step={1} total={6} />
 
         <motion.div className="mt-8 text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-display text-3xl font-bold leading-tight">{t("sports.title1")}<br />{t("sports.title2")}</h1>
