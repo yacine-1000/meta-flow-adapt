@@ -102,9 +102,9 @@ const ProfileScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}>
           
-          <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium mb-2 px-1">
-            {t("profile.language")}
-          </p>
+          
+
+          
           
 
 
