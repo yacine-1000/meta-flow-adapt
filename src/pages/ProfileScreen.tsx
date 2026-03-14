@@ -95,12 +95,29 @@ const ProfileScreen = () => {
           </div>
         </motion.div>
 
-        {/* Language */}
+         {/* Language */}
         <motion.div
           className="mt-6"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}>
+          
+          <div
+            className="rounded-2xl border border-white/[0.08] overflow-hidden"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%)",
+              backdropFilter: "blur(40px)",
+              WebkitBackdropFilter: "blur(40px)",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.03)"
+            }}>
+            <button
+              onClick={() => setLanguage(language === "ar" ? "en" : "ar")}
+              className="w-full flex items-center gap-3.5 px-5 py-4 hover:bg-white/[0.03] transition-colors">
+              <span className="text-sm font-medium flex-1 text-start">{t("profile.language")}</span>
+              <span className="text-sm text-muted-foreground/60">{language === "ar" ? "العربية" : "English"}</span>
+              <ChevronRight className="w-4 h-4 text-muted-foreground/20 flex-shrink-0 rtl:rotate-180" />
+            </button>
+          </div>
           
           
 
