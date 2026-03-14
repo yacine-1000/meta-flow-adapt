@@ -10,7 +10,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const ProfileScreen = () => {
   const navigate = useNavigate();
   const { userName, userPhone } = useUser();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
 
   const displayName = userName || "User";
   const initial = displayName.charAt(0).toUpperCase();
