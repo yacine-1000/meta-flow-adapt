@@ -58,13 +58,13 @@ const HomeScreen = () => {
           
           <div className="glass-card-strong rounded-3xl p-8 w-full text-center relative overflow-hidden">
             <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
-            <motion.button
-              onClick={() => navigate("/sports")}
-              whileTap={{ scale: 0.95 }}
-              className="w-16 h-16 rounded-2xl bg-gradient-accent mx-auto flex items-center justify-center mb-6 shadow-glow relative z-10 cursor-pointer hover:shadow-[0_0_50px_rgba(149,255,195,0.3)] transition-shadow">
-              
-              <Plus className="w-7 h-7 text-primary-foreground" />
-            </motion.button>
+            
+
+
+
+
+
+            
             <h2 className="font-display text-xl font-bold mb-2 relative z-10">{t("home.create_plan")}</h2>
             <p className="text-muted-foreground text-sm mb-8 leading-relaxed max-w-[280px] mx-auto relative z-10">
               {t("home.create_desc")}
