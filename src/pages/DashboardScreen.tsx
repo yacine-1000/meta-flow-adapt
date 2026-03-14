@@ -275,7 +275,7 @@ const DashboardScreen = () => {
                       key={`${ex.name}-${i}`}
                       className={`flex items-center justify-between py-3 px-4 rounded-xl transition-colors ${
                       isDone ? "bg-primary/[0.06] border border-primary/10 opacity-60" :
-                      isSkipped ? "bg-muted/5 opacity-50" : "bg-muted/10 hover:bg-muted/20"}`
+                      isSkipped ? "bg-muted/5 opacity-50 border border-white/[0.04]" : "bg-muted/10 hover:bg-muted/20 border border-white/[0.06]"}`
                       }
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
