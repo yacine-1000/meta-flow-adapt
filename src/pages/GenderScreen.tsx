@@ -6,7 +6,8 @@ import { MetafiButton } from "@/components/MetafiButton";
 import { ProgressBar } from "@/components/ProgressBar";
 import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Check, ChevronLeft } from "lucide-react";
+import { Check } from "lucide-react";
+import { BackButton } from "@/components/NavLink";
 
 const GenderScreen = () => {
   const navigate = useNavigate();
@@ -22,10 +23,11 @@ const GenderScreen = () => {
     <MetafiScreen glowPosition="center" glowIntensity="subtle">
       <FloatingOrbs />
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-8 relative z-10">
-<button onClick={() => navigate("/")} className="flex items-center gap-1 text-muted-foreground/60 hover:text-foreground transition-colors mb-4 rtl:flex-row-reverse">
-          <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
-        </button>
-        <ProgressBar step={1} total={8} />
+<ProgressBar step={1} total={8} />
+
+        <div className="mt-4">
+          <BackButton to="/" />
+        </div>
         <motion.div
           className="mt-12 text-center"
           initial={{ opacity: 0, y: 20 }}
