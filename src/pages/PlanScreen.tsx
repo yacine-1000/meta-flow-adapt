@@ -16,26 +16,26 @@ const PlanScreen = () => {
   const weekStats = {
     liftingSessions: 3,
     sportSessions: 1,
-    avgDuration: "50 min",
+    avgDuration: "50 min"
   };
 
   return (
     <MetafiScreen glowPosition="top" glowIntensity="medium">
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
         <motion.div
-          className="flex items-center justify-between"
+          className="flex items-center justify-between mb-[52px]"
           initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
+          animate={{ opacity: 1, y: 0 }}>
+          
           <div>
             <p className="text-muted-foreground text-sm">{t("plan.week", { x: "1", y: "12" })}</p>
             <h1 className="font-display text-2xl font-bold">{t("plan.your_plan")}</h1>
           </div>
           <button
             onClick={() => navigate("/edit-plan")}
-            className="glass-card rounded-xl px-3.5 py-2 flex items-center gap-1.5 hover:bg-muted/20 transition-colors"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            className="glass-card rounded-xl px-3.5 py-2 flex items-center gap-1.5 hover:bg-muted/20 transition-colors">
+            
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
             <span className="text-xs font-medium text-primary">{t("plan.edit")}</span>
           </button>
         </motion.div>
@@ -44,50 +44,50 @@ const PlanScreen = () => {
           className="grid grid-cols-3 gap-2.5 mt-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
-        >
+          transition={{ delay: 0.1 }}>
+          
           {[
-            { icon: Target, label: t("goal.muscle"), sub: t("plan.goal") },
-            { icon: TrendingUp, label: t("level.intermediate"), sub: t("plan.level") },
-            { icon: Calendar, label: `${weekStats.liftingSessions + weekStats.sportSessions} ${t("home.days", { n: "" }).trim()}`, sub: t("plan.active") },
-          ].map((stat, i) => (
-            <div key={i} className="glass-card rounded-xl p-3 flex flex-col items-center text-center gap-1.5">
+          { icon: Target, label: t("goal.muscle"), sub: t("plan.goal") },
+          { icon: TrendingUp, label: t("level.intermediate"), sub: t("plan.level") },
+          { icon: Calendar, label: `${weekStats.liftingSessions + weekStats.sportSessions} ${t("home.days", { n: "" }).trim()}`, sub: t("plan.active") }].
+          map((stat, i) =>
+          <div key={i} className="glass-card rounded-xl p-3 flex flex-col items-center text-center gap-1.5">
               <stat.icon className="w-3.5 h-3.5 text-primary/60" />
               <span className="text-xs font-semibold">{stat.label}</span>
               <span className="text-[9px] text-muted-foreground">{stat.sub}</span>
             </div>
-          ))}
+          )}
         </motion.div>
 
         {/* Avg session + adaptation */}
-        <motion.div
-          className="glass-card-strong rounded-2xl p-4 mt-4"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{t("plan.avg_session")}</span>
-              <p className="text-lg font-display font-bold mt-0.5 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-primary/50" />
-                {weekStats.avgDuration}
-              </p>
-            </div>
-          </div>
-          <div className="mt-3 pt-3 border-t border-border/30 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-destructive/60" />
-            <span className="text-[10px] text-muted-foreground">{t("plan.shoulder_adapted")}</span>
-          </div>
-        </motion.div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
         {/* Lifting Days Calendar */}
         <motion.div
           className="mt-6"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
+          transition={{ delay: 0.2 }}>
+          
           <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium mb-3 px-1">
             {t("plan.lifting_calendar")}
           </p>
@@ -98,14 +98,14 @@ const PlanScreen = () => {
                 <div key={fullKey} className="flex-1 flex flex-col items-center gap-2">
                   <span className="text-[9px] text-muted-foreground/40 font-medium">{t(`day.${dayShortKeys[i]}`)}</span>
                   <div className={`w-full aspect-square rounded-xl flex items-center justify-center transition-all ${
-                    isLifting
-                      ? "bg-primary/15 border border-primary/30"
-                      : "glass-card"
-                  }`}>
+                  isLifting ?
+                  "bg-primary/15 border border-primary/30" :
+                  "glass-card"}`
+                  }>
                     {isLifting && <Dumbbell className="w-3.5 h-3.5 text-primary" />}
                   </div>
-                </div>
-              );
+                </div>);
+
             })}
           </div>
         </motion.div>
@@ -116,20 +116,20 @@ const PlanScreen = () => {
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-6 pb-6 pt-4">
           <div className="glass-card-strong rounded-2xl py-3 px-8 flex justify-around">
             {[
-              { icon: Home, label: t("nav.home"), active: false, path: "/dashboard" },
-              { icon: Dumbbell, label: t("nav.plan"), active: true, path: "/plan" },
-              { icon: User, label: t("nav.profile"), active: false, path: "/profile" },
-            ].map((item) => (
-              <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
+            { icon: Home, label: t("nav.home"), active: false, path: "/dashboard" },
+            { icon: Dumbbell, label: t("nav.plan"), active: true, path: "/plan" },
+            { icon: User, label: t("nav.profile"), active: false, path: "/profile" }].
+            map((item) =>
+            <button key={item.label} onClick={() => navigate(item.path)} className="flex flex-col items-center gap-1">
                 <item.icon className={`w-5 h-5 ${item.active ? "text-primary" : "text-muted-foreground/30"}`} />
                 <span className={`text-[10px] ${item.active ? "text-primary font-medium" : "text-muted-foreground/30"}`}>{item.label}</span>
               </button>
-            ))}
+            )}
           </div>
         </div>
       </div>
-    </MetafiScreen>
-  );
+    </MetafiScreen>);
+
 };
 
 export default PlanScreen;
