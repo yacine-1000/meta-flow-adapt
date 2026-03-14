@@ -164,7 +164,7 @@ const DashboardScreen = () => {
           transition={{ delay: 0.1 }}>
           
           <h1 className="font-display text-2xl font-bold">{t("dash.greeting", { name: userName || t("dash.default_name") })}</h1>
-          <p className="text-muted-foreground text-sm">{t("day.monday")},</p>
+          
         </motion.div>
 
         {/* Week bar */}
