@@ -13,9 +13,9 @@ export const BackButton = ({ to }: BackButtonProps) => {
   return (
     <button
       onClick={() => (typeof to === "number" ? navigate(to as any) : navigate(to || "/"))}
-      className="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+      className="p-2 text-muted-foreground hover:text-foreground transition-colors"
     >
-      <Icon className="w-4 h-4" />
+      <Icon className="w-5 h-5" strokeWidth={1.5} />
     </button>
   );
 };
