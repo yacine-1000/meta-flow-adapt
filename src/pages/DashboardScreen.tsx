@@ -130,11 +130,22 @@ const DashboardScreen = () => {
       <WorkoutCelebration trigger={showCelebration} onComplete={handleCelebrationComplete} />
       <StreakShareCard open={showShareCard} onClose={() => setShowShareCard(false)} />
       <div className="flex flex-col min-h-screen px-6 pt-14 pb-28">
-        {/* Header */}
+        {/* Header - Logo */}
         <motion.div
-          className="flex items-center justify-between"
+          className="flex items-center justify-end"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}>
+          <img src={metafiIcon} alt="Metafi" className="w-10 h-10 object-contain" />
+        </motion.div>
+
+        {/* Greeting + Streak on same row */}
+        <motion.div
+          className="flex items-center justify-between mt-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}>
+          
+          <h1 className="font-display text-2xl font-bold">{t("dash.greeting", { name: userName || t("dash.default_name") })}</h1>
           
           <motion.button
             onClick={() => setShowShareCard(true)}
@@ -154,17 +165,6 @@ const DashboardScreen = () => {
               {displayStreak}
             </motion.span>
           </motion.button>
-          <img src={metafiIcon} alt="Metafi" className="w-10 h-10 object-contain" />
-        </motion.div>
-
-        <motion.div
-          className="mt-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}>
-          
-          <h1 className="font-display text-2xl font-bold">{t("dash.greeting", { name: userName || t("dash.default_name") })}</h1>
-          
         </motion.div>
 
         {/* Week bar */}
