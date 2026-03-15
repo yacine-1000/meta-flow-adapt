@@ -121,7 +121,7 @@ const Slide2Visuals = () => {
   const { t } = useLanguage();
   return (
 <div className="relative w-full h-[340px]">
-    <FloatingCard className="left-5 top-5" delay={0.15} rotate={-2}>
+    <FloatingCard className="left-5 top-5" delay={0.15}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
           <Bike className="w-4 h-4 text-primary/70" />
