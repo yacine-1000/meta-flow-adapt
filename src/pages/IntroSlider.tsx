@@ -212,7 +212,7 @@ const Slide3Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-8 top-[140px]" delay={0.4} rotate={-1}>
+    <FloatingCard className="left-8 top-[140px]" delay={0.4}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <Clock className="w-3.5 h-3.5 text-primary/50" />
         <div>
