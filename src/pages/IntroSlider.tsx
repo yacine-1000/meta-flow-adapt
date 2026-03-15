@@ -189,7 +189,7 @@ const Slide3Visuals = () => {
   const { t } = useLanguage();
   return (
 <div className="relative w-full h-[340px]">
-    <FloatingCard className="left-4 top-4" delay={0.15} rotate={-2}>
+    <FloatingCard className="left-4 top-4" delay={0.15}>
       <GlassFragment className="px-4 py-3">
         <p className="text-[9px] text-muted-foreground/50 uppercase tracking-wider mb-2">{t("intro.equipment")}</p>
         <div className="flex gap-1.5">
