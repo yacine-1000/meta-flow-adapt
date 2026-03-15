@@ -90,14 +90,14 @@ const Slide1Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-6 bottom-12" delay={0.45} rotate={-3}>
+    <FloatingCard className="right-6 bottom-12" delay={0.45}>
       <GlassFragment className="px-3.5 py-2 flex items-center gap-2">
         <Flame className="w-3.5 h-3.5 text-primary" />
         <span className="text-xs font-bold">4</span>
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-6 bottom-6" delay={0.55} rotate={2}>
+    <FloatingCard className="left-6 bottom-6" delay={0.55}>
       <GlassFragment className="px-4 py-2.5">
         <p className="text-[9px] text-muted-foreground/60 mb-1.5">{t("intro.weekly_progress")}</p>
         <div className="w-28 h-1.5 rounded-full bg-muted/30 overflow-hidden">
@@ -121,7 +121,7 @@ const Slide2Visuals = () => {
   const { t } = useLanguage();
   return (
 <div className="relative w-full h-[340px]">
-    <FloatingCard className="left-5 top-5" delay={0.15} rotate={-2}>
+    <FloatingCard className="left-5 top-5" delay={0.15}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
           <Bike className="w-4 h-4 text-primary/70" />
@@ -130,7 +130,7 @@ const Slide2Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-8 top-3" delay={0.25} rotate={3}>
+    <FloatingCard className="right-8 top-3" delay={0.25}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
           <Footprints className="w-4 h-4 text-primary/70" />
@@ -139,7 +139,7 @@ const Slide2Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-12 top-[110px]" delay={0.35} rotate={-1}>
+    <FloatingCard className="left-12 top-[110px]" delay={0.35}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
           <Target className="w-4 h-4 text-primary/70" />
@@ -189,7 +189,7 @@ const Slide3Visuals = () => {
   const { t } = useLanguage();
   return (
 <div className="relative w-full h-[340px]">
-    <FloatingCard className="left-4 top-4" delay={0.15} rotate={-2}>
+    <FloatingCard className="left-4 top-4" delay={0.15}>
       <GlassFragment className="px-4 py-3">
         <p className="text-[9px] text-muted-foreground/50 uppercase tracking-wider mb-2">{t("intro.equipment")}</p>
         <div className="flex gap-1.5">
@@ -200,7 +200,7 @@ const Slide3Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-4 top-20" delay={0.3} rotate={2}>
+    <FloatingCard className="right-4 top-20" delay={0.3}>
       <GlassFragment className="px-4 py-3">
         <div className="flex items-center gap-2">
           <Shield className="w-3.5 h-3.5 text-destructive/60" />
@@ -212,7 +212,7 @@ const Slide3Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-8 top-[140px]" delay={0.4} rotate={-1}>
+    <FloatingCard className="left-8 top-[140px]" delay={0.4}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <Clock className="w-3.5 h-3.5 text-primary/50" />
         <div>
@@ -222,7 +222,7 @@ const Slide3Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-6 bottom-16" delay={0.5} rotate={-1.5}>
+    <FloatingCard className="right-6 bottom-16" delay={0.5}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <Target className="w-3.5 h-3.5 text-primary/60" />
         <div>
@@ -264,7 +264,7 @@ const Slide4Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-6 top-[110px]" delay={0.3} rotate={-2}>
+    <FloatingCard className="left-6 top-[110px]" delay={0.3}>
       <GlassFragment className="px-4 py-3 w-44">
         <p className="text-[9px] text-muted-foreground/50 mb-2">{t("intro.this_week")}</p>
         <div className="w-full h-1.5 rounded-full bg-muted/30 overflow-hidden">
@@ -278,7 +278,7 @@ const Slide4Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-6 top-[130px]" delay={0.4} rotate={2}>
+    <FloatingCard className="right-6 top-[130px]" delay={0.4}>
       <GlassFragment className="px-4 py-3">
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
@@ -290,14 +290,14 @@ const Slide4Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-10 bottom-12" delay={0.5} rotate={1}>
+    <FloatingCard className="left-10 bottom-12" delay={0.5}>
       <GlassFragment className="px-4 py-3">
         <p className="text-[9px] text-muted-foreground/50">{t("intro.est_volume")}</p>
         <p className="text-sm font-display font-bold text-foreground mt-0.5">~12,400 {t("intro.lbs")}</p>
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-8 bottom-16" delay={0.55} rotate={-1.5}>
+    <FloatingCard className="right-8 bottom-16" delay={0.55}>
       <GlassFragment className="px-3.5 py-2.5 flex items-center gap-2">
         <TrendingUp className="w-3.5 h-3.5 text-primary" />
         <span className="text-[10px] font-medium text-primary">+15%</span>
