@@ -297,7 +297,7 @@ const Slide4Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-8 bottom-16" delay={0.55} rotate={-1.5}>
+    <FloatingCard className="right-8 bottom-16" delay={0.55}>
       <GlassFragment className="px-3.5 py-2.5 flex items-center gap-2">
         <TrendingUp className="w-3.5 h-3.5 text-primary" />
         <span className="text-[10px] font-medium text-primary">+15%</span>
