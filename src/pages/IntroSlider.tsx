@@ -97,7 +97,7 @@ const Slide1Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-6 bottom-6" delay={0.55} rotate={2}>
+    <FloatingCard className="left-6 bottom-6" delay={0.55}>
       <GlassFragment className="px-4 py-2.5">
         <p className="text-[9px] text-muted-foreground/60 mb-1.5">{t("intro.weekly_progress")}</p>
         <div className="w-28 h-1.5 rounded-full bg-muted/30 overflow-hidden">
