@@ -264,7 +264,7 @@ const Slide4Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="left-6 top-[110px]" delay={0.3} rotate={-2}>
+    <FloatingCard className="left-6 top-[110px]" delay={0.3}>
       <GlassFragment className="px-4 py-3 w-44">
         <p className="text-[9px] text-muted-foreground/50 mb-2">{t("intro.this_week")}</p>
         <div className="w-full h-1.5 rounded-full bg-muted/30 overflow-hidden">
