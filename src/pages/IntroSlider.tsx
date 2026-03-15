@@ -278,7 +278,7 @@ const Slide4Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-6 top-[130px]" delay={0.4} rotate={2}>
+    <FloatingCard className="right-6 top-[130px]" delay={0.4}>
       <GlassFragment className="px-4 py-3">
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
