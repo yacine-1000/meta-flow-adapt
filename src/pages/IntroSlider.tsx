@@ -90,7 +90,7 @@ const Slide1Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-6 bottom-12" delay={0.45} rotate={-3}>
+    <FloatingCard className="right-6 bottom-12" delay={0.45}>
       <GlassFragment className="px-3.5 py-2 flex items-center gap-2">
         <Flame className="w-3.5 h-3.5 text-primary" />
         <span className="text-xs font-bold">4</span>
