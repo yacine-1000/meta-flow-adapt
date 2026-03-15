@@ -130,7 +130,7 @@ const Slide2Visuals = () => {
       </GlassFragment>
     </FloatingCard>
 
-    <FloatingCard className="right-8 top-3" delay={0.25} rotate={3}>
+    <FloatingCard className="right-8 top-3" delay={0.25}>
       <GlassFragment className="px-4 py-3 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-xl bg-primary/[0.08] flex items-center justify-center">
           <Footprints className="w-4 h-4 text-primary/70" />
