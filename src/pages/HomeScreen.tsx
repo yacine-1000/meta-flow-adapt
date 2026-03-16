@@ -37,17 +37,17 @@ const HomeScreen = () => {
           {[
           { icon: Calendar, label: t("home.this_week"), value: t("home.sessions", { n: "0" }) },
           { icon: TrendingUp, label: t("home.streak"), value: t("home.days", { n: "0" }) }].
-          map((stat, i) => (
-            <div key={i} className="flex-1 glass-card rounded-2xl p-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <stat.icon className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-[10px] text-muted-foreground/60">{stat.label}</p>
-                <p className="text-sm font-semibold">{stat.value}</p>
-              </div>
-            </div>
-          )
+          map((stat, i) => {}
+
+
+
+
+
+
+
+
+
+
 
 
 
