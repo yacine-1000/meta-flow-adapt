@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useCallback } from "react";
+import { motion } from "framer-motion";
+import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
@@ -432,60 +432,37 @@ const IntroSlider = () => {
           <LanguageSwitch />
         </div>
 
-        {/* Slide content */}
-        <div className="flex-1 flex flex-col justify-between px-2 overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={currentSlide}
-              custom={direction}
-              variants={{
-                enter: (d: number) => ({ opacity: 0, x: d * 80 }),
-                center: { opacity: 1, x: 0 },
-                exit: (d: number) => ({ opacity: 0, x: d * -80 }),
-              }}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.7}
-              onDragEnd={(_e, { offset, velocity }) => {
-                const swipe = swipePower(offset.x, velocity.x);
-                const swipedForward = isRTL ? swipe > swipeConfidenceThreshold : swipe < -swipeConfidenceThreshold;
-                const swipedBackward = isRTL ? swipe < -swipeConfidenceThreshold : swipe > swipeConfidenceThreshold;
+        {/* Slide content — simple fade transition without AnimatePresence */}
+        <div className="flex-1 flex flex-col justify-between px-2 overflow-hidden relative">
+          {slidesData.map((s, i) => {
+            const isActive = i === currentSlide;
+            return (
+              <div
+                key={i}
+                className="flex flex-col flex-1 absolute inset-0 transition-all duration-500 ease-out"
+                style={{
+                  opacity: isActive ? 1 : 0,
+                  transform: isActive ? "translateX(0)" : `translateX(${i > currentSlide ? 60 : -60}px)`,
+                  pointerEvents: isActive ? "auto" : "none",
+                }}
+              >
+                {/* Visual composition area */}
+                <div className="flex-1 flex items-center justify-center relative mt-4">
+                  <s.Visual />
+                </div>
 
-                if (swipedForward) goNext();
-                else if (swipedBackward) goPrev();
-              }}
-              className="flex flex-col flex-1"
-            >
-              {/* Visual composition area */}
-              <div className="flex-1 flex items-center justify-center relative mt-4">
-                <slide.Visual />
+                {/* Text */}
+                <div className="px-6 pb-4 text-center">
+                  <h1 className="font-display text-[26px] font-bold leading-tight text-foreground">
+                    {t(s.titleKey)}
+                  </h1>
+                  <p className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto">
+                    {t(s.subtitleKey)}
+                  </p>
+                </div>
               </div>
-
-              {/* Text */}
-              <div className="px-6 pb-4 text-center">
-                <motion.h1
-                  className="font-display text-[26px] font-bold leading-tight text-foreground"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                >
-                  {t(slide.titleKey)}
-                </motion.h1>
-                <motion.p
-                  className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.6 }}
-                >
-                  {t(slide.subtitleKey)}
-                </motion.p>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+            );
+          })}
         </div>
 
         {/* Bottom: dots + CTA */}
