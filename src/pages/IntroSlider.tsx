@@ -434,19 +434,13 @@ const IntroSlider = () => {
 
         {/* Slide content */}
         <div className="flex-1 flex flex-col justify-between px-2 overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={currentSlide}
-              custom={direction}
-              variants={{
-                enter: (d: number) => ({ opacity: 0, x: d * 80 }),
-                center: { opacity: 1, x: 0 },
-                exit: (d: number) => ({ opacity: 0, x: d * -80 }),
-              }}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, x: direction * 80 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction * -80 }}
+              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.7}
@@ -471,7 +465,7 @@ const IntroSlider = () => {
                   className="font-display text-[26px] font-bold leading-tight text-foreground"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
+                  transition={{ delay: 0.15, duration: 0.5 }}
                 >
                   {t(slide.titleKey)}
                 </motion.h1>
@@ -479,7 +473,7 @@ const IntroSlider = () => {
                   className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.6 }}
+                  transition={{ delay: 0.25, duration: 0.5 }}
                 >
                   {t(slide.subtitleKey)}
                 </motion.p>
