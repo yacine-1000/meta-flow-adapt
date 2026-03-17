@@ -452,8 +452,11 @@ const IntroSlider = () => {
               dragElastic={0.7}
               onDragEnd={(_e, { offset, velocity }) => {
                 const swipe = swipePower(offset.x, velocity.x);
-                if (swipe < -swipeConfidenceThreshold) goNext();
-                else if (swipe > swipeConfidenceThreshold) goPrev();
+                const swipedForward = isRTL ? swipe > swipeConfidenceThreshold : swipe < -swipeConfidenceThreshold;
+                const swipedBackward = isRTL ? swipe < -swipeConfidenceThreshold : swipe > swipeConfidenceThreshold;
+
+                if (swipedForward) goNext();
+                else if (swipedBackward) goPrev();
               }}
               className="flex flex-col flex-1"
             >
