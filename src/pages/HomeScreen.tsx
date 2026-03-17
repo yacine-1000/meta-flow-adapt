@@ -35,24 +35,19 @@ const HomeScreen = () => {
           transition={{ delay: 0.15 }}>
           
           {[
-          { icon: Calendar, label: t("home.this_week"), value: t("home.sessions", { n: "0" }) },
-          { icon: TrendingUp, label: t("home.streak"), value: t("home.days", { n: "0" }) }].
-          map((stat, i) => {}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          )}
+            { icon: Calendar, label: t("home.this_week"), value: t("home.sessions", { n: "0" }) },
+            { icon: TrendingUp, label: t("home.streak"), value: t("home.days", { n: "0" }) },
+          ].map((stat, i) => (
+            <div key={i} className="flex-1 glass-card rounded-2xl p-4 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <stat.icon className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">{stat.label}</p>
+                <p className="text-sm font-bold text-foreground">{stat.value}</p>
+              </div>
+            </div>
+          ))}
         </motion.div>
 
         <motion.div
