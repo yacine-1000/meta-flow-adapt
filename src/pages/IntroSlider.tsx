@@ -388,30 +388,40 @@ const slidesData = [
 /* ─── Main IntroSlider ─── */
 const IntroSlider = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
-  const isLastSlide = currentSlide === slidesData.length - 1;
+  const lastSlideIndex = slidesData.length - 1;
+  const isLastSlide = currentSlide === lastSlideIndex;
+  const forwardDirection = isRTL ? -1 : 1;
+  const backwardDirection = forwardDirection * -1;
 
   const goNext = useCallback(() => {
     if (isLastSlide) {
       navigate("/gender");
       return;
     }
-    setDirection(1);
-    setCurrentSlide((s) => s + 1);
-  }, [isLastSlide, navigate]);
+
+    setDirection(forwardDirection);
+    setCurrentSlide((s) => Math.min(s + 1, lastSlideIndex));
+  }, [forwardDirection, isLastSlide, lastSlideIndex, navigate]);
 
   const goPrev = useCallback(() => {
     if (currentSlide > 0) {
-      setDirection(-1);
-      setCurrentSlide((s) => s - 1);
+      setDirection(backwardDirection);
+      setCurrentSlide((s) => Math.max(s - 1, 0));
     }
-  }, [currentSlide]);
+  }, [backwardDirection, currentSlide]);
+
+  const goToSlide = useCallback((index: number) => {
+    if (index === currentSlide) return;
+    setDirection(index > currentSlide ? forwardDirection : backwardDirection);
+    setCurrentSlide(index);
+  }, [backwardDirection, currentSlide, forwardDirection]);
 
   const slide = slidesData[currentSlide];
 
-  const swipeConfidenceThreshold = 10000;
+  const swipeConfidenceThreshold = 4500;
   const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity;
 
   return (
