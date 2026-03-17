@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useCallback } from "react";
+import { motion } from "framer-motion";
+import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MetafiScreen } from "@/components/MetafiScreen";
 import { MetafiButton } from "@/components/MetafiButton";
