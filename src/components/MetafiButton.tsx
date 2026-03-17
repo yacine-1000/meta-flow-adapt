@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { forwardRef, ReactNode } from "react";
 
 interface MetafiButtonProps {
   children: ReactNode;
@@ -9,13 +9,13 @@ interface MetafiButtonProps {
   disabled?: boolean;
 }
 
-export const MetafiButton = ({
+export const MetafiButton = forwardRef<HTMLButtonElement, MetafiButtonProps>(({
   children,
   onClick,
   variant = "primary",
   className = "",
   disabled = false,
-}: MetafiButtonProps) => {
+}, ref) => {
   const base = "w-full py-4 rounded-full font-semibold text-base transition-all duration-300";
   const variants = {
     primary: "btn-primary-metafi",
@@ -25,6 +25,7 @@ export const MetafiButton = ({
 
   return (
     <motion.button
+      ref={ref}
       whileTap={{ scale: 0.97 }}
       whileHover={{ scale: 1.01 }}
       onClick={onClick}
@@ -34,4 +35,6 @@ export const MetafiButton = ({
       {children}
     </motion.button>
   );
-};
+});
+
+MetafiButton.displayName = "MetafiButton";

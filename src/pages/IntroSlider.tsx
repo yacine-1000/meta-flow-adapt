@@ -495,10 +495,7 @@ const IntroSlider = () => {
             {slidesData.map((_, i) => (
               <motion.button
                 key={i}
-                onClick={() => {
-                  setDirection(i > currentSlide ? 1 : -1);
-                  setCurrentSlide(i);
-                }}
+                onClick={() => goToSlide(i)}
                 className="h-1 rounded-full transition-all duration-300"
                 animate={{
                   width: i === currentSlide ? 24 : 6,
