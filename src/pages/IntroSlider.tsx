@@ -8,7 +8,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Dumbbell, Timer, RotateCcw, Flame, Check,
   TrendingUp, Target, Shield, Clock, Bike, Footprints,
-  Zap, Activity, BarChart3, ListChecks
+  Zap, Activity, BarChart3, ListChecks,
+  Volleyball, CircleDot, Dribbble, Flower2
 } from "lucide-react";
 
 /* ─── Floating UI Fragment Components ─── */
@@ -376,11 +377,196 @@ const Slide4Visuals = () => {
 };
 
 
+/* ─── Slide 5: Full-screen Orbital Animation (no text) ─── */
+const Slide5OrbitalVisual = () => {
+  // Inner ring: 2 cards evenly spaced (0°, 180°)
+  const innerSports = [
+    { icon: <Target className="w-7 h-7" strokeWidth={1.5} />, label: "بادل", angle: 0 },
+    { icon: <Flower2 className="w-7 h-7" strokeWidth={1.5} />, label: "يوغا", angle: 180 },
+  ];
+  // Outer ring: 3 cards evenly spaced (0°, 120°, 240°)
+  const outerSports = [
+    { icon: <CircleDot className="w-7 h-7" strokeWidth={1.5} />, label: "تنس", angle: 0 },
+    { icon: <Dribbble className="w-7 h-7" strokeWidth={1.5} />, label: "كرة سلة", angle: 120 },
+    { icon: <Volleyball className="w-7 h-7" strokeWidth={1.5} />, label: "كرة قدم", angle: 240 },
+  ];
+
+  const cardStyle: React.CSSProperties = {
+    background: "rgba(255, 255, 255, 0.03)",
+    backdropFilter: "blur(16px)",
+    WebkitBackdropFilter: "blur(16px)",
+    border: "1px solid rgba(0, 210, 210, 0.2)",
+    borderRadius: "20px",
+    padding: "12px 14px",
+    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 0 20px rgba(0,210,210,0.1)",
+  };
+
+  const ringStyle = (size: number): React.CSSProperties => ({
+    width: size,
+    height: size,
+    border: "0.5px solid rgba(0, 210, 210, 0.12)",
+    borderRadius: "50%",
+  });
+
+  return (
+    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+      <style>{`
+        @keyframes orbit-pulse {
+          0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+        }
+        @keyframes orbit-inner-spin {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes orbit-outer-spin {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes orbit-card-counter-inner {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+        @keyframes orbit-card-counter-outer {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+      `}</style>
+
+      {/* Center radial cyan glow pulse */}
+      <div
+        className="absolute top-1/2 left-1/2"
+        style={{
+          width: 320,
+          height: 320,
+          background: "radial-gradient(circle, rgba(0, 210, 210, 0.08) 0%, rgba(0, 210, 210, 0) 65%)",
+          borderRadius: "50%",
+          animation: "orbit-pulse 4s ease-in-out infinite",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* 3 concentric rings */}
+      {[180, 310, 440].map((size, i) => (
+        <div
+          key={i}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={ringStyle(size)}
+        />
+      ))}
+
+      {/* Inner orbit container (radius 90px) – 12s clockwise */}
+      <div
+        className="absolute top-1/2 left-1/2"
+        style={{
+          width: 180,
+          height: 180,
+          animation: "orbit-inner-spin 12s linear infinite",
+          transformOrigin: "center",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        {innerSports.map((s, i) => (
+          <div
+            key={i}
+            className="absolute top-1/2 left-1/2"
+            style={{
+              transform: `translate(-50%, -50%) rotate(${s.angle}deg) translateY(-90px)`,
+            }}
+          >
+            {/* Counter-rotating wrapper keeps card upright */}
+            <div
+              style={{
+                animation: "orbit-card-counter-inner 12s linear infinite",
+                transformOrigin: "center",
+              }}
+            >
+              <div
+                style={cardStyle}
+                className="flex flex-col items-center gap-1.5 min-w-[72px]"
+              >
+                <div className="text-white">{s.icon}</div>
+                <span
+                  style={{
+                    color: "#00d4d4",
+                    fontSize: "11px",
+                    fontFamily: "Cairo, sans-serif",
+                    fontWeight: 400,
+                    lineHeight: 1,
+                  }}
+                >
+                  {s.label}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Outer orbit container (radius 155px) – 18s counter-clockwise for variation */}
+      <div
+        className="absolute top-1/2 left-1/2"
+        style={{
+          width: 310,
+          height: 310,
+          animation: "orbit-outer-spin 18s linear infinite",
+          transformOrigin: "center",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        {outerSports.map((s, i) => (
+          <div
+            key={i}
+            className="absolute top-1/2 left-1/2"
+            style={{
+              transform: `translate(-50%, -50%) rotate(${s.angle}deg) translateY(-155px)`,
+            }}
+          >
+            <div
+              style={{
+                animation: "orbit-card-counter-outer 18s linear infinite",
+                transformOrigin: "center",
+              }}
+            >
+              <div
+                style={cardStyle}
+                className="flex flex-col items-center gap-1.5 min-w-[72px]"
+              >
+                <div className="text-white">{s.icon}</div>
+                <span
+                  style={{
+                    color: "#00d4d4",
+                    fontSize: "11px",
+                    fontFamily: "Cairo, sans-serif",
+                    fontWeight: 400,
+                    lineHeight: 1,
+                  }}
+                >
+                  {s.label}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
 /* ─── Slide Data ─── */
-const slidesData = [
+type SlideDef = {
+  titleKey?: string;
+  subtitleKey?: string;
+  Visual: React.ComponentType;
+  fullBleed?: boolean;
+};
+
+const slidesData: SlideDef[] = [
   { titleKey: "intro.slide1_title", subtitleKey: "intro.slide1_subtitle", Visual: Slide1Visuals },
   { titleKey: "intro.slide2_title", subtitleKey: "intro.slide2_subtitle", Visual: Slide2Visuals },
   { titleKey: "intro.slide3_title", subtitleKey: "intro.slide3_subtitle", Visual: Slide3Visuals },
+  { Visual: Slide5OrbitalVisual, fullBleed: true },
   { titleKey: "intro.slide4_title", subtitleKey: "intro.slide4_subtitle", Visual: Slide4Visuals },
 ];
 
@@ -446,20 +632,28 @@ const IntroSlider = () => {
                   pointerEvents: isActive ? "auto" : "none",
                 }}
               >
-                {/* Visual composition area */}
-                <div className="flex-1 flex items-center justify-center relative mt-4">
-                  <s.Visual />
-                </div>
+                {s.fullBleed ? (
+                  <div className="flex-1 relative">
+                    <s.Visual />
+                  </div>
+                ) : (
+                  <>
+                    {/* Visual composition area */}
+                    <div className="flex-1 flex items-center justify-center relative mt-4">
+                      <s.Visual />
+                    </div>
 
-                {/* Text */}
-                <div className="px-6 pb-4 text-center">
-                  <h1 className="font-display text-[26px] font-bold leading-tight text-foreground">
-                    {t(s.titleKey)}
-                  </h1>
-                  <p className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto">
-                    {t(s.subtitleKey)}
-                  </p>
-                </div>
+                    {/* Text */}
+                    <div className="px-6 pb-4 text-center">
+                      <h1 className="font-display text-[26px] font-bold leading-tight text-foreground">
+                        {s.titleKey ? t(s.titleKey) : ""}
+                      </h1>
+                      <p className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto">
+                        {s.subtitleKey ? t(s.subtitleKey) : ""}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             );
           })}
