@@ -632,20 +632,28 @@ const IntroSlider = () => {
                   pointerEvents: isActive ? "auto" : "none",
                 }}
               >
-                {/* Visual composition area */}
-                <div className="flex-1 flex items-center justify-center relative mt-4">
-                  <s.Visual />
-                </div>
+                {s.fullBleed ? (
+                  <div className="flex-1 relative">
+                    <s.Visual />
+                  </div>
+                ) : (
+                  <>
+                    {/* Visual composition area */}
+                    <div className="flex-1 flex items-center justify-center relative mt-4">
+                      <s.Visual />
+                    </div>
 
-                {/* Text */}
-                <div className="px-6 pb-4 text-center">
-                  <h1 className="font-display text-[26px] font-bold leading-tight text-foreground">
-                    {t(s.titleKey)}
-                  </h1>
-                  <p className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto">
-                    {t(s.subtitleKey)}
-                  </p>
-                </div>
+                    {/* Text */}
+                    <div className="px-6 pb-4 text-center">
+                      <h1 className="font-display text-[26px] font-bold leading-tight text-foreground">
+                        {s.titleKey ? t(s.titleKey) : ""}
+                      </h1>
+                      <p className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-[300px] mx-auto">
+                        {s.subtitleKey ? t(s.subtitleKey) : ""}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             );
           })}
