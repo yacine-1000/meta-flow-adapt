@@ -8,7 +8,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Dumbbell, Timer, RotateCcw, Flame, Check,
   TrendingUp, Target, Shield, Clock, Bike, Footprints,
-  Zap, Activity, BarChart3, ListChecks
+  Zap, Activity, BarChart3, ListChecks,
+  Volleyball, CircleDot, Dribbble, Flower2
 } from "lucide-react";
 
 /* ─── Floating UI Fragment Components ─── */
